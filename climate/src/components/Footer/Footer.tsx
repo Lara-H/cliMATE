@@ -4,9 +4,19 @@ import styles from './Footer.module.scss';
 interface FooterProps {}
 
 const Footer: FC<FooterProps> = () => (
-  <div className={styles.Footer} data-testid="Footer">
-    Footer Component
-  </div>
+  <footer className={[styles.Footer, "text-light", "bg-dark", "py-4"].join(' ')} data-testid="Footer">
+    <div className="container-fluid">
+      <div className="row">
+        <div className="col">
+          <a className="me-2" href="#">Impressum</a>
+          <a href="#">Datenschutz</a>
+        </div>
+        <div className="col text-end">
+          <button type="button" className="btn btn-primary">TopIcon</button>
+        </div>
+      </div>
+    </div>
+  </footer>
 );
 
 export default Footer;
