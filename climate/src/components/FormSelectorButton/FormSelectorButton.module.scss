@@ -1,1 +1,6 @@
-.FormSelectorButton {}
+.FormSelectorButton {
+    &:hover {
+        color: red;
+        transition: .25s;
+    }
+}
