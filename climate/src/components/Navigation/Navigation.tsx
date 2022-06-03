@@ -34,7 +34,7 @@ const Navigation: FC<NavigationProps> = () => (
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link disabled">Haushalt</a>
+              <a className="nav-link">Haushalt</a>
             </li>
           </ul>
         </div>
