@@ -11,7 +11,7 @@ interface FooterProps {}
 
 const Footer: FC<FooterProps> = () => (
   <footer className={[styles.Footer, "text-light", "bg-dark", "py-4"].join(' ')} data-testid="Footer">
-    <div className="container-fluid">
+    <div className="container">
       <div className="row">
         <div className="col small">
           <a className="me-2" href="#">Impressum</a>

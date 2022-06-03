@@ -1,6 +1,9 @@
+@import '../../App.scss';
+
 .FormSelectorButton {
     &:hover {
-        color: red;
+        cursor: pointer;
+        color: $primary;
         transition: .25s;
     }
 }

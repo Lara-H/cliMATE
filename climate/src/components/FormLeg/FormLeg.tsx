@@ -15,7 +15,7 @@ const FormLeg: FC<FormLegProps> = () => (
     <td>2. Klasse</td>
     <td className="text-end">
       <a href="#"><FontAwesomeIcon className="me-3" icon={faEdit} /></a>
-      <a href="#"><FontAwesomeIcon icon={faTrash} /></a>
+      <a href="#"><FontAwesomeIcon className="text-danger" icon={faTrash} /></a>
     </td>
   </tr>
 );
