@@ -13,9 +13,9 @@ const FormArea: FC<FormAreaProps> = () => {
     data-testid="FormArea"
   >
     <div className="container">
-      <div className="row align-baseline">
+      <div className="row align-items-baseline">
         <div className="col">
-          <h2>Personenreise</h2>
+          <h2 className="mb-0">Personenreise</h2>
         </div>
         <div className="col text-end">
           <a href="#">Ändern</a>
@@ -65,7 +65,7 @@ const FormArea: FC<FormAreaProps> = () => {
       
       <div className="row">
         <div className="col">
-          <table className="table table-striped">
+          <table className="table table-striped mb-0">
             <tbody>
               {
                 legs.map((leg) => (

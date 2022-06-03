@@ -9,7 +9,7 @@ const ResultArea: FC<ResultAreaProps> = () => (
     <div className="container">
       <div className="row">
         <div className="col-12 col-md">
-          <h2>Ergebnis</h2>
+          <h2 className='mb-3'>Ergebnis</h2>
           <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
           <div className="row pt-3">
             <div className="col col-md">

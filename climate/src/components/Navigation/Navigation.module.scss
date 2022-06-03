@@ -1,5 +1,9 @@
-.Navigation {
-    nav {
-        background-color: rgba($color: #FFF, $alpha: .8) !important;
+@import "../../App.scss";
+
+.navigation {
+  @include media-breakpoint-down(md) {
+    .cm-navbar-nav {
+      margin-top: 0.5rem;
     }
+  }
 }

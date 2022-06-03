@@ -1,1 +1,7 @@
-.Teaser {}
+@import '../../App.scss';
+
+.Teaser {
+    .cm-carousel-caption-text {
+        font-family: $headings-font-family;
+      }
+}

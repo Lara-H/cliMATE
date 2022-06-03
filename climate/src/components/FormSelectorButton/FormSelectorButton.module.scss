@@ -6,4 +6,12 @@
         color: $primary;
         transition: .25s;
     }
+
+    @include media-breakpoint-down(sm) {
+        padding: 0;
+        .cm-icon {
+            font-size: 2rem;
+            color: $primary;
+        }
+    }
 }
