@@ -16,6 +16,7 @@
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.5",
     "bootstrap": "^5.2.0-beta1",
+    "chart.js": "^3.8.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-scripts": "5.0.1",
