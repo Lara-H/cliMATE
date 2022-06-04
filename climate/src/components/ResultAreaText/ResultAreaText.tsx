@@ -10,7 +10,7 @@ interface ResultAreaTextProps {
 const ResultAreaText: FC<ResultAreaTextProps> = ({ value, label }) => (
   <div className={styles.ResultAreaText} data-testid="ResultAreaText">
     <h3 className="display-5">{value}</h3>
-    <p>{label}</p>
+    <p className='text-muted small'>{label}</p>
   </div>
 );
 

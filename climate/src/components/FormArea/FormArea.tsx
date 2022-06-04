@@ -10,9 +10,9 @@ const FormArea: FC<FormAreaProps> = () => (
     data-testid="FormArea"
   >
     <div className="container">
-      <div className="row align-baseline">
+      <div className="row align-items-baseline">
         <div className="col">
-          <h2>Personenreise</h2>
+          <h2 className="mb-0">Personenreise</h2>
         </div>
         <div className="col text-end">
           <a href="#">Ändern</a>
@@ -26,7 +26,7 @@ const FormArea: FC<FormAreaProps> = () => (
           </label>
           <input
             type="number"
-            className="form-control"
+            className="form-control mb-3"
             id="people"
             placeholder="2"
             min="1"
@@ -50,7 +50,7 @@ const FormArea: FC<FormAreaProps> = () => (
       </div>
       <div className="row">
         <div className="col">
-          <table className="table table-striped">
+          <table className="table table-striped mb-0">
             <tbody>
               <FormLeg></FormLeg>
               <FormLeg></FormLeg>

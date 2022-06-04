@@ -11,11 +11,11 @@ interface FormSelectorButtonProps {
 
 const FormSelectorButton: FC<FormSelectorButtonProps> = ({ icon, title }) => (
   <div
-    className={[styles.FormSelectorButton, "px-3"].join(" ")}
+    className={styles.FormSelectorButton}
     data-testid="FormSelectorButton"
   >
-    <FontAwesomeIcon className="display-4 mb-3" icon={icon} />
-    <p>{title}</p>
+    <FontAwesomeIcon className={`display-4 mb-3 ${styles["cm-icon"]}`} icon={icon} />
+    <p className="text-muted small">{title}</p>
   </div>
 );
 

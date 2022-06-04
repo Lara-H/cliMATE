@@ -4,8 +4,8 @@ import styles from "./Navigation.module.scss";
 interface NavigationProps {}
 
 const Navigation: FC<NavigationProps> = () => (
-  <div className={styles.Navigation} data-testid="Navigation">
-    <nav className="navbar navbar-expand-lg bg-light fixed-top">
+  <div className={styles.navigation} data-testid="Navigation">
+    <nav className="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
       <div className="container">
         <a className="navbar-brand" href="#">
           cliMATE
@@ -22,7 +22,7 @@ const Navigation: FC<NavigationProps> = () => (
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
-          <ul className="navbar-nav">
+          <ul className={`navbar-nav ${styles["cm-navbar-nav"]}`}>
             <li className="nav-item">
               <a className="nav-link" href="#">
                 Personenreise
@@ -34,7 +34,7 @@ const Navigation: FC<NavigationProps> = () => (
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link disabled">Haushalt</a>
+              <a className="nav-link">Haushalt</a>
             </li>
           </ul>
         </div>
