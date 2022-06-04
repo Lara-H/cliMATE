@@ -6,13 +6,18 @@ export default {
 };
 
 const newLeg={
-  id: 1,
+  id: "1",
   type: "Test",
-  distance: 50
+  distance: 50,
+  handleRemove: handleRemoveItem
 }
 
-export const Default = () => <FormLeg leg={newLeg}></FormLeg>;
+export const Default = () => <FormLeg leg={newLeg} handleRemove={handleRemoveItem}></FormLeg>;
 
 Default.story = {
   name: 'default',
 };
+
+function handleRemoveItem(id:string) {
+  console.log(id);
+}

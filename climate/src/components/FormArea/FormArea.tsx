@@ -1,11 +1,17 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import FormLeg, { Leg } from "../FormLeg/FormLeg";
+import FormLegStories from "../FormLeg/FormLeg.stories";
 import styles from "./FormArea.module.scss";
 
 interface FormAreaProps {}
 
 const FormArea: FC<FormAreaProps> = () => {
   const [legs, setLegs] = useState<Leg[]>([]);
+
+  function handleRemoveItem(id:string) {
+    const newLegs = legs.filter((item) => item.id !== id);
+    setLegs(newLegs);
+  }  
 
   return(
   <div
@@ -25,9 +31,9 @@ const FormArea: FC<FormAreaProps> = () => {
       <form onSubmit={(event) => {
         event.preventDefault();
         const newLeg={
-          id: 1,
+          id: ""+(legs.length+1),
           type: "Test",
-          distance: 50
+          distance: 50,
         }
         const newLegList = legs.concat(newLeg);
         setLegs(newLegList);
@@ -69,7 +75,7 @@ const FormArea: FC<FormAreaProps> = () => {
             <tbody>
               {
                 legs.map((leg) => (
-                  <FormLeg leg={leg}></FormLeg>
+                  <FormLeg leg={leg} key={leg.id} handleRemove={handleRemoveItem}></FormLeg>
                 ))
               }
             </tbody>
@@ -81,7 +87,6 @@ const FormArea: FC<FormAreaProps> = () => {
         <div className="col">
           <button type="button" className="btn btn-secondary" onClick={(event) => {
             event.preventDefault();
-
             setLegs([]);
           }}>
             Zurücksetzen
@@ -97,5 +102,6 @@ const FormArea: FC<FormAreaProps> = () => {
   </div>
   );
 };
+
 
 export default FormArea;

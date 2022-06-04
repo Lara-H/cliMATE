@@ -9,17 +9,18 @@ import internal from "stream";
 
 interface FormLegProps {
   leg:Leg;
+  handleRemove:(id: string) => void;
 }
 
-const FormLeg: FC<FormLegProps> = ({leg}) => {
+const FormLeg: FC<FormLegProps> = ({leg, handleRemove}) => {
   return (
     <tr className={styles.FormLeg} data-testid="FormLeg">
       <td>{leg.type}</td>
       <td>{leg.distance}</td>
       <td>2. Klasse</td>
       <td className="text-end">
-        <a href="#"><FontAwesomeIcon className="me-3" icon={faEdit} /></a>
-        <a href="#"><FontAwesomeIcon className="text-danger" icon={faTrash} /></a>
+        <a type="button" ><FontAwesomeIcon className="me-3" icon={faEdit} /></a>
+        <a type="button" onClick={() => handleRemove(leg.id)}><FontAwesomeIcon className="text-danger" icon={faTrash} /></a>
       </td>
     </tr>
   );
@@ -27,6 +28,7 @@ const FormLeg: FC<FormLegProps> = ({leg}) => {
 
 // irgendwie so...
 export interface Leg {
+  id:string;
   type:string;
   distance: number;
 };
