@@ -45,19 +45,24 @@ $border-radius: 0;
 
 @import "bootstrap";
 
-h2, .btn {
-  text-transform: uppercase;
-}
+body {
+  margin-top: 3rem;
 
-.cm-link-danger {
-  color: $danger;
-  &:hover {
-    color: shift-color($danger, $link-shade-percentage);
+  h2, .btn {
+    text-transform: uppercase;
   }
-}
+  
+  .cm-link-danger {
+    color: $danger;
+    &:hover {
+      color: shift-color($danger, $link-shade-percentage);
+    }
+  }
+  
+  @include media-breakpoint-down(sm) {
+    .cm-btn-full-width-mobile {
+      width: 100% !important;
+    }
+  }
 
-@include media-breakpoint-down(sm) {
-  .cm-btn-full-width-mobile {
-    width: 100% !important;
-  }
 }
