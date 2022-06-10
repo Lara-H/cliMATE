@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import Chart from '../Chart/Chart';
 import ResultAreaText from '../ResultAreaText/ResultAreaText';
 import styles from './ResultArea.module.scss';
 
@@ -21,7 +22,7 @@ const ResultArea: FC<ResultAreaProps> = () => (
           </div>
         </div>
         <div className="col">
-          Diagramm
+          <Chart></Chart>
         </div>
       </div>
     </div>
