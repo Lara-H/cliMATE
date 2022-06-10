@@ -15,8 +15,8 @@ const FormSelector: FC<FormSelectorProps> = () => (
     <div className="container">
       <div className="row text-md-center">
         <div className="col">
-          <h2 className="mb-4">Lorem ipsum dolor sit amet</h2>
-          <div className="col-lg-8 mx-auto">
+          <h2 id="FormSelectorHeadline" className="mb-4">Lorem ipsum dolor sit amet</h2>
+          <div className="col-lg-6 mx-auto">
             <p className="mb-5">
               Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
               nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
