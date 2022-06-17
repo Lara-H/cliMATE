@@ -8,7 +8,7 @@ const Navigation: FC<NavigationProps> = () => (
   <div className={styles.navigation} data-testid="Navigation">
     <nav className="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
       <div className="container">
-      <a className="navbar-brand" href="#">
+      <a className="navbar-brand" href="/">
       <img src={logo} alt="" width="auto" height="35"></img>
     </a>
         <button

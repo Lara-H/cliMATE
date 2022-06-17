@@ -12,8 +12,8 @@ const Footer: FC<FooterProps> = () => (
     <div className="container">
       <div className="row align-items-baseline">
         <div className="col small">
-          <a className="me-2" href="#">Impressum</a>
-          <a href="#">Datenschutz</a>
+          <a className="me-2" href="/impressum">Impressum</a>
+          <a href="/datenschutz">Datenschutz</a>
         </div>
         <div className="col text-end">
           <a href="#" type="button" className="btn btn-primary text-light"><FontAwesomeIcon icon={faAngleUp} /></a>

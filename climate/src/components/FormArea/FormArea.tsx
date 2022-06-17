@@ -52,7 +52,7 @@ const FormArea: FC<FormAreaProps> = () => {
               type="number"
               className="form-control"
               id="people"
-              placeholder="2"
+              value="2"
               min="1"
             />
           </div>
