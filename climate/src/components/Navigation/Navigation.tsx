@@ -25,12 +25,12 @@ const Navigation: FC<NavigationProps> = () => (
         <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
           <ul className={`navbar-nav ${styles["cm-navbar-nav"]}`}>
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <a className="nav-link" href="#FormArea">
                 Personenreise
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <a className="nav-link" href="#FormArea">
                 Frachtsendung
               </a>
             </li>
