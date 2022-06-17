@@ -9,6 +9,7 @@ const newLeg={
   id: "1",
   type: "Test",
   distance: 50,
+  passengers: 1,
   handleRemove: handleRemoveItem
 }
 

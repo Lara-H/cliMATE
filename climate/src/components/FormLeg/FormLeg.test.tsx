@@ -6,6 +6,7 @@ import FormLeg from './FormLeg';
 const newLeg={
   id: "1",
   type: "Test",
+  passengers: 1,
   distance: 50,
 }
 

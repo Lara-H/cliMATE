@@ -11,7 +11,11 @@ const FormArea: FC<FormAreaProps> = () => {
   function handleRemoveItem(id:string) {
     const newLegs = legs.filter((item) => item.id !== id);
     setLegs(newLegs);
-  }  
+  }
+
+  function handleEvaluation() {
+    console.log(JSON.stringify(legs));
+  }
 
   return(
   <div
@@ -32,7 +36,8 @@ const FormArea: FC<FormAreaProps> = () => {
         event.preventDefault();
         const newLeg={
           id: ""+(legs.length+1),
-          type: "Test",
+          type: "passenger_train-route_type_commuter_rail-fuel_source_na",
+          passengers: 1,
           distance: 50,
         }
         const newLegList = legs.concat(newLeg);
@@ -93,7 +98,10 @@ const FormArea: FC<FormAreaProps> = () => {
           </button>
         </div>
         <div className="col text-end">
-          <button type="button" className="btn btn-primary text-light">
+          <button type="button" className="btn btn-primary text-light" onClick={(event) => {
+            event.preventDefault();
+            handleEvaluation();
+          }}>
             Auswerten
           </button>
         </div>

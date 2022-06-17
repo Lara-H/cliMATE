@@ -30,6 +30,7 @@ const FormLeg: FC<FormLegProps> = ({leg, handleRemove}) => {
 export interface Leg {
   id:string;
   type:string;
+  passengers: number;
   distance: number;
 };
 
