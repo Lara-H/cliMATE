@@ -9,18 +9,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 interface FormSelectorProps {
+  handleClick:(modeName: string) => void;
 }
 
-const FormSelector: FC<FormSelectorProps> = () => {
-  const [mode, setMode] = useState("travel");
-
-  function handleModeChange(modeName: string) {
-    const newMode = modeName;
-    setMode(newMode);
-    
-    console.log(modeName);
-  }
-  return (
+const FormSelector: FC<FormSelectorProps> = ({handleClick}) => (
     <div className={styles.FormSelector} data-testid="FormSelector">
       <span className="cm-anchor" id="FormSelector"></span>
 
@@ -42,7 +34,7 @@ const FormSelector: FC<FormSelectorProps> = () => {
                     icon={faPersonWalkingLuggage}
                     title={"Personenreise"}
                     modeName="travel"
-                    handleClick={handleModeChange}
+                    handleClick={handleClick}
                   ></FormSelectorButton>
                 </div>
                 <div className="col border-end">
@@ -50,7 +42,7 @@ const FormSelector: FC<FormSelectorProps> = () => {
                     icon={faPeopleCarryBox}
                     title={"Frachtsendung"}
                     modeName="freight"
-                    handleClick={handleModeChange}
+                    handleClick={handleClick}
                   ></FormSelectorButton>
                 </div>
                 <div className="col">
@@ -58,7 +50,7 @@ const FormSelector: FC<FormSelectorProps> = () => {
                     icon={faPeopleRoof}
                     title={"Haushalt"}
                     modeName="household"
-                    handleClick={handleModeChange}
+                    handleClick={handleClick}
                   ></FormSelectorButton>
                 </div>
               </div>
@@ -68,6 +60,5 @@ const FormSelector: FC<FormSelectorProps> = () => {
       </div>
     </div>
   );
-};
 
 export default FormSelector;

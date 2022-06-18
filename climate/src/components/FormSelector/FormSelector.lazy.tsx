@@ -4,7 +4,9 @@ const LazyFormSelector = lazy(() => import('./FormSelector'));
 
 const FormSelector = (props: JSX.IntrinsicAttributes & { children?: React.ReactNode; }) => (
   <Suspense fallback={null}>
-    <LazyFormSelector {...props} />
+    <LazyFormSelector handleClick={function (modeName: string): void {
+      throw new Error('Function not implemented.');
+    } } {...props} />
   </Suspense>
 );
 

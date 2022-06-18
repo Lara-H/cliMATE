@@ -5,7 +5,9 @@ export default {
   title: "FormSelector",
 };
 
-export const Default = () => <FormSelector />;
+export const Default = () => <FormSelector handleClick={function (modeName: string): void {
+  throw new Error('Function not implemented.');
+} } />;
 
 Default.story = {
   name: 'default',
