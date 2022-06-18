@@ -2,9 +2,11 @@ import React, { FC } from "react";
 import styles from "./Navigation.module.scss";
 import logo from "./logo.png";
 
-interface NavigationProps {}
+interface NavigationProps {
+  handleClick:(modeName: string) => void;
+}
 
-const Navigation: FC<NavigationProps> = () => (
+const Navigation: FC<NavigationProps> = ({handleClick}) => (
   <div className={styles.navigation} data-testid="Navigation">
     <nav className="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
       <div className="container">
@@ -25,12 +27,12 @@ const Navigation: FC<NavigationProps> = () => (
         <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
           <ul className={`navbar-nav ${styles["cm-navbar-nav"]}`}>
             <li className="nav-item">
-              <a className="nav-link" href="#FormArea">
+              <a onClick={() => handleClick("travel")} className="nav-link">
                 Personenreise
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#FormArea">
+              <a onClick={() => handleClick("freight")} className="nav-link">
                 Frachtsendung
               </a>
             </li>

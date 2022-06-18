@@ -40,7 +40,7 @@ const Layout: FC<LayoutProps> = () => {
     <Router>
       <Suspense fallback={<div>Loading...</div>}>
         <div className={styles.Layout} data-testid="Layout">
-          <Navigation></Navigation>
+          <Navigation handleClick={handleModeChange}></Navigation>
           <div className="content">
             <Routes>
               <Route
