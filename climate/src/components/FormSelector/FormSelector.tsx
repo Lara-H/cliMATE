@@ -9,10 +9,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 interface FormSelectorProps {
+  currentMode:string;
   handleClick:(modeName: string) => void;
 }
 
-const FormSelector: FC<FormSelectorProps> = ({handleClick}) => (
+const FormSelector: FC<FormSelectorProps> = ({currentMode, handleClick}) => (
     <div className={styles.FormSelector} data-testid="FormSelector">
       <span className="cm-anchor" id="FormSelector"></span>
 
@@ -33,6 +34,7 @@ const FormSelector: FC<FormSelectorProps> = ({handleClick}) => (
                   <FormSelectorButton
                     icon={faPersonWalkingLuggage}
                     title={"Personenreise"}
+                    currentMode={currentMode}
                     modeName="travel"
                     handleClick={handleClick}
                   ></FormSelectorButton>
@@ -41,6 +43,7 @@ const FormSelector: FC<FormSelectorProps> = ({handleClick}) => (
                   <FormSelectorButton
                     icon={faPeopleCarryBox}
                     title={"Frachtsendung"}
+                    currentMode={currentMode}
                     modeName="freight"
                     handleClick={handleClick}
                   ></FormSelectorButton>
@@ -49,6 +52,7 @@ const FormSelector: FC<FormSelectorProps> = ({handleClick}) => (
                   <FormSelectorButton
                     icon={faPeopleRoof}
                     title={"Haushalt"}
+                    currentMode={currentMode}
                     modeName="household"
                     handleClick={handleClick}
                   ></FormSelectorButton>

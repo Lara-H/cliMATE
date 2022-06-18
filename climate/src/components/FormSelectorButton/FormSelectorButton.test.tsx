@@ -8,7 +8,7 @@ describe('<FormSelectorButton />', () => {
   test('it should mount', () => {
     render(<FormSelectorButton icon={faCoffee} title="" modeName={''} handleClick={function (id: string): void {
       throw new Error('Function not implemented.');
-    } }/>);
+    } } currentMode={''}/>);
     
     const formSelectorButton = screen.getByTestId('FormSelectorButton');
 

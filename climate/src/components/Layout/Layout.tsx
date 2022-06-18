@@ -11,17 +11,16 @@ import Imprint from "../Imprint/Imprint";
 import Privacy from "../Privacy/Privacy";
 import TravelForm from "../TravelForm/TravelForm";
 import FreightForm from "../FreightForm/FreightForm";
-import { Module } from "module";
+import HouseholdForm from "../HouseholdForm/HouseholdForm";
 
-interface LayoutProps {
-}
+interface LayoutProps {}
 
 const Layout: FC<LayoutProps> = () => {
-  const [formComponent, setFormComponent] = useState(<TravelForm></TravelForm>); 
+  const [currentMode, setCurrentMode] = useState("travel");
+  const [formComponent, setFormComponent] = useState(<TravelForm></TravelForm>);
 
   function handleModeChange(modeName: string) {
-    console.log(modeName);
-    
+    setCurrentMode(modeName);
     switch (modeName) {
       case "travel":
         setFormComponent(<TravelForm></TravelForm>);
@@ -29,18 +28,23 @@ const Layout: FC<LayoutProps> = () => {
       case "freight":
         setFormComponent(<FreightForm></FreightForm>);
         break;
+      case "household":
+        setFormComponent(<HouseholdForm></HouseholdForm>);
+        break;
       default:
         setFormComponent(<TravelForm></TravelForm>);
         break;
     }
-    
   }
 
   return (
     <Router>
       <Suspense fallback={<div>Loading...</div>}>
         <div className={styles.Layout} data-testid="Layout">
-          <Navigation handleClick={handleModeChange}></Navigation>
+          <Navigation
+            handleClick={handleModeChange}
+            currentMode={currentMode}
+          ></Navigation>
           <div className="content">
             <Routes>
               <Route
@@ -48,11 +52,13 @@ const Layout: FC<LayoutProps> = () => {
                 element={
                   <>
                     {" "}
-                    <Teaser /> <FormSelector
+                    <Teaser />{" "}
+                    <FormSelector
+                      currentMode={currentMode}
                       handleClick={handleModeChange}
                     />{" "}
                     {formComponent}
-                   <ResultArea />{" "}
+                    <ResultArea />{" "}
                   </>
                 }
               />

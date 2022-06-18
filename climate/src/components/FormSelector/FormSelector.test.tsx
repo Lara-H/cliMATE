@@ -7,7 +7,7 @@ describe('<FormSelector />', () => {
   test('it should mount', () => {
     render(<FormSelector handleClick={function (modeName: string): void {
       throw new Error('Function not implemented.');
-    } } />);
+    } } currentMode={''} />);
     
     const formSelector = screen.getByTestId('FormSelector');
 

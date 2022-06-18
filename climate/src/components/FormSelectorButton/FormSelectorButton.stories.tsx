@@ -9,7 +9,7 @@ export default {
 
 export const Default = () => <FormSelectorButton icon={faCoffee} title="" modeName={''} handleClick={function (id: string): void {
   throw new Error('Function not implemented.');
-} } />;
+} } currentMode={''} />;
 
 Default.story = {
   name: 'default',

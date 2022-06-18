@@ -7,11 +7,14 @@
         transition: .25s;
     }
 
+    .active {
+        color: $primary;
+    }
+
     @include media-breakpoint-down(sm) {
         padding: 0;
         .cm-icon {
             font-size: 2rem;
-            color: $primary;
         }
     }
 }

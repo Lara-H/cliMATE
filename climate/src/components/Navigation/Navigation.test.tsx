@@ -7,7 +7,7 @@ describe('<Navigation />', () => {
   test('it should mount', () => {
     render(<Navigation handleClick={function (modeName: string): void {
       throw new Error('Function not implemented.');
-    } } />);
+    } } currentMode={''} />);
     
     const navigation = screen.getByTestId('Navigation');
 
