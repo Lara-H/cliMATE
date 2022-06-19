@@ -1,4 +1,4 @@
-import React, { FC, lazy, Suspense, useState } from "react";
+import React, { FC, lazy, Suspense, useState, useEffect, useReducer } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; // Routes war früher Switch
 import Navigation from "../Navigation/Navigation";
 import Teaser from "../Teaser/Teaser";
@@ -16,8 +16,13 @@ import HouseholdForm from "../HouseholdForm/HouseholdForm";
 interface LayoutProps {}
 
 const Layout: FC<LayoutProps> = () => {
-  const [currentMode, setCurrentMode] = useState("travel");
+  const localDataMode = localStorage.getItem('mode');
+  const [currentMode, setCurrentMode] = useState(localDataMode ? JSON.parse(localDataMode) : "travel");
   const [formComponent, setFormComponent] = useState(<TravelForm></TravelForm>);
+
+  useEffect(() => {
+    localStorage.setItem('mode', JSON.stringify(currentMode))
+  })
 
   function handleModeChange(modeName: string) {
     setCurrentMode(modeName);
