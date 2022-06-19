@@ -21,13 +21,13 @@ const ResultArea: FC<ResultAreaProps> = () => (
           <div className="row pt-3">
             <div className="col col-md">
               <ResultAreaText
-                value={"12345"}
+                value={12345}
                 label={"Kg CO2 werden dabei insgesamt ausgestoßen"}
               ></ResultAreaText>
             </div>
             <div className="col col-md">
               <ResultAreaText
-                value={"12"}
+                value={12}
                 label={"Bäume müssen dafür ein ganzes Jahr lang arbeiten"}
               ></ResultAreaText>
             </div>
