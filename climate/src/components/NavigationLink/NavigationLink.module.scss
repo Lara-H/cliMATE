@@ -3,7 +3,7 @@
 .NavigationLink {
     cursor: pointer;
     
-    .active {
+    .active, .active:hover {
         color: $primary;
     }
 }
