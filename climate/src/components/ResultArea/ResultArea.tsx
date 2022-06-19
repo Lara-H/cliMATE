@@ -19,7 +19,7 @@ const ResultArea: FC<ResultAreaProps> = () => (
             et ea rebum.
           </p>
           <div className="row pt-3">
-            <div className="col col-md">
+            <div className="col">
               <ResultAreaText
                 value={12345}
                 label={"Kg CO2 werden dabei insgesamt ausgestoßen"}
@@ -33,7 +33,7 @@ const ResultArea: FC<ResultAreaProps> = () => (
             </div>
           </div>
         </div>
-        <div className="col">
+        <div className="col col-md-6 col-lg-5 col-xl-4">
           <Chart></Chart>
         </div>
       </div>
