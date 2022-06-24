@@ -5,7 +5,7 @@ import ResultAreaText from './ResultAreaText';
 
 describe('<ResultAreaText />', () => {
   test('it should mount', () => {
-    render(<ResultAreaText value={""} label={""} />);
+    render(<ResultAreaText value={0} label={""} />);
     
     const resultAreaText = screen.getByTestId('ResultAreaText');
 

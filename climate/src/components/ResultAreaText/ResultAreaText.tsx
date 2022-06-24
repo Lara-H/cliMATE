@@ -1,17 +1,23 @@
-import React, { FC } from 'react';
-import { Value } from 'sass';
-import styles from './ResultAreaText.module.scss';
+import React, { FC, useState } from "react";
+import { Value } from "sass";
+import styles from "./ResultAreaText.module.scss";
+import AnimatedNumber from "animated-number-react";
 
 interface ResultAreaTextProps {
-  value: String;
+  value: number;
   label: String;
 }
 
-const ResultAreaText: FC<ResultAreaTextProps> = ({ value, label }) => (
-  <div className={styles.ResultAreaText} data-testid="ResultAreaText">
-    <h3 className="display-5">{value}</h3>
-    <p className='text-muted small'>{label}</p>
-  </div>
-);
+const ResultAreaText: FC<ResultAreaTextProps> = ({ value, label }) => {
+  const [counter, setCounter] = useState(0);
+
+  return (
+    <div className={styles.ResultAreaText} data-testid="ResultAreaText">
+      <AnimatedNumber className="display-5" value={counter} formatValue={(num: number) => num.toFixed(0)}></AnimatedNumber>
+      <p className="text-muted small">{label}</p>
+      <button onClick={() => setCounter(value)}>Count</button> {/*/ TODO: Später bei Klick auf Auswerten-Button aus FormArea starten */}
+    </div>
+  );
+};
 
 export default ResultAreaText;

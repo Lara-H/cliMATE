@@ -1,46 +1,88 @@
 import React, { FC } from "react";
 import styles from "./Chart.module.scss";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Doughnut } from 'react-chartjs-2';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Pie } from "react-chartjs-2";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 interface ChartProps {}
 
+// TODO: Daten später aus Legs
+const dataLabel: string[] = [
+  "Hund",
+  "Katze",
+  "Maus",
+  "Fledermaus",
+  "Ente",
+  "Elch",
+]
+const dataValue: number[] = [
+  46,
+  93,
+  74,
+  24,
+  52,
+  27,
+]
+
 export const data = {
-  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+  labels: dataLabel,
   datasets: [
     {
-      label: '# of Votes',
-      data: [12, 19, 3, 5, 2, 3],
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)',
-      ],
-      borderColor: [
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)',
-      ],
-      borderWidth: 1,
+      data: dataValue,
+      backgroundColor: generateBackgroundColor(dataLabel.length),
+      hoverOffset: 5,
     },
   ],
 };
 
+export const options = {
+  //rotation: 84.6 * Math.PI,
+  //circumference: 60 * Math.PI,
+};
 
-const Chart: FC<ChartProps> = () => (
+const Chart: FC<ChartProps> = () => {
+
+return(
   <div className={styles.Chart} data-testid="Chart">
-    <Doughnut data={data}></Doughnut>
+    <Pie data={data} options={options}></Pie>
   </div>
 );
+}
 
 export default Chart;
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+function generateBackgroundColor(size: number) {
+  const colorPalette: string[] = [
+    "rgba(0, 179, 133, 1)", // Grün
+    "orange",
+    "purple",
+    "cornflowerblue",
+    "gold",
+    "tomato",
+    "turquoise",
+    "orchid",
+    "navy",
+    "darkgoldenrod",
+    "yellowgreen",
+    "mediumvioletred",
+    "deepskyblue",
+    "salmon",
+    "darkred"
+  ];
+  let backgroundColor: string[] = [
+    colorPalette[0],
+  ];
+  let j = 1;
+  for (let i = 0; i < size; i++) {
+    backgroundColor.push(colorPalette[j])
+    if (j < colorPalette.length-1) {
+      j++;
+    } else {
+      j = 0;
+    }
+  }
+  return backgroundColor;
+}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>;

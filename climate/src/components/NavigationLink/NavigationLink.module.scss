@@ -1,0 +1,9 @@
+@import "../../App.scss";
+
+.NavigationLink {
+    cursor: pointer;
+    
+    .active, .active:hover {
+        color: $primary;
+    }
+}

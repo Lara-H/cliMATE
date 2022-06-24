@@ -21,9 +21,9 @@ const Teaser: FC<TeaserProps> = () => (
             <p className={`display-5 mb-4 text-uppercase ${styles["cm-carousel-caption-text"]}`}>
               Wie groß ist der CO²-Fußabdruck deiner Reise?
             </p>
-            <button type="button" className="btn btn-outline-light cm-btn-full-width-mobile">
+            <a href="#FormArea" type="button" className="btn btn-outline-light cm-btn-full-width-mobile">
               Jetzt kalkulieren
-            </button>
+            </a>
           </div>
         </div>
         <div className="carousel-item">

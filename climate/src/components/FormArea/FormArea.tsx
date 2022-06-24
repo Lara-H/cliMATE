@@ -48,6 +48,7 @@ const FormArea: FC<FormAreaProps> = () => {
     className={[styles.FormArea, "bg-light"].join(" ")}
     data-testid="FormArea"
   >
+    <span className="cm-anchor" id="FormArea"></span>
     <div className="container">
       <div className="row align-items-baseline">
         <div className="col">
@@ -80,7 +81,7 @@ const FormArea: FC<FormAreaProps> = () => {
               type="number"
               className="form-control"
               id="people"
-              placeholder="2"
+              value="2"
               min="1"
             />
           </div>
