@@ -8,13 +8,39 @@ interface FormAreaProps {}
 const FormArea: FC<FormAreaProps> = () => {
   const [legs, setLegs] = useState<Leg[]>([]);
 
+
+  /**
+   * functionality to delete an item with given id from our legs-state.
+   * @param id 
+   */
   function handleRemoveItem(id:string) {
     const newLegs = legs.filter((item) => item.id !== id);
     setLegs(newLegs);
   }
 
+  /**
+   * parse all legs into a JSON-Object and send it as body to the API. If the response is positively, set the result state to the response.
+   */
   function handleEvaluation() {
-    console.log(JSON.stringify(legs));
+    var evalBody:any[] = [];
+    legs.forEach(leg => {
+      const legJson = {"emission_factor": leg.type, "parameters" :{"passengers": leg.passengers, "distance": leg.distance, "distance_unit": "km"}}
+      evalBody.push(legJson);
+    });
+
+    console.log(JSON.stringify(evalBody))
+
+    fetch("https://beta3.api.climatiq.io/batch", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer VV5MNGFFJ0MF2DN921WJ93W84AQZ`,
+      },
+      body: JSON.stringify(evalBody)
+    })
+  .then((res) => res.json())
+  .then((data) =>
+  console.log(data.results))
+  
   }
 
   return(
@@ -34,10 +60,12 @@ const FormArea: FC<FormAreaProps> = () => {
       <hr></hr>
       <form onSubmit={(event) => {
         event.preventDefault();
+        const kindSelect = (document.getElementById("kind") as HTMLInputElement);
+        const peopleSelect = (document.getElementById("people") as HTMLInputElement);
         const newLeg={
           id: ""+(legs.length+1),
-          type: "passenger_train-route_type_commuter_rail-fuel_source_na",
-          passengers: 1,
+          type: kindSelect.value,
+          passengers: (peopleSelect.value as unknown as number),
           distance: 50,
         }
         const newLegList = legs.concat(newLeg);
@@ -62,9 +90,9 @@ const FormArea: FC<FormAreaProps> = () => {
             </label>
             <div className="input-group mb-3">
               <select className="form-select" id="kind">
-                <option value="train">Zugfahrt</option>
-                <option value="car">Autofahrt</option>
-                <option value="airplane">Flug</option>
+                <option value="passenger_train-route_type_commuter_rail-fuel_source_na">Zugfahrt</option>
+                <option value="passenger_vehicle-vehicle_type_car-fuel_source_na-engine_size_na-vehicle_age_na-vehicle_weight_na">Autofahrt</option>
+                <option value="passenger_flight-route_type_domestic-aircraft_type_jet-distance_na-class_na-rf_included">Flug</option>
               </select>
               <button type="submit" className="btn btn-primary text-light">
                 Hinzufügen

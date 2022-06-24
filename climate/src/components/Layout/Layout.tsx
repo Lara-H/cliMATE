@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from "react";
 import Footer from '../Footer/Footer';
 import FormArea from '../FormArea/FormArea';
 import FormSelector from '../FormSelector/FormSelector';
@@ -9,7 +9,10 @@ import styles from './Layout.module.scss';
 
 interface LayoutProps {}
 
-const Layout: FC<LayoutProps> = () => (
+const Layout: FC<LayoutProps> = () => {
+  const [result, setResult] = useState([]);
+
+  return (
   <div className={styles.Layout} data-testid="Layout">
     <Navigation></Navigation>
     <Teaser></Teaser>
@@ -19,5 +22,6 @@ const Layout: FC<LayoutProps> = () => (
     <Footer></Footer>
   </div>
 );
+};
 
 export default Layout;
