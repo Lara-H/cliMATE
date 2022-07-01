@@ -14,11 +14,18 @@ const NavigationLink: FC<NavigationLinkProps> = ({
   modeName,
   handleClick,
 }) => {
+  // TODO: hier stimmt irgendwas glaube ich nicht, folgender Code wird nicht nur bei Click auf das Element ausgeführt, sondern auch beim Laden der Seite einmal für jedes Element...
   let isActive = false;
   if (currentMode == modeName) {
     isActive = true;
   } else {
     isActive = false;
+  }
+
+  // Scroll to the FormSelector with the selected Form.
+  const FormSelectorHeadline = document.getElementById('FormSelectorHeadline');
+  if(FormSelectorHeadline != null) {
+    FormSelectorHeadline.scrollIntoView();
   }
 
 return(

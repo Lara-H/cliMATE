@@ -5,7 +5,11 @@ export default {
   title: "TravelForm",
 };
 
-export const Default = () => <TravelForm />;
+function setResult(){
+  console.log("TravelFormStory");
+}
+
+export const Default = () => <TravelForm result={[]} setResult={setResult}/>;
 
 Default.story = {
   name: 'default',

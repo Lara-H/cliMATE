@@ -5,7 +5,7 @@ export default {
   title: "Chart",
 };
 
-export const Default = () => <Chart />;
+export const Default = () => <Chart result={[]} />;
 
 Default.story = {
   name: 'default',

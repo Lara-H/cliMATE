@@ -4,7 +4,7 @@ const LazyResultArea = lazy(() => import('./ResultArea'));
 
 const ResultArea = (props: JSX.IntrinsicAttributes & { children?: React.ReactNode; }) => (
   <Suspense fallback={null}>
-    <LazyResultArea {...props} />
+    <LazyResultArea {...props} result={[]} />
   </Suspense>
 );
 

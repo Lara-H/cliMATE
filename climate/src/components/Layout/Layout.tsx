@@ -16,10 +16,11 @@ import HouseholdForm from "../HouseholdForm/HouseholdForm";
 interface LayoutProps {}
 
 const Layout: FC<LayoutProps> = () => {
+  // TODO: statt localStorage evtl SessionStorage? Unterschied: sessionStorage ist nicht persistent und kann für mehrere Tabs unterschiedliche Werte annehmen.
   const localDataMode = localStorage.getItem('mode');
+  const [result, setResult] = useState([]); 
   const [currentMode, setCurrentMode] = useState(localDataMode ? JSON.parse(localDataMode) : "travel");
-  const [formComponent, setFormComponent] = useState(<TravelForm></TravelForm>);
-  const [result, setResult] = useState([]);
+  const [formComponent, setFormComponent] = useState(<TravelForm result={[]} setResult={setResult}></TravelForm>);
 
   useEffect(() => {
     localStorage.setItem('mode', JSON.stringify(currentMode))
@@ -29,7 +30,7 @@ const Layout: FC<LayoutProps> = () => {
     setCurrentMode(modeName);
     switch (modeName) {
       case "travel":
-        setFormComponent(<TravelForm></TravelForm>);
+        setFormComponent(<TravelForm result={result} setResult={setResult}></TravelForm>);
         break;
       case "freight":
         setFormComponent(<FreightForm></FreightForm>);
@@ -38,7 +39,7 @@ const Layout: FC<LayoutProps> = () => {
         setFormComponent(<HouseholdForm></HouseholdForm>);
         break;
       default:
-        setFormComponent(<TravelForm></TravelForm>);
+        setFormComponent(<TravelForm result={result} setResult={setResult}></TravelForm>);
         break;
     }
   }
@@ -64,7 +65,7 @@ const Layout: FC<LayoutProps> = () => {
                       handleClick={handleModeChange}
                     />{" "}
                     {formComponent}
-                    <ResultArea />{" "}
+                    <ResultArea result={result}/>{" "}
                   </>
                 }
               />

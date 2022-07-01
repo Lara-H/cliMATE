@@ -5,7 +5,11 @@ export default {
   title: "FormArea",
 };
 
-export const Default = () => <FormArea />;
+function setResult(){
+  console.log("FormAreaStory");
+}
+
+export const Default = () => <FormArea result={[]} setResult={setResult} children=""/>;
 
 Default.story = {
   name: 'default',

@@ -4,7 +4,7 @@ const LazyChart = lazy(() => import('./Chart'));
 
 const Chart = (props: JSX.IntrinsicAttributes & { children?: React.ReactNode; }) => (
   <Suspense fallback={null}>
-    <LazyChart {...props} />
+    <LazyChart {...props} result={[]} />
   </Suspense>
 );
 

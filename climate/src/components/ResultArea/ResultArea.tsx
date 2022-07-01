@@ -3,15 +3,19 @@ import Chart from "../Chart/Chart";
 import ResultAreaText from "../ResultAreaText/ResultAreaText";
 import styles from "./ResultArea.module.scss";
 
-interface ResultAreaProps {}
+interface ResultAreaProps {
+  result: Array<Object>
+}
 
-const ResultArea: FC<ResultAreaProps> = () => (
+const ResultArea: FC<ResultAreaProps> = ({
+  result,
+}) => (
   <div className={styles.ResultArea} data-testid="ResultArea">
     <span className="cm-anchor" id="ResultArea"></span>
     <div className="container">
       <div className="row">
         <div className="col-12 col-md">
-          <h2 className="mb-3">Ergebnis</h2>
+          <h2 id="resultHeading" className="mb-3">Ergebnis</h2>
           <p>
             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
             nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
@@ -34,7 +38,7 @@ const ResultArea: FC<ResultAreaProps> = () => (
           </div>
         </div>
         <div className="col col-md-6 col-lg-5 col-xl-4">
-          <Chart></Chart>
+          <Chart result={result}></Chart>
         </div>
       </div>
     </div>

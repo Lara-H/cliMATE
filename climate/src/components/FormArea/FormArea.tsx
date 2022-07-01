@@ -1,11 +1,19 @@
+import { setDefaultResultOrder } from "dns";
 import React, { FC, useEffect, useState } from "react";
 import FormLeg, { Leg } from "../FormLeg/FormLeg";
 import FormLegStories from "../FormLeg/FormLeg.stories";
 import styles from "./FormArea.module.scss";
 
-interface FormAreaProps {}
+interface FormAreaProps {
+  result: Array<Object>,
+  setResult: Function,
+  children: React.ReactNode;
+}
 
-const FormArea: FC<FormAreaProps> = () => {
+const FormArea: FC<FormAreaProps> = ({
+  result,
+  setResult
+}) => {
   const [legs, setLegs] = useState<Leg[]>([]);
 
 
@@ -24,11 +32,11 @@ const FormArea: FC<FormAreaProps> = () => {
   function handleEvaluation() {
     var evalBody:any[] = [];
     legs.forEach(leg => {
-      const legJson = {"emission_factor": leg.type, "parameters" :{"passengers": leg.passengers, "distance": leg.distance, "distance_unit": "km"}}
+      const legJson = {"emission_factor": leg.type, "parameters" :{"distance": leg.distance, "distance_unit": "km"}}
       evalBody.push(legJson);
     });
 
-    console.log(JSON.stringify(evalBody))
+    //console.log(JSON.stringify(evalBody))
 
     fetch("https://beta3.api.climatiq.io/batch", {
       method: "POST",
@@ -39,8 +47,7 @@ const FormArea: FC<FormAreaProps> = () => {
     })
   .then((res) => res.json())
   .then((data) =>
-  console.log(data.results))
-  
+  setResult(data.results))
   }
 
   return(
@@ -81,7 +88,7 @@ const FormArea: FC<FormAreaProps> = () => {
               type="number"
               className="form-control"
               id="people"
-              value="2"
+              defaultValue="2"
               min="1"
             />
           </div>
@@ -129,6 +136,10 @@ const FormArea: FC<FormAreaProps> = () => {
         <div className="col text-end">
           <button type="button" className="btn btn-primary text-light" onClick={(event) => {
             event.preventDefault();
+            const resultHeading = window.document.getElementById("resultHeading");
+            if(resultHeading !== null) {
+              resultHeading.scrollIntoView();
+            }
             handleEvaluation();
           }}>
             Auswerten

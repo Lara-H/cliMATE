@@ -5,7 +5,7 @@ import ResultArea from './ResultArea';
 
 describe('<ResultArea />', () => {
   test('it should mount', () => {
-    render(<ResultArea />);
+    render(<ResultArea result={[]}/>);
     
     const resultArea = screen.getByTestId('ResultArea');
 

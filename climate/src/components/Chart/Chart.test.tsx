@@ -5,7 +5,7 @@ import Chart from './Chart';
 
 describe('<Chart />', () => {
   test('it should mount', () => {
-    render(<Chart />);
+    render(<Chart result={[]}/>);
     
     const chart = screen.getByTestId('Chart');
 

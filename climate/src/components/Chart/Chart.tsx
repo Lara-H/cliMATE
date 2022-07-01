@@ -5,7 +5,9 @@ import { Pie } from "react-chartjs-2";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-interface ChartProps {}
+interface ChartProps {
+  result: Array<Object>
+}
 
 // TODO: Daten später aus Legs
 const dataLabel: string[] = [
