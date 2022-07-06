@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import styles from './Footer.module.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useTranslation } from "react-i18next";
 import {
   faAngleUp
 } from "@fortawesome/free-solid-svg-icons";
@@ -8,6 +9,7 @@ import {
 interface FooterProps {}
 
 const Footer: FC<FooterProps> = () => {
+  const { t, i18n } = useTranslation();
 
   // Scroll-to-top Button Mobile nach Scrollen fixed einblenden
   const [scroll, setScroll] = useState(false);
@@ -22,8 +24,8 @@ return(
     <div className="container">
       <div className="row align-items-baseline">
         <div className="col small">
-          <a className="me-2" href="/impressum">Impressum</a>
-          <a href="/datenschutz">Datenschutz</a>
+          <a className="me-2" href="/impressum">{t('imprint-headline')}</a>
+          <a href="/datenschutz">{t('privacy-headline')}</a>
         </div>
         <div className="col text-end">
           <a href="#" type="button" className={scroll ? `btn btn-primary text-light ${styles["cm-btn"]}` : `btn btn-primary text-light ${styles["cm-btn"]} d-none d-sm-block`}><FontAwesomeIcon icon={faAngleUp} /></a>

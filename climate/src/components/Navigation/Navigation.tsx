@@ -31,7 +31,7 @@ const Navigation: FC<NavigationProps> = ({ handleClick, currentMode }) => {
       <nav className="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <div className="container">
           <a className="navbar-brand" href="/">
-            <img src={logo} alt="" width="auto" height="35"></img>
+            <img src={logo} alt="cliMATE" width="auto" height="35"></img>
           </a>
           <button
             className="navbar-toggler"
@@ -49,9 +49,9 @@ const Navigation: FC<NavigationProps> = ({ handleClick, currentMode }) => {
             id="navbarNav"
           >
             <ul className={`navbar-nav me-5 ${styles["cm-navbar-nav"]}`}>
-              <NavigationLink title={t('nav-travel')} currentMode={currentMode} modeName="travel" handleClick={handleClick}></NavigationLink>
-              <NavigationLink title={t('nav-freight')} currentMode={currentMode} modeName="freight" handleClick={handleClick}></NavigationLink>
-              <NavigationLink title={t('nav-household')} currentMode={currentMode} modeName="household" handleClick={handleClick}></NavigationLink>
+              <NavigationLink title={t('travel')} currentMode={currentMode} modeName="travel" handleClick={handleClick}></NavigationLink>
+              <NavigationLink title={t('freight')} currentMode={currentMode} modeName="freight" handleClick={handleClick}></NavigationLink>
+              <NavigationLink title={t('household')} currentMode={currentMode} modeName="household" handleClick={handleClick}></NavigationLink>
             </ul>
             <div className="lang-switch">
               <a className={`${isDe ? `btn btn-light` : `btn btn-outline-light`}`} onClick={() => changeLanguageHandler("de")}>DE</a><a className={`${isEn ? `btn btn-light` : `btn btn-outline-light`}`} onClick={() => changeLanguageHandler("en")}>EN</a>

@@ -35,7 +35,7 @@ const FormSelector: FC<FormSelectorProps> = ({currentMode, handleClick}) => {
                 <div className="col border-end">
                   <FormSelectorButton
                     icon={faPersonWalkingLuggage}
-                    title={t('nav-travel')}
+                    title={t('travel')}
                     currentMode={currentMode}
                     modeName="travel"
                     handleClick={handleClick}
@@ -44,7 +44,7 @@ const FormSelector: FC<FormSelectorProps> = ({currentMode, handleClick}) => {
                 <div className="col border-end">
                   <FormSelectorButton
                     icon={faPeopleCarryBox}
-                    title={t('nav-freight')}
+                    title={t('freight')}
                     currentMode={currentMode}
                     modeName="freight"
                     handleClick={handleClick}
@@ -53,7 +53,7 @@ const FormSelector: FC<FormSelectorProps> = ({currentMode, handleClick}) => {
                 <div className="col">
                   <FormSelectorButton
                     icon={faPeopleRoof}
-                    title={t('nav-household')}
+                    title={t('household')}
                     currentMode={currentMode}
                     modeName="household"
                     handleClick={handleClick}

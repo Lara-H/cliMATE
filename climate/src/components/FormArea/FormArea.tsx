@@ -4,6 +4,7 @@ import { Z_ASCII } from "zlib";
 import FormLeg, { Leg } from "../FormLeg/FormLeg";
 import FormLegStories from "../FormLeg/FormLeg.stories";
 import styles from "./FormArea.module.scss";
+import { useTranslation } from "react-i18next";
 
 interface FormAreaProps {
   result: Array<Object>;
@@ -12,6 +13,7 @@ interface FormAreaProps {
 }
 
 const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
+  const { t, i18n } = useTranslation();
   const [legs, setLegs] = useState<Leg[]>([]);
   const [currKind, setCurrKind] = useState(
     "passenger_vehicle-vehicle_type_car-fuel_source_na-engine_size_na-vehicle_age_na-vehicle_weight_na"
@@ -69,10 +71,10 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
       <div className="container">
         <div className="row align-items-baseline">
           <div className="col">
-            <h2 className="mb-0">Personenreise</h2>
+            <h2 className="mb-0">{t('travel')}</h2>
           </div>
           <div className="col text-end">
-            <a href="#">Ändern</a>
+            <a href="#">{t('btn-change')}</a>
           </div>
         </div>
         <hr></hr>
@@ -98,7 +100,7 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
           <div className="row align-items-end">
             <div className="col-12 col-md">
               <label htmlFor="kind" className="form-label">
-                Transportmittel
+              {t('travel-transport-mode')}
               </label>
               <select
                 className="form-select"
@@ -107,16 +109,16 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
                 value={currKind}
               >
                 <option value="passenger_vehicle-vehicle_type_car-fuel_source_na-engine_size_na-vehicle_age_na-vehicle_weight_na">
-                  Auto
+                {t('travel-car')}
                 </option>
                 <option value="passenger_train-route_type_commuter_rail-fuel_source_na">
-                  Zug
+                {t('travel-train')}
                 </option>
                 <option value="passenger_flight-route_type_domestic-aircraft_type_jet-distance_na-class_na-rf_included">
-                  Flugzeug
+                {t('travel-airport')}
                 </option>
                 <option value="passenger_ferry-route_type_car_passenger-fuel_source_na">
-                  Schiff
+                {t('travel-ship')}
                 </option>
               </select>
             </div>
@@ -167,7 +169,7 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
 
             <div className="col col-md-2 d-grid">
               <button type="submit" className="btn btn-primary text-light">
-                Hinzufügen
+              {t('btn-add')}
               </button>
             </div>
           </div>
@@ -199,7 +201,7 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
                 setLegs([]);
               }}
             >
-              Zurücksetzen
+              {t('btn-reset')}
             </button>
           </div>
           <div className="col text-end">
@@ -216,7 +218,7 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
                 handleEvaluation();
               }}
             >
-              Auswerten
+              {t('btn-evaluate')}
             </button>
           </div>
         </div>
@@ -229,7 +231,7 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
 const formFields = {
   distance: `
   <label htmlFor="distance" className="form-label">
-    Distanz (km)
+  {t('travel-distance')}
   </label><br>
   <input
     type="number"
@@ -241,7 +243,7 @@ const formFields = {
   `,
   departureAirport: `
   <label htmlFor="departureAirport" className="form-label">
-    Abflughafen
+  {t('travel-departureAirport')}
   </label><br>
   <input
     type="text"
@@ -253,7 +255,7 @@ const formFields = {
   `,
   arrivalAirport: `
   <label htmlFor="arrivalAirport" className="form-label">
-    Ankunftsflughafen
+  {t('travel-arrivalAirport')}
   </label><br>
   <input
     type="text"
@@ -265,7 +267,7 @@ const formFields = {
   `,
   people: `
   <label htmlFor="people" className="form-label">
-    Anzahl Personen
+  {t('travel-passengerNumber')}
   </label><br>
   <input
     type="number"
@@ -277,7 +279,7 @@ const formFields = {
   `,
   vehicles: `
   <label htmlFor="vehicles" className="form-label">
-    Anzahl Fahrzeuge
+  {t('travel-carNumber')}
   </label><br>
   <input
     type="number"
