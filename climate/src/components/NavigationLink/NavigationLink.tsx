@@ -15,6 +15,7 @@ const NavigationLink: FC<NavigationLinkProps> = ({
   handleClick,
 }) => {
   // TODO: hier stimmt irgendwas glaube ich nicht, folgender Code wird nicht nur bei Click auf das Element ausgeführt, sondern auch beim Laden der Seite einmal für jedes Element...
+  // => Ist das nicht richtig so? Um beim neu laden der Seite den Modus aus dem LocalStorage zu holen?
   let isActive = false;
   if (currentMode == modeName) {
     isActive = true;
@@ -23,10 +24,12 @@ const NavigationLink: FC<NavigationLinkProps> = ({
   }
 
   // Scroll to the FormSelector with the selected Form.
-  const FormSelectorHeadline = document.getElementById('FormSelectorHeadline');
-  if(FormSelectorHeadline != null) {
-    FormSelectorHeadline.scrollIntoView();
-  }
+  // TODO: Scrollt auch dann, wenn es nicht scrollen soll, z.B. beim Neuladen der Seite, deswegen vorerst auskommentiert, dürfte nur bei Klick auf Button scrollen
+
+  //const FormSelectorHeadline = document.getElementById('FormSelectorHeadline');
+  //if(FormSelectorHeadline != null) {
+  //  FormSelectorHeadline.scrollIntoView();
+  //}
 
 return(
   <li

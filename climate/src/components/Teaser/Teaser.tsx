@@ -7,10 +7,14 @@ import teaserTravelMobile from "./teaser-travel-mobile.jpg";
 import teaserFreightMobile from "./teaser-freight-mobile.jpg";
 import teaserHouseholdMobile from "./teaser-household-mobile.jpg";
 import { useTranslation } from "react-i18next";
+import CarouselItem from "../CarouselItem/CarouselItem";
 
-interface TeaserProps {}
+interface TeaserProps {
+  handleClick: (modeName: string) => void;
+  currentMode: string;
+}
 
-const Teaser: FC<TeaserProps> = () => {
+const Teaser: FC<TeaserProps> = ({ handleClick, currentMode }) => {
   const { t, i18n } = useTranslation();
 
   return (
@@ -20,87 +24,34 @@ const Teaser: FC<TeaserProps> = () => {
     >
       <div id="carouselTeaser" className="carousel slide" data-bs-ride="false">
         <div className={`${styles["carousel-inner"]}`}>
-          
-          <div className="carousel-item active">
-            <img
-              src={teaserTravel}
-              className={`d-none d-md-block ${styles["cm-teaser-img"]}`}
-              alt={t("travel")}
-            />
-            <img
-              src={teaserTravelMobile}
-              className="d-block d-md-none w-100"
-              alt={t("travel")}
-            />
-            <div className="carousel-caption mb-4">
-              <p
-                className={`display-5 mb-4 text-uppercase ${styles["cm-carousel-caption-text"]}`}
-              >
-                {t("teaser-travel-headline")}
-              </p>
-              <a
-                href="#"
-                type="button"
-                className="btn btn-outline-light cm-btn-full-width-mobile"
-              >
-                {t("btn-calculate")}
-              </a>
-            </div>
-          </div>
 
-          <div className="carousel-item">
-            <img
-              src={teaserFreight}
-              className={`d-none d-md-block ${styles["cm-teaser-img"]}`}
-              alt={t("freight")}
-            />
-            <img
-              src={teaserFreightMobile}
-              className="d-block d-md-none w-100"
-              alt={t("freight")}
-            />
-            <div className="carousel-caption mb-4">
-              <p
-                className={`display-5 mb-4 text-uppercase ${styles["cm-carousel-caption-text"]}`}
-              >
-                {t("teaser-freight-headline")}
-              </p>
-              <a
-                href="#"
-                type="button"
-                className="btn btn-outline-light cm-btn-full-width-mobile"
-              >
-                {t("btn-calculate")}
-              </a>
-            </div>
-          </div>
+          <CarouselItem
+            headline={t("teaser-travel-headline")}
+            imageName={teaserTravel}
+            imageNameMobile={teaserTravelMobile}
+            currentMode={currentMode}
+            modeName="travel"
+            handleClick={handleClick}
+          ></CarouselItem>
 
-          <div className="carousel-item">
-            <img
-              src={teaserHousehold}
-              className={`d-none d-md-block ${styles["cm-teaser-img"]}`}
-              alt={t("household")}
-            />
-            <img
-              src={teaserHouseholdMobile}
-              className="d-block d-md-none w-100"
-              alt={t("household")}
-            />
-            <div className="carousel-caption mb-4">
-              <p
-                className={`display-5 mb-4 text-uppercase ${styles["cm-carousel-caption-text"]}`}
-              >
-                {t("teaser-household-headline")}
-              </p>
-              <a
-                href="#"
-                type="button"
-                className="btn btn-outline-light cm-btn-full-width-mobile"
-              >
-                {t("btn-calculate")}
-              </a>
-            </div>
-          </div>
+          <CarouselItem
+            headline={t("teaser-freight-headline")}
+            imageName={teaserFreight}
+            imageNameMobile={teaserFreightMobile}
+            currentMode={currentMode}
+            modeName="freight"
+            handleClick={handleClick}
+          ></CarouselItem>
+
+          <CarouselItem
+            headline={t("teaser-household-headline")}
+            imageName={teaserHousehold}
+            imageNameMobile={teaserHouseholdMobile}
+            currentMode={currentMode}
+            modeName="household"
+            handleClick={handleClick}
+          ></CarouselItem>
+
         </div>
         <button
           className="carousel-control-prev"

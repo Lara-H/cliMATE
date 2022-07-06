@@ -1,4 +1,11 @@
-import React, { FC, lazy, Suspense, useState, useEffect, useReducer } from "react";
+import React, {
+  FC,
+  lazy,
+  Suspense,
+  useState,
+  useEffect,
+  useReducer,
+} from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; // Routes war früher Switch
 import Navigation from "../Navigation/Navigation";
 import Teaser from "../Teaser/Teaser";
@@ -17,20 +24,26 @@ interface LayoutProps {}
 
 const Layout: FC<LayoutProps> = () => {
   // TODO: statt localStorage evtl SessionStorage? Unterschied: sessionStorage ist nicht persistent und kann für mehrere Tabs unterschiedliche Werte annehmen.
-  const localDataMode = localStorage.getItem('mode');
-  const [result, setResult] = useState([]); 
-  const [currentMode, setCurrentMode] = useState(localDataMode ? JSON.parse(localDataMode) : "travel");
-  const [formComponent, setFormComponent] = useState(<TravelForm result={[]} setResult={setResult}></TravelForm>);
+  const localDataMode = localStorage.getItem("mode");
+  const [result, setResult] = useState([]);
+  const [currentMode, setCurrentMode] = useState(
+    localDataMode ? JSON.parse(localDataMode) : "travel"
+  );
+  const [formComponent, setFormComponent] = useState(
+    <TravelForm result={[]} setResult={setResult}></TravelForm>
+  );
 
   useEffect(() => {
-    localStorage.setItem('mode', JSON.stringify(currentMode))
-  })
+    localStorage.setItem("mode", JSON.stringify(currentMode));
+  });
 
   function handleModeChange(modeName: string) {
     setCurrentMode(modeName);
     switch (modeName) {
       case "travel":
-        setFormComponent(<TravelForm result={result} setResult={setResult}></TravelForm>);
+        setFormComponent(
+          <TravelForm result={result} setResult={setResult}></TravelForm>
+        );
         break;
       case "freight":
         setFormComponent(<FreightForm></FreightForm>);
@@ -39,7 +52,9 @@ const Layout: FC<LayoutProps> = () => {
         setFormComponent(<HouseholdForm></HouseholdForm>);
         break;
       default:
-        setFormComponent(<TravelForm result={result} setResult={setResult}></TravelForm>);
+        setFormComponent(
+          <TravelForm result={result} setResult={setResult}></TravelForm>
+        );
         break;
     }
   }
@@ -59,13 +74,16 @@ const Layout: FC<LayoutProps> = () => {
                 element={
                   <>
                     {" "}
-                    <Teaser />{" "}
+                    <Teaser
+                      currentMode={currentMode}
+                      handleClick={handleModeChange}
+                    />{" "}
                     <FormSelector
                       currentMode={currentMode}
                       handleClick={handleModeChange}
                     />{" "}
                     {formComponent}
-                    <ResultArea result={result}/>{" "}
+                    <ResultArea result={result} />{" "}
                   </>
                 }
               />
