@@ -71,10 +71,10 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
       <div className="container">
         <div className="row align-items-baseline">
           <div className="col">
-            <h2 className="mb-0">{t('travel')}</h2>
+            <h2 className="mb-0">{t("travel")}</h2>
           </div>
           <div className="col text-end">
-            <a href="#">{t('btn-change')}</a>
+            <a href="#FormSelector">{t("btn-change")}</a>
           </div>
         </div>
         <hr></hr>
@@ -84,7 +84,8 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
             const kindSelect = document.getElementById(
               "kind"
             ) as HTMLInputElement;
-            const peopleSelect = document.getElementById( //TODO: Nicht nur für "people" sondern auch für andere Formularfeldtypen verarbeiten
+            const peopleSelect = document.getElementById(
+              //TODO: Nicht nur für "people" sondern auch für andere Formularfeldtypen verarbeiten
               "people"
             ) as HTMLInputElement;
             const newLeg = {
@@ -100,7 +101,7 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
           <div className="row align-items-end">
             <div className="col-12 col-md">
               <label htmlFor="kind" className="form-label">
-              {t('travel-transport-mode')}
+                {t("travel-transport-mode")}
               </label>
               <select
                 className="form-select"
@@ -109,16 +110,16 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
                 value={currKind}
               >
                 <option value="passenger_vehicle-vehicle_type_car-fuel_source_na-engine_size_na-vehicle_age_na-vehicle_weight_na">
-                {t('travel-car')}
+                  {t("travel-car")}
                 </option>
                 <option value="passenger_train-route_type_commuter_rail-fuel_source_na">
-                {t('travel-train')}
+                  {t("travel-train")}
                 </option>
                 <option value="passenger_flight-route_type_domestic-aircraft_type_jet-distance_na-class_na-rf_included">
-                {t('travel-airport')}
+                  {t("travel-airport")}
                 </option>
                 <option value="passenger_ferry-route_type_car_passenger-fuel_source_na">
-                {t('travel-ship')}
+                  {t("travel-ship")}
                 </option>
               </select>
             </div>
@@ -129,8 +130,14 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
               ) {
                 return (
                   <>
-                    <div className="col-6 col-md" dangerouslySetInnerHTML={{ __html: formFields.distance }} />
-                    <div className="col-6 col-md" dangerouslySetInnerHTML={{ __html: formFields.vehicles }} />
+                    <div
+                      className="col-6 col-md"
+                      dangerouslySetInnerHTML={{ __html: formFields.distance }}
+                    />
+                    <div
+                      className="col-6 col-md"
+                      dangerouslySetInnerHTML={{ __html: formFields.vehicles }}
+                    />
                   </>
                 );
               } else if (
@@ -139,8 +146,14 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
               ) {
                 return (
                   <>
-                    <div className="col-6 col-md" dangerouslySetInnerHTML={{ __html: formFields.distance }} />
-                    <div className="col-6 col-md" dangerouslySetInnerHTML={{ __html: formFields.people }} />
+                    <div
+                      className="col-6 col-md"
+                      dangerouslySetInnerHTML={{ __html: formFields.distance }}
+                    />
+                    <div
+                      className="col-6 col-md"
+                      dangerouslySetInnerHTML={{ __html: formFields.people }}
+                    />
                   </>
                 );
               } else if (
@@ -149,9 +162,22 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
               ) {
                 return (
                   <>
-                    <div className="col-6 col-md" dangerouslySetInnerHTML={{ __html: formFields.departureAirport }} />
-                    <div className="col-6 col-md" dangerouslySetInnerHTML={{ __html: formFields.arrivalAirport }} />
-                    <div className="col-6 col-md" dangerouslySetInnerHTML={{ __html: formFields.people }} />
+                    <div
+                      className="col-6 col-md"
+                      dangerouslySetInnerHTML={{
+                        __html: formFields.departureAirport,
+                      }}
+                    />
+                    <div
+                      className="col-6 col-md"
+                      dangerouslySetInnerHTML={{
+                        __html: formFields.arrivalAirport,
+                      }}
+                    />
+                    <div
+                      className="col-6 col-md"
+                      dangerouslySetInnerHTML={{ __html: formFields.people }}
+                    />
                   </>
                 );
               } else if (
@@ -160,8 +186,14 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
               ) {
                 return (
                   <>
-                    <div className="col-6 col-md" dangerouslySetInnerHTML={{ __html: formFields.distance }} />
-                    <div className="col-6 col-md" dangerouslySetInnerHTML={{ __html: formFields.people }} />
+                    <div
+                      className="col-6 col-md"
+                      dangerouslySetInnerHTML={{ __html: formFields.distance }}
+                    />
+                    <div
+                      className="col-6 col-md"
+                      dangerouslySetInnerHTML={{ __html: formFields.people }}
+                    />
                   </>
                 );
               }
@@ -169,7 +201,7 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
 
             <div className="col col-md-2 d-grid">
               <button type="submit" className="btn btn-primary text-light">
-              {t('btn-add')}
+                {t("btn-add")}
               </button>
             </div>
           </div>
@@ -201,7 +233,7 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
                 setLegs([]);
               }}
             >
-              {t('btn-reset')}
+              {t("btn-reset")}
             </button>
           </div>
           <div className="col text-end">
@@ -218,7 +250,7 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
                 handleEvaluation();
               }}
             >
-              {t('btn-evaluate')}
+              {t("btn-evaluate")}
             </button>
           </div>
         </div>
@@ -227,7 +259,7 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
   );
 };
 
-// TODO: Styling 
+// TODO: Styling
 const formFields = {
   distance: `
   <label htmlFor="distance" className="form-label">

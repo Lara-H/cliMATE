@@ -24,11 +24,10 @@ return(
     <div className="container">
       <div className="row align-items-baseline">
         <div className="col small">
-          <a className="me-2" href="/impressum">{t('imprint-headline')}</a>
-          <a href="/datenschutz">{t('privacy-headline')}</a>
+          <a className="me-2" href="/impressum">{t('imprint-headline')}</a>|<a className="ms-2" href="/datenschutz">{t('privacy-headline')}</a>
         </div>
         <div className="col text-end">
-          <a href="#" type="button" className={scroll ? `btn btn-primary text-light ${styles["cm-btn"]}` : `btn btn-primary text-light ${styles["cm-btn"]} d-none d-sm-block`}><FontAwesomeIcon icon={faAngleUp} /></a>
+          <a href="#" type="button" className={scroll ? `btn btn-primary text-light ${styles["cm-btn"]}` : `btn btn-primary text-light d-none d-sm-inline-block ${styles["cm-btn"]}`}><FontAwesomeIcon icon={faAngleUp} /></a>
         </div>
       </div>
     </div>
