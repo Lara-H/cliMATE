@@ -5,6 +5,7 @@ import FormLeg, { Leg } from "../FormLeg/FormLeg";
 import FormLegStories from "../FormLeg/FormLeg.stories";
 import styles from "./FormArea.module.scss";
 import { useTranslation } from "react-i18next";
+import FormField from "../FormField/FormField";
 
 interface FormAreaProps {
   result: Array<Object>;
@@ -99,7 +100,7 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
           }}
         >
           <div className="row align-items-end">
-            <div className="col-12 col-md">
+            <div className="col-12 col-md-4">
               <label htmlFor="kind" className="form-label">
                 {t("travel-transport-mode")}
               </label>
@@ -123,6 +124,7 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
                 </option>
               </select>
             </div>
+    
             {(() => {
               if (
                 currKind ==
@@ -130,14 +132,16 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
               ) {
                 return (
                   <>
-                    <div
-                      className="col-6 col-md"
-                      dangerouslySetInnerHTML={{ __html: formFields.distance }}
-                    />
-                    <div
-                      className="col-6 col-md"
-                      dangerouslySetInnerHTML={{ __html: formFields.vehicles }}
-                    />
+                    <FormField
+                      label={t("travel-distance")}
+                      id="distance"
+                      type="number"
+                    ></FormField>
+                    <FormField
+                      label={t("travel-carNumber")}
+                      id="vehicles"
+                      type="number"
+                    ></FormField>
                   </>
                 );
               } else if (
@@ -146,14 +150,16 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
               ) {
                 return (
                   <>
-                    <div
-                      className="col-6 col-md"
-                      dangerouslySetInnerHTML={{ __html: formFields.distance }}
-                    />
-                    <div
-                      className="col-6 col-md"
-                      dangerouslySetInnerHTML={{ __html: formFields.people }}
-                    />
+                    <FormField
+                      label={t("travel-distance")}
+                      id="distance"
+                      type="number"
+                    ></FormField>
+                    <FormField
+                      label={t("travel-passengerNumber")}
+                      id="people"
+                      type="number"
+                    ></FormField>
                   </>
                 );
               } else if (
@@ -162,22 +168,21 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
               ) {
                 return (
                   <>
-                    <div
-                      className="col-6 col-md"
-                      dangerouslySetInnerHTML={{
-                        __html: formFields.departureAirport,
-                      }}
-                    />
-                    <div
-                      className="col-6 col-md"
-                      dangerouslySetInnerHTML={{
-                        __html: formFields.arrivalAirport,
-                      }}
-                    />
-                    <div
-                      className="col-6 col-md"
-                      dangerouslySetInnerHTML={{ __html: formFields.people }}
-                    />
+                    <FormField
+                      label={t("travel-departureAirport")}
+                      id="departureAirport"
+                      type="text"
+                    ></FormField>
+                    <FormField
+                      label={t("travel-arrivalAirport")}
+                      id="arrivalAirport"
+                      type="text"
+                    ></FormField>
+                    <FormField
+                      label={t("travel-passengerNumber")}
+                      id="people"
+                      type="number"
+                    ></FormField>
                   </>
                 );
               } else if (
@@ -186,14 +191,16 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
               ) {
                 return (
                   <>
-                    <div
-                      className="col-6 col-md"
-                      dangerouslySetInnerHTML={{ __html: formFields.distance }}
-                    />
-                    <div
-                      className="col-6 col-md"
-                      dangerouslySetInnerHTML={{ __html: formFields.people }}
-                    />
+                    <FormField
+                      label={t("travel-distance")}
+                      id="distance"
+                      type="number"
+                    ></FormField>
+                    <FormField
+                      label={t("travel-passengerNumber")}
+                      id="people"
+                      type="number"
+                    ></FormField>
                   </>
                 );
               }
@@ -257,70 +264,6 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
       </div>
     </div>
   );
-};
-
-// TODO: Styling
-const formFields = {
-  distance: `
-  <label htmlFor="distance" className="form-label">
-  {t('travel-distance')}
-  </label><br>
-  <input
-    type="number"
-    className="form-control"
-    id="distance"
-    defaultValue="2"
-    min="1"
-  />
-  `,
-  departureAirport: `
-  <label htmlFor="departureAirport" className="form-label">
-  {t('travel-departureAirport')}
-  </label><br>
-  <input
-    type="text"
-    className="form-control"
-    id="departureAirport"
-    defaultValue="2"
-    min="1"
-  />
-  `,
-  arrivalAirport: `
-  <label htmlFor="arrivalAirport" className="form-label">
-  {t('travel-arrivalAirport')}
-  </label><br>
-  <input
-    type="text"
-    className="form-control"
-    id="arrivalAirport"
-    defaultValue="2"
-    min="1"
-  />
-  `,
-  people: `
-  <label htmlFor="people" className="form-label">
-  {t('travel-passengerNumber')}
-  </label><br>
-  <input
-    type="number"
-    className="form-control"
-    id="people"
-    defaultValue="2"
-    min="1"
-  />
-  `,
-  vehicles: `
-  <label htmlFor="vehicles" className="form-label">
-  {t('travel-carNumber')}
-  </label><br>
-  <input
-    type="number"
-    className="form-control"
-    id="vehicles"
-    defaultValue="2"
-    min="1"
-  />
-  `,
 };
 
 export default FormArea;
