@@ -1,7 +1,16 @@
-@import '../../App.scss';
+@import "../../App.scss";
 
 .Teaser {
-    .cm-carousel-caption-text {
-        font-family: $headings-font-family;
-      }
+  background-color: black;
+
+  @include media-breakpoint-down(sm) {
+    margin-top: 4.8rem;
+  }
+
+  @include media-breakpoint-up(md) {
+    .carousel-inner {
+      height: 100vh;
+    }
+  }
+  
 }

@@ -1,0 +1,39 @@
+{
+    "travel": "Personenreise",
+    "freight": "Frachtsendung",
+    "household": "Hausehalt",
+
+    "btn-calculate": "Jetzt kalkulieren",
+    "btn-change": "Ändern",
+    "btn-add": "Hinzufügen",
+    "btn-reset": "Zurücksetzen",
+    "btn-evaluate": "Auswerten",
+
+    "teaser-travel-headline": "Wie groß ist der CO²-Fußabdruck deiner Reise?",
+    "teaser-freight-headline": "Wie viel CO² verursacht deine Lieferung?",
+    "teaser-household-headline": "Lorem ipsum dolor sit amet?",
+
+    "formSelector-headline" : "Dein CO²-Kalkulatior für alle Lebenslagen",
+    "formSelector-text" : "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+    
+    "travel-transport-mode": "Transportmittel",
+    "travel-car": "Auto",
+    "travel-train": "Zug",
+    "travel-airport": "Flugzeug",
+    "travel-ship": "Schiff",
+    "travel-distance": "Distanz (km)",
+    "travel-carNumber": "Anzahl Fahrzeuge",
+    "travel-passengerNumber": "Anzahl Personen",
+    "travel-departureAirport": "Abflughafen",
+    "travel-arrivalAirport": "Ankunftsflughafen",
+
+    "resultArea-headline": "Ergebnis",
+    "resultArea-text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+    "resultAreaText-kg": "Kg CO² werden dabei insgesamt ausgestoßen",
+    "resultAreaText-tree": "Bäume müssen dafür ein ganzes Jahr lang arbeiten",
+
+    "imprint-headline": "Impressum",
+    "imprint-text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+    "privacy-headline": "Datenschutz",
+    "privacy-text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
+}

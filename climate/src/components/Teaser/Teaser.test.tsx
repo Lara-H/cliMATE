@@ -5,7 +5,9 @@ import Teaser from './Teaser';
 
 describe('<Teaser />', () => {
   test('it should mount', () => {
-    render(<Teaser />);
+    render(<Teaser handleClick={function (modeName: string): void {
+      throw new Error('Function not implemented.');
+    } } currentMode={''} />);
     
     const teaser = screen.getByTestId('Teaser');
 
