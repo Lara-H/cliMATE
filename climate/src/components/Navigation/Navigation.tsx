@@ -22,6 +22,9 @@ const Navigation: FC<NavigationProps> = ({ handleClick, currentMode }) => {
     isEn = true;
   }
 
+  /**
+   * change language
+   */
   function changeLanguageHandler(lang: string) {
     i18n.changeLanguage(lang);
   }
