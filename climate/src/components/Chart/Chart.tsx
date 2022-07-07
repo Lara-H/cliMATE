@@ -1,30 +1,35 @@
-import React, { FC } from "react";
+import React, { useRef, FC } from "react";
 import styles from "./Chart.module.scss";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
+import { createNoSubstitutionTemplateLiteral } from "typescript";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
+type Result = {
+  [key: string]: any;
+}
+
 interface ChartProps {
-  result: Array<Object>
+  result: Array<Result>
 }
 
 // TODO: Daten später aus Legs
 const dataLabel: string[] = [
-  "Hund",
+  /*"Hund",
   "Katze",
   "Maus",
   "Fledermaus",
   "Ente",
-  "Elch",
+  "Elch",*/
 ]
 const dataValue: number[] = [
-  46,
+  /*46,
   93,
   74,
   24,
   52,
-  27,
+  27,*/
 ]
 
 export const data = {
@@ -43,13 +48,27 @@ export const options = {
   //circumference: 60 * Math.PI,
 };
 
-const Chart: FC<ChartProps> = () => {
+const Chart: FC<ChartProps> = (
+  result
+) => {
+  const chartRef = useRef(null);
+
+  // Hook to trigger the update function on every change to our result state.
+  React.useEffect(() => {
+    console.log(result);
+    const chart = chartRef.current;
+    calculateResult(result);
+
+  },[result]);
 
 return(
+  <>
   <div className={styles.Chart} data-testid="Chart">
-    <Pie data={data} options={options}></Pie>
+    <Pie data={data} redraw={true} options={options} ref={chartRef}></Pie>
   </div>
+  </>
 );
+
 }
 
 export default Chart;
@@ -85,6 +104,14 @@ function generateBackgroundColor(size: number) {
     }
   }
   return backgroundColor;
+}
+
+function calculateResult(props:ChartProps) {
+  //console.log(props.result);
+  props.result.forEach(leg => {
+    dataLabel.push(leg.emission_factor.category);
+    dataValue.push(leg.co2e);
+  });
 }
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>;

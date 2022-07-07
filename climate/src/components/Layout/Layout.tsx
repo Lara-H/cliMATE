@@ -18,7 +18,7 @@ interface LayoutProps {}
 const Layout: FC<LayoutProps> = () => {
   // TODO: statt localStorage evtl SessionStorage? Unterschied: sessionStorage ist nicht persistent und kann für mehrere Tabs unterschiedliche Werte annehmen.
   const localDataMode = localStorage.getItem('mode');
-  const [result, setResult] = useState([]); 
+  const [result, setResult] = useState([]);
   const [currentMode, setCurrentMode] = useState(localDataMode ? JSON.parse(localDataMode) : "travel");
   const [formComponent, setFormComponent] = useState(<TravelForm result={[]} setResult={setResult}></TravelForm>);
 
