@@ -2,7 +2,6 @@ import { setDefaultResultOrder } from "dns";
 import React, { FC, useEffect, useState } from "react";
 import { Z_ASCII } from "zlib";
 import FormLeg, { Leg } from "../FormLeg/FormLeg";
-import FormLegStories from "../FormLeg/FormLeg.stories";
 import styles from "./FormArea.module.scss";
 import { useTranslation } from "react-i18next";
 import FormField from "../FormField/FormField";
