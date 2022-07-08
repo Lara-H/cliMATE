@@ -28,12 +28,16 @@ const ResultArea: FC<ResultAreaProps> = ({
               <ResultAreaText
                 value={12345}
                 label={t('resultAreaText-kg')}
+                result={result}
+                type='co2eSum'
               ></ResultAreaText>
             </div>
             <div className="col col-md">
               <ResultAreaText
                 value={12}
                 label={t('resultAreaText-tree')}
+                result={result}
+                type='treeYears'
               ></ResultAreaText>
             </div>
           </div>

@@ -4,7 +4,7 @@ const LazyResultAreaText = lazy(() => import('./ResultAreaText'));
 
 const ResultAreaText = (props: JSX.IntrinsicAttributes & { children?: React.ReactNode; }) => (
   <Suspense fallback={null}>
-    <LazyResultAreaText {...props} value={0} label="" />
+    <LazyResultAreaText {...props} result={[]} value={0} label="" type="" />
   </Suspense>
 );
 

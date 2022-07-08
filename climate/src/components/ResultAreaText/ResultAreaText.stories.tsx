@@ -5,7 +5,7 @@ export default {
   title: "ResultAreaText",
 };
 
-export const Default = () => <ResultAreaText value={0} label="" />;
+export const Default = () => <ResultAreaText result={[]} value={0} label="" type="" />;
 
 Default.story = {
   name: 'default',

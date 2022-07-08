@@ -14,30 +14,12 @@ interface ChartProps {
   result: Array<Result>
 }
 
-// TODO: Daten später aus Legs
-const dataLabel: string[] = [
-  /*"Hund",
-  "Katze",
-  "Maus",
-  "Fledermaus",
-  "Ente",
-  "Elch",*/
-]
-const dataValue: number[] = [
-  /*46,
-  93,
-  74,
-  24,
-  52,
-  27,*/
-]
-
 export const data = {
-  labels: dataLabel,
+  labels: [],
   datasets: [
     {
-      data: dataValue,
-      backgroundColor: generateBackgroundColor(dataLabel.length),
+      data: [],
+      backgroundColor: generateBackgroundColor(10),
       hoverOffset: 5,
     },
   ],
@@ -51,14 +33,14 @@ export const options = {
 const Chart: FC<ChartProps> = (
   result
 ) => {
-  const chartRef = useRef(null);
+  // define a reference to the Chart.
+  const chartRef = useRef<ChartJS<"pie", number[], string>>(null);
 
   // Hook to trigger the update function on every change to our result state.
   React.useEffect(() => {
     console.log(result);
     const chart = chartRef.current;
-    calculateResult(result);
-
+    calculateResult(result, chart);
   },[result]);
 
 return(
@@ -106,12 +88,35 @@ function generateBackgroundColor(size: number) {
   return backgroundColor;
 }
 
-function calculateResult(props:ChartProps) {
-  //console.log(props.result);
+/**
+ * Injects the result of the API-request into the Chart.
+ * 
+ * @param props The props that house the API-results.
+ * @param chart a reference to the Chart which data is supposed to be altered.
+ */
+function calculateResult(props:ChartProps, chart:ChartJS<"pie", number[], string> | null) {
+  resetChart(chart);
   props.result.forEach(leg => {
-    dataLabel.push(leg.emission_factor.category);
-    dataValue.push(leg.co2e);
+    chart?.data.labels?.push(leg.emission_factor.category);
+    chart?.data.datasets.forEach(dataset => {
+      dataset.data.push(leg.co2e);
+    });
   });
+  chart?.update();
+}
+
+/**
+ * Reset the Chart to have no data and no labels, so its invisible.
+ * 
+ * @param chart a reference to the Chart which data is supposed to be altered.
+ */
+function resetChart(chart:ChartJS<"pie", number[], string> | null) {
+  if(chart !== null && chart.data.labels !== null) {
+    chart.data.labels = [];
+    chart.data.datasets.forEach(dataset => {
+      dataset.data = [];
+    });
+  }
 }
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>;
