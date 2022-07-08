@@ -5,6 +5,9 @@ import FormLeg, { Leg } from "../FormLeg/FormLeg";
 import styles from "./FormArea.module.scss";
 import { useTranslation } from "react-i18next";
 import FormField from "../FormField/FormField";
+import { v4 as uuid } from 'uuid';
+
+
 
 interface FormAreaProps {
   result: Array<Object>;
@@ -41,6 +44,7 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
    */
   function handleEvaluation() {
     var evalBody: any[] = [];
+    console.log(legs);
     legs.forEach((leg) => {
       const legJson = {
         emission_factor: leg.type,
@@ -88,11 +92,14 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
               //TODO: Nicht nur für "people" sondern auch für andere Formularfeldtypen verarbeiten
               "people"
             ) as HTMLInputElement;
+            const distanceSelect = document.getElementById(
+              "distance"
+            ) as HTMLInputElement;
             const newLeg = {
-              id: "" + (legs.length + 1),
+              id: uuid(),
               type: kindSelect.value,
               passengers: peopleSelect.value as unknown as number,
-              distance: 50,
+              distance: parseInt(distanceSelect.value),
             };
             const newLegList = legs.concat(newLeg);
             setLegs(newLegList);
