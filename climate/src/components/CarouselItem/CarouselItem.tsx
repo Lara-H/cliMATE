@@ -21,11 +21,26 @@ const CarouselItem: FC<CarouselItemProps> = ({
 }) => {
   const { t, i18n } = useTranslation();
 
+  /**
+   * check if carousel-item has to be active carousel-item
+   */
   let isActive = false;
   if (currentMode == modeName) {
     isActive = true;
   } else {
     isActive = false;
+  }
+
+  /**
+   * scroll to form
+   */
+   function scrollToForm() {
+    const FormArea = document.getElementById(
+      "FormArea"
+    );
+    if (FormArea != null) {
+      FormArea.scrollIntoView();
+    }
   }
 
   return (
@@ -46,7 +61,10 @@ const CarouselItem: FC<CarouselItemProps> = ({
             {headline}
           </p>
           <a
-            onClick={() => handleClick(modeName)}
+            onClick={() => {
+              handleClick(modeName);
+              scrollToForm();
+            }}
             type="button"
             className="btn btn-outline-light cm-btn-full-width-mobile"
           >
