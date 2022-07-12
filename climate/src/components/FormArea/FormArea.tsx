@@ -84,23 +84,75 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
         <hr></hr>
         <form
           onSubmit={(event) => {
+            console.log(event);
             event.preventDefault();
             const kindSelect = document.getElementById(
               "kind"
             ) as HTMLInputElement;
             const peopleSelect = document.getElementById(
-              //TODO: Nicht nur für "people" sondern auch für andere Formularfeldtypen verarbeiten
               "people"
             ) as HTMLInputElement;
             const distanceSelect = document.getElementById(
               "distance"
             ) as HTMLInputElement;
-            const newLeg = {
+            const vehiclesSelect = document.getElementById(
+              "vehicles"
+            ) as HTMLInputElement;
+            let newLeg = {
               id: uuid(),
-              type: kindSelect.value,
-              passengers: peopleSelect.value as unknown as number,
-              distance: parseInt(distanceSelect.value),
+                  type: "",
+                  passengers: 0,
+                  distance: 0,
+                  vehicles: 0
             };
+            switch (kindSelect.value) {
+              case "passenger_vehicle-vehicle_type_car-fuel_source_na-engine_size_na-vehicle_age_na-vehicle_weight_na":
+                newLeg = {
+                  id: uuid(),
+                  type: kindSelect.value,
+                  passengers: 0,
+                  distance: parseInt(distanceSelect.value),
+                  vehicles: parseInt(vehiclesSelect.value)
+                };
+                break;
+              case "passenger_train-route_type_commuter_rail-fuel_source_na":
+                newLeg = {
+                  id: uuid(),
+                  type: kindSelect.value,
+                  passengers: parseInt(peopleSelect.value),
+                  distance: parseInt(distanceSelect.value),
+                  vehicles: 0
+                };
+                break;
+              case "passenger_flight-route_type_domestic-aircraft_type_jet-distance_na-class_na-rf_included":
+                newLeg = {
+                  id: uuid(),
+                  type: kindSelect.value,
+                  passengers: parseInt(peopleSelect.value),
+                  distance: parseInt(distanceSelect.value),
+                  vehicles: 0
+                };
+                break;
+              case "passenger_ferry-route_type_car_passenger-fuel_source_na":
+                newLeg = {
+                  id: uuid(),
+                  type: kindSelect.value,
+                  passengers: parseInt(peopleSelect.value),
+                  distance: parseInt(distanceSelect.value),
+                  vehicles: 0
+                };
+                break;
+              default:
+                newLeg = {
+                  id: uuid(),
+                  type: "",
+                  passengers: 0,
+                  distance: 0,
+                  vehicles: 0
+                };
+                break;
+            }
+            
             const newLegList = legs.concat(newLeg);
             setLegs(newLegList);
           }}
