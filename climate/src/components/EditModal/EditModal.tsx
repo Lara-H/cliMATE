@@ -1,37 +1,55 @@
-import React, { FC } from 'react';
-import styles from './EditModal.module.scss';
-import ModalHeader from 'react-bootstrap/ModalHeader'
-import ModalTitle from 'react-bootstrap/ModalTitle'
-import ModalBody from 'react-bootstrap/ModalBody'
-import ModalFooter from 'react-bootstrap/ModalFooter'
-import Modal from 'react-bootstrap/Modal';
-import { useTranslation } from 'react-i18next';
+import React, { FC, useState } from "react";
+import styles from "./EditModal.module.scss";
+import ModalHeader from "react-bootstrap/ModalHeader";
+import ModalTitle from "react-bootstrap/ModalTitle";
+import ModalBody from "react-bootstrap/ModalBody";
+import ModalFooter from "react-bootstrap/ModalFooter";
+import Modal from "react-bootstrap/Modal";
+import { useTranslation } from "react-i18next";
+import { Leg } from "../FormLeg/FormLeg";
 
 interface EditModalProps {
-  title : string,
-  show : boolean,
+  leg: Leg;
+  show: boolean;
   handleClose: () => void;
+  handleSave: () => void;
 }
 
-const EditModal: FC<EditModalProps> = ({title, show, handleClose}) => 
-{
+const EditModal: FC<EditModalProps> = ({
+  leg,
+  show,
+  handleClose,
+  handleSave,
+}) => {
   const { t, i18n } = useTranslation();
+
   return (
-    <Modal className={styles.EditModal} data-testid="EditModal" show={show} onHide={handleClose}>
-        <ModalHeader closeButton>
-          <ModalTitle>{title}</ModalTitle>
-        </ModalHeader>
-        <ModalBody>Ich mag Züge</ModalBody>
-        <ModalFooter>
-          <button className="btn btn-secondary" onClick={handleClose}>
+    <Modal
+      className={styles.EditModal}
+      data-testid="EditModal"
+      show={show}
+      onHide={handleClose}
+    >
+      <ModalHeader closeButton>
+        <ModalTitle>{t(leg.type)}</ModalTitle>
+      </ModalHeader>
+      <ModalBody>Distanz={leg.distance}, Personenzahl={leg.passengers}, Fahrzeugzahl={leg.vehicles}</ModalBody>
+      <ModalFooter>
+        <button className="btn btn-secondary" onClick={handleClose}>
           {t("btn-close")}
-          </button>
-          <button className="btn btn-primary text-light" onClick={handleClose}>
+        </button>
+        <button
+          className="btn btn-primary text-light"
+          onClick={() => {
+            handleClose();
+            handleSave();
+          }}
+        >
           {t("btn-save")}
-          </button>
-        </ModalFooter>
-      </Modal>
-);
-  };
+        </button>
+      </ModalFooter>
+    </Modal>
+  );
+};
 
 export default EditModal;
