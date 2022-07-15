@@ -8,6 +8,8 @@
     "btn-add": "Add",
     "btn-reset": "Reset",
     "btn-evaluate": "Evaluate",
+    "btn-close": "Close",
+    "btn-save": "Save Changes",
 
     "teaser-travel-headline": "What`s the carbon footprint of your trip?",
     "teaser-freight-headline": "How much CO² does your delivery cause?",

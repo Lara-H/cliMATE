@@ -1,6 +1,7 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import styles from "./FormLeg.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import EditModal from "../EditModal/EditModal";
 import {
   faTrash,
   faEdit
@@ -16,7 +17,9 @@ interface FormLegProps {
 
 const FormLeg: FC<FormLegProps> = ({leg, handleRemove}) => {
   const { t, i18n } = useTranslation();
-  console.log(i18next.t('key', {count: 0}));
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const passengerString = i18next.t('table_passengerNum', {count: leg.passengers});
   const vehicleString = i18next.t('table_vehicleNum', {count: leg.vehicles});
@@ -27,8 +30,9 @@ const FormLeg: FC<FormLegProps> = ({leg, handleRemove}) => {
       <td>{leg.distance == 0 ? "FRA - MUN" : leg.distance + " km"}</td>
       <td>{leg.passengers == 0 ? vehicleString : passengerString}</td>
       <td className="text-end">
-        <a type="button" ><FontAwesomeIcon className="me-3" icon={faEdit} /></a>
+        <a type="button" onClick={handleShow}><FontAwesomeIcon className="me-3" icon={faEdit} /></a>
         <a type="button" onClick={() => handleRemove(leg.id)}><FontAwesomeIcon className="text-danger" icon={faTrash} /></a>
+        <EditModal title={t(leg.type)} show={show} handleClose={handleClose}></EditModal>
       </td>
     </tr>
   );
