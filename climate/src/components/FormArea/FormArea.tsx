@@ -314,8 +314,8 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
               <thead>
                 <tr>
                   <th>{t("travel-transport-mode")}</th>
-                  <th>{t("travel-number")}</th>
                   <th>{t("travel-distance")}</th>
+                  <th>{t("travel-number")}</th>
                 </tr>
               </thead>
               <tbody>

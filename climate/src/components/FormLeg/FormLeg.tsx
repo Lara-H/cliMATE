@@ -24,8 +24,8 @@ const FormLeg: FC<FormLegProps> = ({leg, handleRemove}) => {
   return (
     <tr className={styles.FormLeg} data-testid="FormLeg">
       <td>{t(leg.type)}</td>
-      <td>{leg.passengers == 0 ? vehicleString : passengerString}</td>
       <td>{leg.distance == 0 ? "FRA - MUN" : leg.distance + " km"}</td>
+      <td>{leg.passengers == 0 ? vehicleString : passengerString}</td>
       <td className="text-end">
         <a type="button" ><FontAwesomeIcon className="me-3" icon={faEdit} /></a>
         <a type="button" onClick={() => handleRemove(leg.id)}><FontAwesomeIcon className="text-danger" icon={faTrash} /></a>
