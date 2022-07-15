@@ -8,6 +8,7 @@ const newLeg={
   type: "Test",
   passengers: 1,
   distance: 50,
+  vehicles: 1,
 }
 
 describe('<FormLeg />', () => {

@@ -16,12 +16,14 @@
     "formSelector-headline" : "Dein CO²-Kalkulatior für alle Lebenslagen",
     "formSelector-text" : "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
     
+    "travel-number": "Anzahl",
     "travel-transport-mode": "Transportmittel",
     "travel-car": "Auto",
     "travel-train": "Zug",
     "travel-airport": "Flugzeug",
     "travel-ship": "Schiff",
-    "travel-distance": "Distanz (km)",
+    "travel-distance-km": "Distanz (km)",
+    "travel-distance": "Distanz",
     "travel-carNumber": "Anzahl Fahrzeuge",
     "travel-passengerNumber": "Anzahl Personen",
     "travel-departureAirport": "Abflughafen",
@@ -35,5 +37,23 @@
     "imprint-headline": "Impressum",
     "imprint-text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
     "privacy-headline": "Datenschutz",
-    "privacy-text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
+    "privacy-text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+
+    "passenger_vehicle-vehicle_type_car-fuel_source_na-engine_size_na-vehicle_age_na-vehicle_weight_na": "Autofahrt",
+    "passenger_train-route_type_commuter_rail-fuel_source_na": "Zugfahrt",
+    "passenger_flight-route_type_domestic-aircraft_type_jet-distance_na-class_na-rf_included": "Flug",
+    "passenger_ferry-route_type_car_passenger-fuel_source_na": "Schifffahrt",
+
+    "table_passengerNum_one": "{{count}} Person",
+    "table_passengerNum_other": "{{count}} Personen",
+    "table_vehicleNum_one": "{{count}} Fahrzeug",
+    "table_vehicleNum_other": "{{count}} Fahrzeuge",
+
+    "error_notEmpty": "Feld darf nicht leer sein",
+    "error_notNegative": "Zahl muss größer als 0 sein",
+    "error_notIATA": "Kein gültiger IATA-Code"
+
+    
+
+
 }

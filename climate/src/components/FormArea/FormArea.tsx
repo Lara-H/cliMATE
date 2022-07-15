@@ -214,7 +214,7 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
                 return (
                   <>
                     <FormField
-                      label={t("travel-distance")}
+                      label={t("travel-distance-km")}
                       id="distance"
                       type="number"
                       initValue={"2"}
@@ -304,9 +304,20 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
           </div>
         </form>
 
+        {(() => {
+              if (legs.length > 0) {
+                return (
+
         <div className="row mt-3">
           <div className="col">
             <table className="table table-striped mb-0">
+              <thead>
+                <tr>
+                  <th>{t("travel-transport-mode")}</th>
+                  <th>{t("travel-number")}</th>
+                  <th>{t("travel-distance")}</th>
+                </tr>
+              </thead>
               <tbody>
                 {legs.map((leg) => (
                   <FormLeg
@@ -319,6 +330,12 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
             </table>
           </div>
         </div>
+
+);
+              }
+            })()}
+
+
         <hr></hr>
         <div className="row">
           <div className="col">

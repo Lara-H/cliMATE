@@ -1,4 +1,5 @@
 import React, { FC, useState } from "react";
+import { useTranslation } from "react-i18next";
 import styles from "./FormField.module.scss";
 
 interface FormFieldProps {
@@ -16,6 +17,7 @@ const FormField: FC<FormFieldProps> = ({
   initValue,
   handleValidation,
 }) => {
+  const { t, i18n } = useTranslation();
   const [value, setValue] = useState(initValue);
   const [error, setError] = useState("");
   const [valid, setValid] = useState(true);
@@ -30,9 +32,9 @@ const FormField: FC<FormFieldProps> = ({
       } else {
         setValid(false)
         if (newValue.length == 0) {
-          setError("Feld darf nicht leer sein");
+          setError(t("error_notEmpty"));
         } else {
-          setError("Zahl muss größer als 0 sein");
+          setError(t("error_notNegative"));
         }
       }
     } else if (type == "text") {
@@ -42,9 +44,9 @@ const FormField: FC<FormFieldProps> = ({
       } else {
         setValid(false)
         if (newValue.length == 0) {
-          setError("Feld darf nicht leer sein");
+          setError(t("error_notEmpty"));
         } else {
-          setError("Code nicht gültig");
+          setError(t("error_notIATA"));
         }
       }
     }
@@ -61,7 +63,7 @@ const FormField: FC<FormFieldProps> = ({
       <input
         type={type}
         className={`${
-          error ? `form-control is-invalid` : `form-control is-valid`
+          error ? `form-control is-invalid` : `form-control`
         }`}
         id={id}
         value={value}
@@ -69,7 +71,7 @@ const FormField: FC<FormFieldProps> = ({
           handleChange(e.target.value);
         }}
       />
-      <small className="">{error}</small>
+      <small className="invalid-feedback">{error}</small>
     </div>
   );
 };
