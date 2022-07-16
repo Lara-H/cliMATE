@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import FormLeg from './FormLeg';
+import TravelFormLeg from './TravelFormLeg';
 
 const newLeg={
   id: "1",
@@ -11,9 +11,9 @@ const newLeg={
   vehicles: 1
 }
 
-describe('<FormLeg />', () => {
+describe('<TravelFormLeg />', () => {
   test('it should mount', () => {
-    render(<FormLeg leg={newLeg} handleRemove={handleRemoveItem}/>);
+    render(<TravelFormLeg leg={newLeg} handleRemove={handleRemoveItem}/>);
     
     const formLeg = screen.getByTestId('FormLeg');
 

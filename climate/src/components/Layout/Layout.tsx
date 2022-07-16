@@ -46,10 +46,14 @@ const Layout: FC<LayoutProps> = () => {
         );
         break;
       case "freight":
-        setFormComponent(<FreightForm></FreightForm>);
+        setFormComponent(
+          <FreightForm result={result} setResult={setResult}></FreightForm>
+        );
         break;
       case "household":
-        setFormComponent(<HouseholdForm></HouseholdForm>);
+        setFormComponent(
+        <HouseholdForm result={result} setResult={setResult}></HouseholdForm>
+        );
         break;
       default:
         setFormComponent(

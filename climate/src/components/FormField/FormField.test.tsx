@@ -5,7 +5,7 @@ import FormField from './FormField';
 
 describe('<FormField />', () => {
   test('it should mount', () => {
-    render(<FormField label={''} id={''} type={''} />);
+    render(<FormField label={''} id={''} type={''} value={""} />);
     
     const formField = screen.getByTestId('FormField');
 

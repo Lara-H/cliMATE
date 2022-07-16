@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import styles from "./FormLeg.module.scss";
+import styles from "./FreightFormLeg.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTrash,
@@ -7,12 +7,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import internal from "stream";
 
-interface FormLegProps {
-  leg:Leg;
+interface FreightFormLegProps {
+  leg:FreightLeg;
   handleRemove:(id: string) => void;
 }
 
-const FormLeg: FC<FormLegProps> = ({leg, handleRemove}) => {
+const FreightFormLeg: FC<FreightFormLegProps> = ({leg, handleRemove}) => {
   return (
     <tr className={styles.FormLeg} data-testid="FormLeg">
       <td>{leg.type}</td>
@@ -27,13 +27,11 @@ const FormLeg: FC<FormLegProps> = ({leg, handleRemove}) => {
 };
 
 // Define a Leg Object-Type.
-export interface Leg {
+export interface FreightLeg {
   id: string;
   type: string;
-  passengers: number,
-  distance: number,
-  vehicles: number
+  weight: number,
+  distance: number
 };
 
-
-export default FormLeg;
+export default FreightFormLeg;

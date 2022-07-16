@@ -1,13 +1,11 @@
 import { setDefaultResultOrder } from "dns";
 import React, { FC, useEffect, useState } from "react";
 import { Z_ASCII } from "zlib";
-import FormLeg, { Leg } from "../FormLeg/FormLeg";
+import TravelFormLeg, { TravelLeg } from "../TravelFormLeg/TravelFormLeg";
 import styles from "./FormArea.module.scss";
 import { useTranslation } from "react-i18next";
 import FormField from "../FormField/FormField";
 import { v4 as uuid } from 'uuid';
-
-
 
 interface FormAreaProps {
   result: Array<Object>;
@@ -17,8 +15,9 @@ interface FormAreaProps {
 
 const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
   const { t, i18n } = useTranslation();
-  const [legs, setLegs] = useState<Leg[]>([]);
+  const [legs, setLegs] = useState<TravelLeg[]>([]);
   const [currKind, setCurrKind] = useState(
+    // seit initial state to car-emission.
     "passenger_vehicle-vehicle_type_car-fuel_source_na-engine_size_na-vehicle_age_na-vehicle_weight_na"
   );
 
@@ -26,7 +25,9 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
    * set new current kind when changing selected value in selectbox
    */
   const changeKind = (newValue: string) => {
-    console.log(newValue);
+    // TODO: console.log() entfernen.
+    //console.log(newValue);
+    // set the State Value currKind to newValue.
     setCurrKind(newValue);
   };
 
@@ -36,7 +37,87 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
    */
   function handleRemoveItem(id: string) {
     const newLegs = legs.filter((item) => item.id !== id);
+    // set the State Value legs to newLegs.
     setLegs(newLegs);
+  }
+
+  /**
+   * returns a Leg-Object, based on all input-fields.
+   * 
+   * @returns Leg
+   */
+  function createNewLeg() {
+    // collect all our Input-Fields to handle them as variables.
+    const kindSelect = document.getElementById(
+      "kind"
+    ) as HTMLInputElement;
+    const passengersInput = document.getElementById(
+      "people"
+    ) as HTMLInputElement;
+    const distanceInput = document.getElementById(
+      "distance"
+    ) as HTMLInputElement;
+    const vehiclesInput = document.getElementById(
+      "vehicles"
+    ) as HTMLInputElement;
+
+                
+    let newLeg:TravelLeg;
+    // Switch: Which kind of Leg is being chosen?
+    switch (kindSelect.value) {
+      case "passenger_vehicle-vehicle_type_car-fuel_source_na-engine_size_na-vehicle_age_na-vehicle_weight_na":
+        // Case: Travel by car.
+        newLeg = {
+          id: uuid(),
+          type: kindSelect.value,
+          passengers: 0,
+          distance: parseInt(distanceInput.value),
+          vehicles: parseInt(vehiclesInput.value)
+        };
+        break;
+      case "passenger_train-route_type_commuter_rail-fuel_source_na":
+        // Case: Travel by train.
+        newLeg = {
+          id: uuid(),
+          type: kindSelect.value,
+          passengers: parseInt(passengersInput.value),
+          distance: parseInt(distanceInput.value),
+          vehicles: 0
+        };
+        break;
+      case "passenger_flight-route_type_domestic-aircraft_type_jet-distance_na-class_na-rf_included":
+        // Case: Travel by flight.
+        newLeg = {
+          id: uuid(),
+          type: kindSelect.value,
+          passengers: parseInt(passengersInput.value),
+          distance: parseInt(distanceInput.value),
+          vehicles: 0
+        };
+        break;
+      case "passenger_ferry-route_type_car_passenger-fuel_source_na":
+        // Travel by ferry.
+        newLeg = {
+          id: uuid(),
+          type: kindSelect.value,
+          passengers: parseInt(passengersInput.value),
+          distance: parseInt(distanceInput.value),
+          vehicles: 0
+        };
+        break;
+      default:
+        // default to an init state.
+        newLeg = {
+          id: uuid(),
+          type: "",
+          passengers: 0,
+          distance: 0,
+          vehicles: 0
+        };
+        break;
+    }
+    
+    return newLeg;
   }
 
   /**
@@ -44,25 +125,30 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
    */
   function handleEvaluation() {
     var evalBody: any[] = [];
-    console.log(legs);
+    // TODO: console.log() entfernen.
+    //console.log(legs);
     legs.forEach((leg) => {
+      // parse the leg-object into a fitting format for the Climatiq-API.
       const legJson = {
         emission_factor: leg.type,
         parameters: { distance: leg.distance, distance_unit: "km" },
       };
+      // Add it to evalBody
       evalBody.push(legJson);
     });
 
-    //console.log(JSON.stringify(evalBody))
-
+    // fetch from the Climatiq-Batch-Endpoint
     fetch("https://beta3.api.climatiq.io/batch", {
       method: "POST",
       headers: {
         Authorization: `Bearer VV5MNGFFJ0MF2DN921WJ93W84AQZ`,
       },
+      // transfer our evalBody-Array via body to Climatiq.
       body: JSON.stringify(evalBody),
     })
+      // transform the response to json...
       .then((res) => res.json())
+      // ...and set the State-Variable result to data.results.
       .then((data) => setResult(data.results));
   }
 
@@ -84,74 +170,10 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
         <hr></hr>
         <form
           onSubmit={(event) => {
-            console.log(event);
             event.preventDefault();
-            const kindSelect = document.getElementById(
-              "kind"
-            ) as HTMLInputElement;
-            const peopleSelect = document.getElementById(
-              "people"
-            ) as HTMLInputElement;
-            const distanceSelect = document.getElementById(
-              "distance"
-            ) as HTMLInputElement;
-            const vehiclesSelect = document.getElementById(
-              "vehicles"
-            ) as HTMLInputElement;
-            let newLeg = {
-              id: uuid(),
-                  type: "",
-                  passengers: 0,
-                  distance: 0,
-                  vehicles: 0
-            };
-            switch (kindSelect.value) {
-              case "passenger_vehicle-vehicle_type_car-fuel_source_na-engine_size_na-vehicle_age_na-vehicle_weight_na":
-                newLeg = {
-                  id: uuid(),
-                  type: kindSelect.value,
-                  passengers: 0,
-                  distance: parseInt(distanceSelect.value),
-                  vehicles: parseInt(vehiclesSelect.value)
-                };
-                break;
-              case "passenger_train-route_type_commuter_rail-fuel_source_na":
-                newLeg = {
-                  id: uuid(),
-                  type: kindSelect.value,
-                  passengers: parseInt(peopleSelect.value),
-                  distance: parseInt(distanceSelect.value),
-                  vehicles: 0
-                };
-                break;
-              case "passenger_flight-route_type_domestic-aircraft_type_jet-distance_na-class_na-rf_included":
-                newLeg = {
-                  id: uuid(),
-                  type: kindSelect.value,
-                  passengers: parseInt(peopleSelect.value),
-                  distance: parseInt(distanceSelect.value),
-                  vehicles: 0
-                };
-                break;
-              case "passenger_ferry-route_type_car_passenger-fuel_source_na":
-                newLeg = {
-                  id: uuid(),
-                  type: kindSelect.value,
-                  passengers: parseInt(peopleSelect.value),
-                  distance: parseInt(distanceSelect.value),
-                  vehicles: 0
-                };
-                break;
-              default:
-                newLeg = {
-                  id: uuid(),
-                  type: "",
-                  passengers: 0,
-                  distance: 0,
-                  vehicles: 0
-                };
-                break;
-            }
+
+            // initialize a newLeg-Variable
+            let newLeg = createNewLeg();
             
             const newLegList = legs.concat(newLeg);
             setLegs(newLegList);
@@ -194,11 +216,13 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
                       label={t("travel-distance")}
                       id="distance"
                       type="number"
+                      value="0"
                     ></FormField>
                     <FormField
                       label={t("travel-carNumber")}
                       id="vehicles"
                       type="number"
+                      value="0"
                     ></FormField>
                   </>
                 );
@@ -212,11 +236,13 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
                       label={t("travel-distance")}
                       id="distance"
                       type="number"
+                      value="0"
                     ></FormField>
                     <FormField
                       label={t("travel-passengerNumber")}
                       id="people"
                       type="number"
+                      value="0"
                     ></FormField>
                   </>
                 );
@@ -230,16 +256,19 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
                       label={t("travel-departureAirport")}
                       id="departureAirport"
                       type="text"
+                      value="JFK"
                     ></FormField>
                     <FormField
                       label={t("travel-arrivalAirport")}
                       id="arrivalAirport"
                       type="text"
+                      value="NYC"
                     ></FormField>
                     <FormField
                       label={t("travel-passengerNumber")}
                       id="people"
                       type="number"
+                      value="0"
                     ></FormField>
                   </>
                 );
@@ -253,11 +282,13 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
                       label={t("travel-distance")}
                       id="distance"
                       type="number"
+                      value="0"
                     ></FormField>
                     <FormField
                       label={t("travel-passengerNumber")}
                       id="people"
                       type="number"
+                      value="0"
                     ></FormField>
                   </>
                 );
@@ -277,11 +308,11 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
             <table className="table table-striped mb-0">
               <tbody>
                 {legs.map((leg) => (
-                  <FormLeg
+                  <TravelFormLeg
                     leg={leg}
                     key={leg.id}
                     handleRemove={handleRemoveItem}
-                  ></FormLeg>
+                  ></TravelFormLeg>
                 ))}
               </tbody>
             </table>

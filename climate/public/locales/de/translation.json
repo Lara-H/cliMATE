@@ -1,10 +1,10 @@
 {
     "travel": "Personenreise",
     "freight": "Frachtsendung",
-    "household": "Hausehalt",
+    "household": "Haushalt",
 
     "btn-calculate": "Jetzt kalkulieren",
-    "btn-change": "Ändern",
+    "btn-change": "Modus Ändern",
     "btn-add": "Hinzufügen",
     "btn-reset": "Zurücksetzen",
     "btn-evaluate": "Auswerten",
@@ -26,6 +26,21 @@
     "travel-passengerNumber": "Anzahl Personen",
     "travel-departureAirport": "Abflughafen",
     "travel-arrivalAirport": "Ankunftsflughafen",
+
+    "freight-transport-mode": "Transportmittel",
+    "freight-car": "Auto",
+    "freight-train": "Zug",
+    "freight-airport": "Flugzeug",
+    "freight-ship": "Schiff",
+    "freight-distance": "Distanz",
+    "freight-weight": "Gewicht",
+
+    "household-power-consumption": "Stromverbrauch",
+    "household-power-consumption-label": "Stromverbrauch in kWh",
+    "household-waste": "Müllproduktion",
+    "household-waste-label": "Müllmenge in kg",
+    "household-clothing": "Kleidung",
+    "household-clothing-label": "Preis der Kleidung in EUR",
 
     "resultArea-headline": "Ergebnis",
     "resultArea-text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",

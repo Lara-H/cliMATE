@@ -1,21 +1,20 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import FormLeg from './FormLeg';
+import FreightFormLeg from './FreightFormLeg';
 
 const newLeg={
   id: "1",
   type: "Test",
-  passengers: 1,
-  distance: 50,
-  vehicles: 1
+  weight: 1,
+  distance: 50
 }
 
-describe('<FormLeg />', () => {
+describe('<FreightFormLeg />', () => {
   test('it should mount', () => {
-    render(<FormLeg leg={newLeg} handleRemove={handleRemoveItem}/>);
+    render(<FreightFormLeg leg={newLeg} handleRemove={handleRemoveItem}/>);
     
-    const formLeg = screen.getByTestId('FormLeg');
+    const formLeg = screen.getByTestId('FreightFormLeg');
 
     expect(formLeg).toBeInTheDocument();
   });
