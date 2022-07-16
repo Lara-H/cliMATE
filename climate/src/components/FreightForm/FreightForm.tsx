@@ -17,6 +17,11 @@ const FreightForm: FC<FreightFormProps> = ({ result, setResult}) => {
     // set initial state to car-emission.
     "freight_vehicle-vehicle_type-hgv_refrig-fuel_source_diesel-vehicle_weight_na-percentage_load_100"
   );
+  const [valide, setValide] = useState({
+    people: true,
+    distance: true,
+    vehicles: true,
+  });
 
   /**
    * set new current kind when changing selected value in selectbox
@@ -142,6 +147,45 @@ const FreightForm: FC<FreightFormProps> = ({ result, setResult}) => {
       
   }
 
+  /**
+   * check if valide
+   */
+   function handleValidation(id: string, isValide: boolean) {
+
+    console.log("ID", id); 
+    console.log("VALIDE", isValide); 
+
+    switch (id) {
+      case "person":
+        setValide({
+          people: isValide,
+          distance: valide.distance,
+          vehicles: valide.vehicles,
+        });
+        break;
+      case "distance":
+        setValide({
+          people: valide.people,
+          distance: isValide,
+          vehicles: valide.vehicles,
+        });
+        break;
+      case "vehicles":
+        setValide({
+          people: valide.people,
+          distance: valide.distance,
+          vehicles: isValide,
+        });
+        break;
+      default: setValide({
+        people: valide.people,
+        distance: valide.distance,
+        vehicles: valide.people,
+      });
+    }
+    
+  }
+
   return (
     <div
       className={[styles.FormArea, "bg-light"].join(" ")}
@@ -199,13 +243,15 @@ const FreightForm: FC<FreightFormProps> = ({ result, setResult}) => {
                 label={t("freight-distance")}
                 id="distance"
                 type="number"
-                value="0"
+                initValue="1"
+                handleValidation={handleValidation}
               ></FormField>
               <FormField
                 label={t("freight-weight")}
                 id="weight"
                 type="number"
-                value="0"
+                initValue="1"
+                handleValidation={handleValidation}
               ></FormField>
             </>
 

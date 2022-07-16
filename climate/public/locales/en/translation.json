@@ -8,6 +8,8 @@
     "btn-add": "Add",
     "btn-reset": "Reset",
     "btn-evaluate": "Evaluate",
+    "btn-close": "Close",
+    "btn-save": "Save Changes",
 
     "teaser-travel-headline": "What`s the carbon footprint of your trip?",
     "teaser-freight-headline": "How much CO² does your delivery cause?",
@@ -16,12 +18,14 @@
     "formSelector-headline" : "Your CO² calculator for all situations",
     "formSelector-text" : "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
     
+    "travel-number": "number",
     "travel-transport-mode": "mode of transport",
     "travel-car": "car",
     "travel-train": "train",
     "travel-airport": "airplane",
     "travel-ship": "ship",
-    "travel-distance": "distance (km)",
+    "travel-distance-km": "distance (km)",
+    "travel-distance": "distance",
     "travel-carNumber": "number of vehicles",
     "travel-passengerNumber": "number of passengers",
     "travel-departureAirport": "departure airport",
@@ -35,5 +39,19 @@
     "imprint-headline": "imprint",
     "imprint-text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
     "privacy-headline": "privacy",
-    "privacy-text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
+    "privacy-text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+
+    "passenger_vehicle-vehicle_type_car-fuel_source_na-engine_size_na-vehicle_age_na-vehicle_weight_na": "car ride",
+    "passenger_train-route_type_commuter_rail-fuel_source_na": "train ride",
+    "passenger_flight-route_type_domestic-aircraft_type_jet-distance_na-class_na-rf_included": "flight",
+    "passenger_ferry-route_type_car_passenger-fuel_source_na": "shipping",
+
+    "table_passengerNum_one": "{{count}} passenger",
+    "table_passengerNum_other": "{{count}} passengers",
+    "table_vehicleNum_one": "{{count}} vehicle",
+    "table_vehicleNum_other": "{{count}} vehicles",
+
+    "error_notEmpty": "field cannot be empty",
+    "error_notNegative": "number must be greater than 0",
+    "error_notIATA": "not a valid IATA code"
 }

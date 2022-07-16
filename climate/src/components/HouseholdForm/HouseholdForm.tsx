@@ -20,6 +20,12 @@ const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult}) => {
   const [wasteProductionResult, setWasteProductionResult] = useState("");
   const [clothesBoughtResult, setClothesBoughtResult] = useState("");
 
+  const [valide, setValide] = useState({
+    people: true,
+    distance: true,
+    vehicles: true,
+  });
+
   /**
    * funcionality to fetch data for Power-Consumption from the API.
    */
@@ -120,6 +126,45 @@ const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult}) => {
 
   }
 
+  /**
+   * check if valide
+   */
+   function handleValidation(id: string, isValide: boolean) {
+
+    console.log("ID", id); 
+    console.log("VALIDE", isValide); 
+
+    switch (id) {
+      case "person":
+        setValide({
+          people: isValide,
+          distance: valide.distance,
+          vehicles: valide.vehicles,
+        });
+        break;
+      case "distance":
+        setValide({
+          people: valide.people,
+          distance: isValide,
+          vehicles: valide.vehicles,
+        });
+        break;
+      case "vehicles":
+        setValide({
+          people: valide.people,
+          distance: valide.distance,
+          vehicles: isValide,
+        });
+        break;
+      default: setValide({
+        people: valide.people,
+        distance: valide.distance,
+        vehicles: valide.people,
+      });
+    }
+    
+  }
+
   return (
     <div
       className={[styles.FormArea, "bg-light"].join(" ")}
@@ -147,7 +192,8 @@ const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult}) => {
                     label={t("household-power-consumption-label")}
                     id="consumption"
                     type="number"
-                    value="0"
+                    initValue="0"
+                    handleValidation={handleValidation}
                   ></FormField>
                 </div>
                 <ul className="list-group list-group-flush">
@@ -179,7 +225,8 @@ const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult}) => {
                     label={t("household-waste-label")}
                     id="waste"
                     type="number"
-                    value="0"
+                    initValue="0"
+                    handleValidation={handleValidation}
                   ></FormField>
                 </div>
                 <ul className="list-group list-group-flush">
@@ -211,7 +258,8 @@ const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult}) => {
                     label={t("household-clothing-label")}
                     id="clothing"
                     type="number"
-                    value="0"
+                    initValue="0"
+                    handleValidation={handleValidation}
                   ></FormField>
                 </div>
                 <ul className="list-group list-group-flush">

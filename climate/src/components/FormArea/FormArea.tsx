@@ -5,7 +5,8 @@ import TravelFormLeg, { TravelLeg } from "../TravelFormLeg/TravelFormLeg";
 import styles from "./FormArea.module.scss";
 import { useTranslation } from "react-i18next";
 import FormField from "../FormField/FormField";
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid, validate } from "uuid";
+import { clear } from "console";
 
 interface FormAreaProps {
   result: Array<Object>;
@@ -14,19 +15,28 @@ interface FormAreaProps {
 }
 
 const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
+  const carAPIstring =
+    "passenger_vehicle-vehicle_type_car-fuel_source_na-engine_size_na-vehicle_age_na-vehicle_weight_na";
+  const trainAPIstring =
+    "passenger_train-route_type_commuter_rail-fuel_source_na";
+  const airplaneAPIstring =
+    "passenger_flight-route_type_domestic-aircraft_type_jet-distance_na-class_na-rf_included";
+  const shipAPIstring =
+    "passenger_ferry-route_type_car_passenger-fuel_source_na";
+
   const { t, i18n } = useTranslation();
   const [legs, setLegs] = useState<TravelLeg[]>([]);
-  const [currKind, setCurrKind] = useState(
-    // seit initial state to car-emission.
-    "passenger_vehicle-vehicle_type_car-fuel_source_na-engine_size_na-vehicle_age_na-vehicle_weight_na"
-  );
+  const [currKind, setCurrKind] = useState(carAPIstring);
+  const [valide, setValide] = useState({
+    people: true,
+    distance: true,
+    vehicles: true,
+  });
 
   /**
    * set new current kind when changing selected value in selectbox
    */
   const changeKind = (newValue: string) => {
-    // TODO: console.log() entfernen.
-    //console.log(newValue);
     // set the State Value currKind to newValue.
     setCurrKind(newValue);
   };
@@ -152,6 +162,99 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
       .then((data) => setResult(data.results));
   }
 
+  /**
+   * check if valide
+   */
+  function handleValidation(id: string, isValide: boolean) {
+
+    console.log("ID", id); 
+    console.log("VALIDE", isValide); 
+
+    switch (id) {
+      case "person":
+        setValide({
+          people: isValide,
+          distance: valide.distance,
+          vehicles: valide.vehicles,
+        });
+        break;
+      case "distance":
+        setValide({
+          people: valide.people,
+          distance: isValide,
+          vehicles: valide.vehicles,
+        });
+        break;
+      case "vehicles":
+        setValide({
+          people: valide.people,
+          distance: valide.distance,
+          vehicles: isValide,
+        });
+        break;
+      default: setValide({
+        people: valide.people,
+        distance: valide.distance,
+        vehicles: valide.people,
+      });
+    }
+    
+  }
+
+  /**
+   * add legs after validation
+   */
+  function handleSubmit() {
+    let isValide = true;
+
+    let people = 0;
+    const peopleSelect = document.getElementById("people") as HTMLInputElement;
+    if (peopleSelect !== null) {
+      if (!valide.people) {
+        isValide = false;
+      } else {
+        people = parseInt(peopleSelect.value);
+      }
+    }
+
+    let distance = 0;
+    const distanceSelect = document.getElementById(
+      "distance"
+    ) as HTMLInputElement;
+    if (distanceSelect !== null) {
+      if (!valide.distance) {
+        isValide = false;
+      } else {
+        distance = parseInt(distanceSelect.value);
+      }
+    }
+
+    let vehicles = 0;
+    const vehiclesSelect = document.getElementById(
+      "vehicles"
+    ) as HTMLInputElement;
+    if (vehiclesSelect !== null) {
+      if (!valide.vehicles) {
+        isValide = false;
+      } else {
+        vehicles = parseInt(vehiclesSelect.value);
+      }
+    }
+
+    if (isValide) {
+      let newLeg = {
+        id: uuid(),
+        type: currKind,
+        passengers: people,
+        distance: distance,
+        vehicles: vehicles,
+      };
+
+      const newLegList = legs.concat(newLeg);
+      setLegs(newLegList);
+    }
+  }
+
   return (
     <div
       className={[styles.FormArea, "bg-light"].join(" ")}
@@ -171,15 +274,10 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
         <form
           onSubmit={(event) => {
             event.preventDefault();
-
-            // initialize a newLeg-Variable
-            let newLeg = createNewLeg();
-            
-            const newLegList = legs.concat(newLeg);
-            setLegs(newLegList);
+            handleSubmit();
           }}
         >
-          <div className="row align-items-end">
+          <div className="row align-items-start">
             <div className="col-12 col-md-4">
               <label htmlFor="kind" className="form-label">
                 {t("travel-transport-mode")}
@@ -190,112 +288,101 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
                 onChange={(event) => changeKind(event.target.value)}
                 value={currKind}
               >
-                <option value="passenger_vehicle-vehicle_type_car-fuel_source_na-engine_size_na-vehicle_age_na-vehicle_weight_na">
-                  {t("travel-car")}
-                </option>
-                <option value="passenger_train-route_type_commuter_rail-fuel_source_na">
-                  {t("travel-train")}
-                </option>
-                <option value="passenger_flight-route_type_domestic-aircraft_type_jet-distance_na-class_na-rf_included">
-                  {t("travel-airport")}
-                </option>
-                <option value="passenger_ferry-route_type_car_passenger-fuel_source_na">
-                  {t("travel-ship")}
-                </option>
+                <option value={carAPIstring}>{t("travel-car")}</option>
+                <option value={trainAPIstring}>{t("travel-train")}</option>
+                <option value={airplaneAPIstring}>{t("travel-airport")}</option>
+                <option value={shipAPIstring}>{t("travel-ship")}</option>
               </select>
             </div>
-    
+
             {(() => {
-              if (
-                currKind ==
-                "passenger_vehicle-vehicle_type_car-fuel_source_na-engine_size_na-vehicle_age_na-vehicle_weight_na"
-              ) {
+              if (currKind == carAPIstring) {
                 return (
                   <>
                     <FormField
-                      label={t("travel-distance")}
+                      label={t("travel-distance-km")}
                       id="distance"
                       type="number"
-                      value="0"
+                      initValue={"2"}
+                      handleValidation={handleValidation}
                     ></FormField>
                     <FormField
                       label={t("travel-carNumber")}
                       id="vehicles"
                       type="number"
-                      value="0"
+                      initValue="2"
+                      handleValidation={handleValidation}
                     ></FormField>
                   </>
                 );
-              } else if (
-                currKind ==
-                "passenger_train-route_type_commuter_rail-fuel_source_na"
-              ) {
+              } else if (currKind == trainAPIstring) {
                 return (
                   <>
                     <FormField
                       label={t("travel-distance")}
                       id="distance"
                       type="number"
-                      value="0"
+                      initValue="1"
+                      handleValidation={handleValidation}
                     ></FormField>
                     <FormField
                       label={t("travel-passengerNumber")}
                       id="people"
                       type="number"
-                      value="0"
+                      initValue="1"
+                      handleValidation={handleValidation}
                     ></FormField>
                   </>
                 );
-              } else if (
-                currKind ==
-                "passenger_flight-route_type_domestic-aircraft_type_jet-distance_na-class_na-rf_included"
-              ) {
+              } else if (currKind == airplaneAPIstring) {
                 return (
                   <>
                     <FormField
                       label={t("travel-departureAirport")}
                       id="departureAirport"
                       type="text"
-                      value="JFK"
+                      initValue="FRA"
+                      handleValidation={handleValidation}
                     ></FormField>
                     <FormField
                       label={t("travel-arrivalAirport")}
                       id="arrivalAirport"
                       type="text"
-                      value="NYC"
+                      initValue="FRA"
+                      handleValidation={handleValidation}
                     ></FormField>
                     <FormField
                       label={t("travel-passengerNumber")}
                       id="people"
                       type="number"
-                      value="0"
+                      initValue="1"
+                      handleValidation={handleValidation}
                     ></FormField>
                   </>
                 );
-              } else if (
-                currKind ==
-                "passenger_ferry-route_type_car_passenger-fuel_source_na"
-              ) {
+              } else if (currKind == shipAPIstring) {
                 return (
                   <>
                     <FormField
                       label={t("travel-distance")}
                       id="distance"
                       type="number"
-                      value="0"
+                      initValue="1"
+                      handleValidation={handleValidation}
                     ></FormField>
                     <FormField
                       label={t("travel-passengerNumber")}
                       id="people"
                       type="number"
-                      value="0"
+                      initValue="1"
+                      handleValidation={handleValidation}
                     ></FormField>
                   </>
                 );
               }
             })()}
 
-            <div className="col col-md-2 d-grid">
+            <div className="col col-md-2 d-grid pt-4">
               <button type="submit" className="btn btn-primary text-light">
                 {t("btn-add")}
               </button>
@@ -303,9 +390,20 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
           </div>
         </form>
 
+        {(() => {
+              if (legs.length > 0) {
+                return (
+
         <div className="row mt-3">
           <div className="col">
             <table className="table table-striped mb-0">
+              <thead>
+                <tr>
+                  <th>{t("travel-transport-mode")}</th>
+                  <th>{t("travel-distance")}</th>
+                  <th>{t("travel-number")}</th>
+                </tr>
+              </thead>
               <tbody>
                 {legs.map((leg) => (
                   <TravelFormLeg
@@ -318,6 +416,12 @@ const FormArea: FC<FormAreaProps> = ({ result, setResult }) => {
             </table>
           </div>
         </div>
+
+);
+              }
+            })()}
+
+
         <hr></hr>
         <div className="row">
           <div className="col">

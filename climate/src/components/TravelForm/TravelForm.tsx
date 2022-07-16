@@ -17,19 +17,31 @@ const TravelForm: FC<TravelFormProps> = ({
   result,
   setResult
 }) => {
+  const carAPIstring =
+    "passenger_vehicle-vehicle_type_car-fuel_source_na-engine_size_na-vehicle_age_na-vehicle_weight_na";
+  const trainAPIstring =
+    "passenger_train-route_type_commuter_rail-fuel_source_na";
+  const airplaneAPIstring =
+    "passenger_flight-route_type_domestic-aircraft_type_jet-distance_na-class_na-rf_included";
+  const shipAPIstring =
+    "passenger_ferry-route_type_car_passenger-fuel_source_na";
+
   const { t, i18n } = useTranslation();
   const [legs, setLegs] = useState<TravelLeg[]>([]);
   const [currKind, setCurrKind] = useState(
-    // seit initial state to car-emission.
-    "passenger_vehicle-vehicle_type_car-fuel_source_na-engine_size_na-vehicle_age_na-vehicle_weight_na"
+    carAPIstring
   );
+  const [valide, setValide] = useState({
+    people: true,
+    distance: true,
+    vehicles: true,
+  });
 
   /**
    * set new current kind when changing selected value in selectbox
+   * TODO: die Funktion macht eigentlich nichts, man könnte auch direkt setCurrKind benutzen, oder?
    */
   const changeKind = (newValue: string) => {
-    // TODO: console.log() entfernen.
-    //console.log(newValue);
     // set the State Value currKind to newValue.
     setCurrKind(newValue);
   };
@@ -155,6 +167,45 @@ const TravelForm: FC<TravelFormProps> = ({
       .then((data) => setResult(data.results));
   }
 
+  /**
+   * check if valide
+   */
+   function handleValidation(id: string, isValide: boolean) {
+
+    //console.log("ID", id); 
+    //console.log("VALIDE", isValide); 
+
+    switch (id) {
+      case "person":
+        setValide({
+          people: isValide,
+          distance: valide.distance,
+          vehicles: valide.vehicles,
+        });
+        break;
+      case "distance":
+        setValide({
+          people: valide.people,
+          distance: isValide,
+          vehicles: valide.vehicles,
+        });
+        break;
+      case "vehicles":
+        setValide({
+          people: valide.people,
+          distance: valide.distance,
+          vehicles: isValide,
+        });
+        break;
+      default: setValide({
+        people: valide.people,
+        distance: valide.distance,
+        vehicles: valide.people,
+      });
+    }
+    
+  }
+
   return (
     <div
       className={[styles.FormArea, "bg-light"].join(" ")}
@@ -219,13 +270,15 @@ const TravelForm: FC<TravelFormProps> = ({
                       label={t("travel-distance")}
                       id="distance"
                       type="number"
-                      value="0"
+                      initValue="0"
+                      handleValidation={handleValidation}
                     ></FormField>
                     <FormField
                       label={t("travel-carNumber")}
                       id="vehicles"
                       type="number"
-                      value="0"
+                      initValue="0"
+                      handleValidation={handleValidation}
                     ></FormField>
                   </>
                 );
@@ -239,13 +292,15 @@ const TravelForm: FC<TravelFormProps> = ({
                       label={t("travel-distance")}
                       id="distance"
                       type="number"
-                      value="0"
+                      initValue="0"
+                      handleValidation={handleValidation}
                     ></FormField>
                     <FormField
                       label={t("travel-passengerNumber")}
                       id="people"
                       type="number"
-                      value="0"
+                      initValue="0"
+                      handleValidation={handleValidation}
                     ></FormField>
                   </>
                 );
@@ -259,19 +314,22 @@ const TravelForm: FC<TravelFormProps> = ({
                       label={t("travel-departureAirport")}
                       id="departureAirport"
                       type="text"
-                      value="JFK"
+                      initValue="JFK"
+                      handleValidation={handleValidation}
                     ></FormField>
                     <FormField
                       label={t("travel-arrivalAirport")}
                       id="arrivalAirport"
                       type="text"
-                      value="NYC"
+                      initValue="NYC"
+                      handleValidation={handleValidation}
                     ></FormField>
                     <FormField
                       label={t("travel-passengerNumber")}
                       id="people"
                       type="number"
-                      value="0"
+                      initValue="0"
+                      handleValidation={handleValidation}
                     ></FormField>
                   </>
                 );
@@ -285,13 +343,15 @@ const TravelForm: FC<TravelFormProps> = ({
                       label={t("travel-distance")}
                       id="distance"
                       type="number"
-                      value="0"
+                      initValue="0"
+                      handleValidation={handleValidation}
                     ></FormField>
                     <FormField
                       label={t("travel-passengerNumber")}
                       id="people"
                       type="number"
-                      value="0"
+                      initValue="0"
+                      handleValidation={handleValidation}
                     ></FormField>
                   </>
                 );
