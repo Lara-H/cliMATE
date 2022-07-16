@@ -68,7 +68,8 @@
 
     "error_notEmpty": "Feld darf nicht leer sein",
     "error_notNegative": "Zahl muss größer als 0 sein",
-    "error_notIATA": "Kein gültiger IATA-Code"
+    "error_notIATA": "Kein gültiger IATA-Code",
+    "error-alert": "Bitte überprüfe Deine Eingabe"
 
     
 

@@ -53,5 +53,6 @@
 
     "error_notEmpty": "field cannot be empty",
     "error_notNegative": "number must be greater than 0",
-    "error_notIATA": "not a valid IATA code"
+    "error_notIATA": "not a valid IATA code",
+    "error-alert": "Please check your input"
 }

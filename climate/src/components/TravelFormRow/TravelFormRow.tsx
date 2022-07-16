@@ -28,7 +28,7 @@ const TravelFormRow: FC<TravelFormRowProps> = ({ currKind, leg, getValidationInf
    */
   function generateValidationInfoRow(id: string, isValide: boolean) { // send info if fields of row is valid to top component
     switch (id) {
-      case "person":
+      case "people":
         getValidationInfoRow(isValide, isValid.distance, isValid.vehicles);
         setValid({
           people: isValide,

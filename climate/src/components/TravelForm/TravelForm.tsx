@@ -2,10 +2,9 @@ import React, { FC, SetStateAction, useEffect, useState } from "react";
 import styles from "./TravelForm.module.scss";
 import { useTranslation } from "react-i18next";
 import TravelFormLeg, { TravelLeg } from "../TravelFormLeg/TravelFormLeg";
-import FormField from "../FormField/FormField";
 import { v4 as uuid } from "uuid";
-import FormRow from "../TravelFormRow/TravelFormRow";
 import TravelFormRow from "../TravelFormRow/TravelFormRow";
+import Alert from "react-bootstrap/Alert";
 
 interface TravelFormProps {
   result: Array<Object>;
@@ -20,6 +19,7 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
     distance: true,
     vehicles: true,
   });
+  const [show, setShow] = useState(false);
 
   // API strings for transport-mode
   const carAPIstring =
@@ -91,6 +91,9 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
       };
       const newLegList = legs.concat(newLeg);
       setLegs(newLegList);
+      setShow(false);
+    } else {
+      setShow(true);
     }
   }
 
@@ -128,6 +131,7 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
   return (
     <div className={`${styles.TravelForm} bg-light`} data-testid="TravelForm">
       <span className="cm-anchor" id="FormArea"></span>
+
       <div className="container">
         <div className="row align-items-baseline">
           <div className="col-12 col-md">
@@ -138,6 +142,15 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
           </div>
         </div>
         <hr></hr>
+
+        <Alert
+          className={`${show ? "d-block" : "d-none"}`}
+          variant="danger"
+          onClose={() => setShow(false)}
+          dismissible
+        >
+          {t("error-alert")}
+        </Alert>
 
         <form
           onSubmit={(event) => {
@@ -156,18 +169,10 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
                 onChange={(event) => setTransportMode(event.target.value)}
                 value={transportMode}
               >
-                <option value={carAPIstring}>
-                  {t("travel-car")}
-                </option>
-                <option value={trainAPIstring}>
-                  {t("travel-train")}
-                </option>
-                <option value={airplaneAPIstring}>
-                  {t("travel-airport")}
-                </option>
-                <option value={shipAPIstring}>
-                  {t("travel-ship")}
-                </option>
+                <option value={carAPIstring}>{t("travel-car")}</option>
+                <option value={trainAPIstring}>{t("travel-train")}</option>
+                <option value={airplaneAPIstring}>{t("travel-airport")}</option>
+                <option value={shipAPIstring}>{t("travel-ship")}</option>
               </select>
             </div>
             <div className="col-12 col-md">
