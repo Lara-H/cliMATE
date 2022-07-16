@@ -1,10 +1,12 @@
 import React, { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import FormField from "../FormField/FormField";
+import { TravelLeg } from "../TravelFormLeg/TravelFormLeg";
 import styles from "./TravelFormRow.module.scss";
 
-interface FormRowProps {
+interface TravelFormRowProps {
   currKind: string;
+  leg?: TravelLeg;
   handleValidationValues: (
     people: boolean,
     distance: boolean,
@@ -12,7 +14,7 @@ interface FormRowProps {
   ) => void;
 }
 
-const FormRow: FC<FormRowProps> = ({ currKind, handleValidationValues }) => {
+const TravelFormRow: FC<TravelFormRowProps> = ({ currKind, leg, handleValidationValues }) => {
   const { t, i18n } = useTranslation();
   const [valide, setValide] = useState({
     people: true,
@@ -57,7 +59,7 @@ const FormRow: FC<FormRowProps> = ({ currKind, handleValidationValues }) => {
   }
 
   return (
-    <div className={`${styles.TravelFormRow} row`} data-testid="FormRow">
+    <div className={`${styles.TravelFormRow} row`} data-testid="TravelFormRow">
       {(() => {
         switch (currKind) {
           case "passenger_vehicle-vehicle_type_car-fuel_source_na-engine_size_na-vehicle_age_na-vehicle_weight_na":
@@ -67,14 +69,14 @@ const FormRow: FC<FormRowProps> = ({ currKind, handleValidationValues }) => {
                   label={t("travel-distance")}
                   id="distance"
                   type="number"
-                  initValue="1"
+                  initValue={leg ? leg.distance.toString() : "1"}
                   handleValidation={handleValidation}
                 ></FormField>
                 <FormField
                   label={t("travel-carNumber")}
                   id="vehicles"
                   type="number"
-                  initValue="1"
+                  initValue={leg ? leg.vehicles.toString() : "1"}
                   handleValidation={handleValidation}
                 ></FormField>
               </>
@@ -86,14 +88,14 @@ const FormRow: FC<FormRowProps> = ({ currKind, handleValidationValues }) => {
                   label={t("travel-distance")}
                   id="distance"
                   type="number"
-                  initValue="1"
+                  initValue={leg ? leg.distance.toString() : "1"}
                   handleValidation={handleValidation}
                 ></FormField>
                 <FormField
                   label={t("travel-passengerNumber")}
                   id="people"
                   type="number"
-                  initValue="1"
+                  initValue={leg ? leg.passengers.toString() : "1"}
                   handleValidation={handleValidation}
                 ></FormField>
               </>
@@ -119,7 +121,7 @@ const FormRow: FC<FormRowProps> = ({ currKind, handleValidationValues }) => {
                   label={t("travel-passengerNumber")}
                   id="people"
                   type="number"
-                  initValue="1"
+                  initValue={leg ? leg.passengers.toString() : "1"}
                   handleValidation={handleValidation}
                 ></FormField>
               </>
@@ -131,14 +133,14 @@ const FormRow: FC<FormRowProps> = ({ currKind, handleValidationValues }) => {
                   label={t("travel-distance")}
                   id="distance"
                   type="number"
-                  initValue="1"
+                  initValue={leg ? leg.distance.toString() : "1"}
                   handleValidation={handleValidation}
                 ></FormField>
                 <FormField
                   label={t("travel-passengerNumber")}
                   id="people"
                   type="number"
-                  initValue="1"
+                  initValue={leg ? leg.passengers.toString() : "1"}
                   handleValidation={handleValidation}
                 ></FormField>
               </>
@@ -149,4 +151,4 @@ const FormRow: FC<FormRowProps> = ({ currKind, handleValidationValues }) => {
   );
 };
 
-export default FormRow;
+export default TravelFormRow;

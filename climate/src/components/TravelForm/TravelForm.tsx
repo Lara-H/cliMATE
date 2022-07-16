@@ -6,6 +6,7 @@ import TravelFormLeg, { TravelLeg } from "../TravelFormLeg/TravelFormLeg";
 import FormField from "../FormField/FormField";
 import { v4 as uuid } from "uuid";
 import FormRow from "../TravelFormRow/TravelFormRow";
+import TravelFormRow from "../TravelFormRow/TravelFormRow";
 
 interface TravelFormProps {
   result: Array<Object>;
@@ -190,10 +191,10 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
             </div>
 
             <div className="col">
-              <FormRow
+              <TravelFormRow
                 currKind={currKind}
                 handleValidationValues={handleValidationValues}
-              ></FormRow>
+              ></TravelFormRow>
             </div>
 
             <div className="col col-md-2 d-grid">

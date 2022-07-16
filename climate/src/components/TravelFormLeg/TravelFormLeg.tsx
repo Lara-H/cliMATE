@@ -18,6 +18,13 @@ const TravelFormLeg: FC<TravelFormLegProps> = ({ leg, handleRemove }) => {
   //current leg values
   const [currLeg, setCurrLeg] = useState(leg);
 
+  // check if fields are valide
+  const [valide, setValide] = useState({
+    people: true,
+    distance: true,
+    vehicles: true,
+  });
+
   //modal-states
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -31,6 +38,14 @@ const TravelFormLeg: FC<TravelFormLegProps> = ({ leg, handleRemove }) => {
     count: currLeg.vehicles,
   });
 
+  function handleValidationValues(
+    people: boolean,
+    distance: boolean,
+    vehicles: boolean
+  ) {
+    setValide({ people: people, distance: distance, vehicles: vehicles });
+  }
+
   /**
    * handle edited value from modal
    */
@@ -43,6 +58,7 @@ const TravelFormLeg: FC<TravelFormLegProps> = ({ leg, handleRemove }) => {
       vehicles: currLeg.vehicles,
     };
     setCurrLeg(newLeg);
+    handleClose();
   }
 
   return (
@@ -62,6 +78,7 @@ const TravelFormLeg: FC<TravelFormLegProps> = ({ leg, handleRemove }) => {
           show={show}
           handleClose={handleClose}
           handleSave={handleSave}
+          handleValidationValues={handleValidationValues}
         ></EditModal>
       </td>
     </tr>
