@@ -7,32 +7,32 @@ interface FormFieldProps {
   id: string;
   type: string;
   initValue: string;
-  handleValidation: (id: string, isValide: boolean) => void;
+  getValidationInfoField: (id: string, isValide: boolean) => void;
 }
-
-
 
 const FormField: FC<FormFieldProps> = ({
   label,
   id,
   type,
   initValue,
-  handleValidation,
+  getValidationInfoField,
 }) => {
+
   const { t, i18n } = useTranslation();
   const [value, setValue] = useState(initValue);
   const [error, setError] = useState("");
-  const [valid, setValid] = useState(true);
 
+   /*
+   * handle value and check if valid while typing
+   */
   function handleChange(newValue: string) {
+    let isValid = true;
     setValue(newValue);
-
-    if (type == "number") {
-      if (newValue.match(/^[1-9]+[0-9]*$/)) {
+    if (type == "number") { 
+      if (newValue.match(/^[1-9]+[0-9]*$/)) { // all number inputs must be greater than 0
         setError("");
-        setValid(true)
       } else {
-        setValid(false)
+        isValid = false;
         if (newValue.length == 0) {
           setError(t("error_notEmpty"));
         } else {
@@ -40,11 +40,10 @@ const FormField: FC<FormFieldProps> = ({
         }
       }
     } else if (type == "text") {
-      if (newValue.match(/^[A-Z]+[A-Z]+[A-Z]/)) {
+      if (newValue.match(/^[A-Z]+[A-Z]+[A-Z]/)) { // all text inputs must be iata-code (flight)
         setError("");
-        setValid(true)
       } else {
-        setValid(false)
+        isValid = false;
         if (newValue.length == 0) {
           setError(t("error_notEmpty"));
         } else {
@@ -52,8 +51,7 @@ const FormField: FC<FormFieldProps> = ({
         }
       }
     }
-
-    handleValidation(id, valid);
+    getValidationInfoField(id, isValid); // send info if field is valid to top component
   }
 
   return (
@@ -64,9 +62,7 @@ const FormField: FC<FormFieldProps> = ({
       <br></br>
       <input
         type={type}
-        className={`${
-          error ? `form-control is-invalid` : `form-control`
-        }`}
+        className={`${error ? `form-control is-invalid` : `form-control`}`}
         id={id}
         value={value}
         onChange={(e) => {

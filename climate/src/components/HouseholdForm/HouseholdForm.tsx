@@ -193,7 +193,7 @@ const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult}) => {
                     id="consumption"
                     type="number"
                     initValue="0"
-                    handleValidation={handleValidation}
+                    getValidationInfoField={handleValidation}
                   ></FormField>
                 </div>
                 <ul className="list-group list-group-flush">
@@ -226,7 +226,7 @@ const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult}) => {
                     id="waste"
                     type="number"
                     initValue="0"
-                    handleValidation={handleValidation}
+                    getValidationInfoField={handleValidation}
                   ></FormField>
                 </div>
                 <ul className="list-group list-group-flush">
@@ -259,7 +259,7 @@ const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult}) => {
                     id="clothing"
                     type="number"
                     initValue="0"
-                    handleValidation={handleValidation}
+                    getValidationInfoField={handleValidation}
                   ></FormField>
                 </div>
                 <ul className="list-group list-group-flush">

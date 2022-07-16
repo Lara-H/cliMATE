@@ -244,14 +244,14 @@ const FreightForm: FC<FreightFormProps> = ({ result, setResult}) => {
                 id="distance"
                 type="number"
                 initValue="1"
-                handleValidation={handleValidation}
+                getValidationInfoField={handleValidation}
               ></FormField>
               <FormField
                 label={t("freight-weight")}
                 id="weight"
                 type="number"
                 initValue="1"
-                handleValidation={handleValidation}
+                getValidationInfoField={handleValidation}
               ></FormField>
             </>
 

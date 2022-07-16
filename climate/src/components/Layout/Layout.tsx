@@ -10,7 +10,6 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; // Ro
 import Navigation from "../Navigation/Navigation";
 import Teaser from "../Teaser/Teaser";
 import FormSelector from "../FormSelector/FormSelector";
-import FormArea from "../FormArea/FormArea";
 import ResultArea from "../ResultArea/ResultArea";
 import Footer from "../Footer/Footer";
 import styles from "./Layout.module.scss";

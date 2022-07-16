@@ -1,5 +1,4 @@
 import React, { FC, SetStateAction, useEffect, useState } from "react";
-import FormArea from "../FormArea/FormArea";
 import styles from "./TravelForm.module.scss";
 import { useTranslation } from "react-i18next";
 import TravelFormLeg, { TravelLeg } from "../TravelFormLeg/TravelFormLeg";
@@ -14,6 +13,7 @@ interface TravelFormProps {
 }
 
 const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
+  
   const { t, i18n } = useTranslation();
 
   // API strings for transport-mode
@@ -103,14 +103,6 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
     }
   }
 
-  function handleValidationValues(
-    people: boolean,
-    distance: boolean,
-    vehicles: boolean
-  ) {
-    setValide({ people: people, distance: distance, vehicles: vehicles });
-  }
-
   /**
    * parse all legs into a JSON-Object and send it as body to the API. If the response is positively, set the result state to the response.
    */
@@ -193,7 +185,9 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
             <div className="col">
               <TravelFormRow
                 currKind={currKind}
-                handleValidationValues={handleValidationValues}
+                getValidationInfoRow={(people: boolean,
+                  distance: boolean,
+                  vehicles: boolean) => setValide({ people: people, distance: distance, vehicles: vehicles })}
               ></TravelFormRow>
             </div>
 

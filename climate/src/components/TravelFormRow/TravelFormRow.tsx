@@ -7,55 +7,58 @@ import styles from "./TravelFormRow.module.scss";
 interface TravelFormRowProps {
   currKind: string;
   leg?: TravelLeg;
-  handleValidationValues: (
+  getValidationInfoRow: (
     people: boolean,
     distance: boolean,
     vehicles: boolean
   ) => void;
 }
 
-const TravelFormRow: FC<TravelFormRowProps> = ({ currKind, leg, handleValidationValues }) => {
+const TravelFormRow: FC<TravelFormRowProps> = ({ currKind, leg, getValidationInfoRow }) => {
+
   const { t, i18n } = useTranslation();
-  const [valide, setValide] = useState({
+  const [isValid, setValid] = useState({
     people: true,
     distance: true,
     vehicles: true,
   });
 
-  /**
-   * check if valide
+  /*
+   * sumarize validation-info of seperate fields
    */
-  function handleValidation(id: string, isValide: boolean) {
+  function generateValidationInfoRow(id: string, isValide: boolean) { // send info if fields of row is valid to top component
     switch (id) {
       case "person":
-        setValide({
+        getValidationInfoRow(isValide, isValid.distance, isValid.vehicles);
+        setValid({
           people: isValide,
-          distance: valide.distance,
-          vehicles: valide.vehicles,
+          distance: isValid.distance,
+          vehicles: isValid.vehicles,
         });
         break;
       case "distance":
-        setValide({
-          people: valide.people,
+        getValidationInfoRow(isValid.people, isValide, isValid.vehicles); // send info if fields of row is valid to top component
+        setValid({
+          people: isValid.people,
           distance: isValide,
-          vehicles: valide.vehicles,
+          vehicles: isValid.vehicles,
         });
         break;
       case "vehicles":
-        setValide({
-          people: valide.people,
-          distance: valide.distance,
+        getValidationInfoRow(isValid.people, isValid.distance, isValide); // send info if fields of row is valid to top component
+        setValid({
+          people: isValid.people,
+          distance: isValid.distance,
           vehicles: isValide,
         });
         break;
       default:
-        setValide({
-          people: valide.people,
-          distance: valide.distance,
-          vehicles: valide.people,
+        setValid({
+          people: isValid.people,
+          distance: isValid.distance,
+          vehicles: isValid.people,
         });
     }
-    handleValidationValues(valide.people, valide.distance, valide.vehicles);
   }
 
   return (
@@ -67,17 +70,17 @@ const TravelFormRow: FC<TravelFormRowProps> = ({ currKind, leg, handleValidation
               <>
                 <FormField
                   label={t("travel-distance")}
-                  id="distance"
+                  id={leg ? "distance-edit" : "distance"}
                   type="number"
                   initValue={leg ? leg.distance.toString() : "1"}
-                  handleValidation={handleValidation}
+                  getValidationInfoField={generateValidationInfoRow}
                 ></FormField>
                 <FormField
                   label={t("travel-carNumber")}
-                  id="vehicles"
+                  id={leg ? "vehicles-edit" : "vehicles"}
                   type="number"
                   initValue={leg ? leg.vehicles.toString() : "1"}
-                  handleValidation={handleValidation}
+                  getValidationInfoField={generateValidationInfoRow}
                 ></FormField>
               </>
             );
@@ -86,17 +89,17 @@ const TravelFormRow: FC<TravelFormRowProps> = ({ currKind, leg, handleValidation
               <>
                 <FormField
                   label={t("travel-distance")}
-                  id="distance"
+                  id={leg ? "distance-edit" : "distance"}
                   type="number"
                   initValue={leg ? leg.distance.toString() : "1"}
-                  handleValidation={handleValidation}
+                  getValidationInfoField={generateValidationInfoRow}
                 ></FormField>
                 <FormField
                   label={t("travel-passengerNumber")}
-                  id="people"
+                  id={leg ? "people-edit" : "people"}
                   type="number"
                   initValue={leg ? leg.passengers.toString() : "1"}
-                  handleValidation={handleValidation}
+                  getValidationInfoField={generateValidationInfoRow}
                 ></FormField>
               </>
             );
@@ -105,24 +108,24 @@ const TravelFormRow: FC<TravelFormRowProps> = ({ currKind, leg, handleValidation
               <>
                 <FormField
                   label={t("travel-departureAirport")}
-                  id="departureAirport"
+                  id={leg ? "departureAirport-edit" : "departureAirport"}
                   type="text"
                   initValue="JFK"
-                  handleValidation={handleValidation}
+                  getValidationInfoField={generateValidationInfoRow}
                 ></FormField>
                 <FormField
                   label={t("travel-arrivalAirport")}
-                  id="arrivalAirport"
+                  id={leg ? "arrivalAirport-edit" : "arrivalAirport"}
                   type="text"
                   initValue="NYC"
-                  handleValidation={handleValidation}
+                  getValidationInfoField={generateValidationInfoRow}
                 ></FormField>
                 <FormField
                   label={t("travel-passengerNumber")}
-                  id="people"
+                  id={leg ? "people-edit" : "people"}
                   type="number"
                   initValue={leg ? leg.passengers.toString() : "1"}
-                  handleValidation={handleValidation}
+                  getValidationInfoField={generateValidationInfoRow}
                 ></FormField>
               </>
             );
@@ -131,17 +134,17 @@ const TravelFormRow: FC<TravelFormRowProps> = ({ currKind, leg, handleValidation
               <>
                 <FormField
                   label={t("travel-distance")}
-                  id="distance"
+                  id={leg ? "distance-edit" : "distance"}
                   type="number"
                   initValue={leg ? leg.distance.toString() : "1"}
-                  handleValidation={handleValidation}
+                  getValidationInfoField={generateValidationInfoRow}
                 ></FormField>
                 <FormField
                   label={t("travel-passengerNumber")}
-                  id="people"
+                  id={leg ? "people-edit" : "people"}
                   type="number"
                   initValue={leg ? leg.passengers.toString() : "1"}
-                  handleValidation={handleValidation}
+                  getValidationInfoField={generateValidationInfoRow}
                 ></FormField>
               </>
             );
