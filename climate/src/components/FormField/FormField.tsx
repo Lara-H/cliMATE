@@ -55,7 +55,7 @@ const FormField: FC<FormFieldProps> = ({
   }
 
   return (
-    <div className={`col-6 col-md ${styles.FormField}`} data-testid="FormField">
+    <div className={`col-12 col-md ${styles.FormField}`} data-testid="FormField">
       <label htmlFor={id} className="form-label">
         {label}
       </label>
