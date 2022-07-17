@@ -4,7 +4,7 @@
     "household": "household",
 
     "btn-calculate": "calculate",
-    "btn-change": "change",
+    "btn-change": "change mode",
     "btn-add": "Add",
     "btn-reset": "Reset",
     "btn-evaluate": "Evaluate",
@@ -31,6 +31,21 @@
     "travel-departureAirport": "departure airport",
     "travel-arrivalAirport": "arrival airport",
 
+    "freight-transport-mode": "mode of transport",
+    "freight-car": "truck",
+    "freight-train": "train",
+    "freight-airport": "airplane",
+    "freight-ship": "ship",
+    "freight-distance": "distance",
+    "freight-weight": "weight",
+
+    "household-power-consumption": "power consumption",
+    "household-power-consumption-label": "power consumption (kWh)",
+    "household-waste": "waste production",
+    "household-waste-label": "amount of garbage (kg)",
+    "household-clothing": "clothes",
+    "household-clothing-label": "price of clothes (EUR)",
+
     "resultArea-headline": "result",
     "resultArea-text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
     "resultAreaText-kg": "kg CO² are emitted in total",
@@ -45,6 +60,11 @@
     "passenger_train-route_type_commuter_rail-fuel_source_na": "train ride",
     "passenger_flight-route_type_domestic-aircraft_type_jet-distance_na-class_na-rf_included": "flight",
     "passenger_ferry-route_type_car_passenger-fuel_source_na": "shipping",
+
+    "freight_vehicle-vehicle_type-hgv_refrig-fuel_source_diesel-vehicle_weight_na-percentage_load_100": "truck", 
+    "freight_train-route_type_domestic-fuel_type_diesel": "freight train",
+    "freight_flight-route_type_domestic-distance_gt_1000km_lt_3500km-weight_gt_100t-rf_included": "air freight",
+    "sea_freight-vessel_type_bulk_carrier-route_type_na-vessel_length_na-tonnage_gt_100000dwt_lt_199999dwt-fuel_source_na": "container Ship",
 
     "table_passengerNum_one": "{{count}} passenger",
     "table_passengerNum_other": "{{count}} passengers",
