@@ -69,7 +69,7 @@ const TravelFormRow: FC<TravelFormRowProps> = ({ currKind, leg, getValidationInf
             return (
               <>
                 <FormField
-                  label={t("travel-distance")}
+                  label={t("travel-distance-km")}
                   id={leg ? "distance-edit" : "distance"}
                   type="number"
                   initValue={leg ? leg.distance.toString() : "1"}
@@ -88,7 +88,7 @@ const TravelFormRow: FC<TravelFormRowProps> = ({ currKind, leg, getValidationInf
             return (
               <>
                 <FormField
-                  label={t("travel-distance")}
+                  label={t("travel-distance-km")}
                   id={leg ? "distance-edit" : "distance"}
                   type="number"
                   initValue={leg ? leg.distance.toString() : "1"}
@@ -133,7 +133,7 @@ const TravelFormRow: FC<TravelFormRowProps> = ({ currKind, leg, getValidationInf
             return (
               <>
                 <FormField
-                  label={t("travel-distance")}
+                  label={t("travel-distance-km")}
                   id={leg ? "distance-edit" : "distance"}
                   type="number"
                   initValue={leg ? leg.distance.toString() : "1"}
