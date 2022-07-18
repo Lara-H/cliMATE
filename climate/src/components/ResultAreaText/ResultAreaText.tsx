@@ -2,6 +2,8 @@ import React, { FC, useState } from "react";
 import { Value } from "sass";
 import styles from "./ResultAreaText.module.scss";
 import AnimatedNumber from "animated-number-react";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type Result = {
   [key: string]: any;
@@ -12,9 +14,10 @@ interface ResultAreaTextProps {
   label: String;
   result: Array<Result>;
   type: String;
+  icon: IconProp;
 }
 
-const ResultAreaText: FC<ResultAreaTextProps> = ({ value, label, result, type }) => {
+const ResultAreaText: FC<ResultAreaTextProps> = ({ value, label, result, type, icon }) => {
   const [counter, setCounter] = useState(0);
 
   // Hook to trigger the update function on every change to our result state.
@@ -25,6 +28,7 @@ const ResultAreaText: FC<ResultAreaTextProps> = ({ value, label, result, type })
   
   return (
     <div className={styles.ResultAreaText} data-testid="ResultAreaText">
+      <FontAwesomeIcon className="display-3 mb-3" icon={icon}></FontAwesomeIcon> <FontAwesomeIcon className="display-6 mb-3" icon={icon}></FontAwesomeIcon><br></br>
       <AnimatedNumber className="display-5" value={counter} formatValue={(num: number) => num.toFixed(1)}></AnimatedNumber>
       <p className="text-muted small">{label}</p>
     </div>

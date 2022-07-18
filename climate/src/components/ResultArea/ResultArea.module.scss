@@ -1,3 +1,12 @@
+@import "../../App.scss";
+
 .ResultArea {
     padding: 3rem 0;
+
+    @include media-breakpoint-down(lg) {
+        .cm-icon-first {
+          margin-bottom: 1rem;
+          border: none !important;
+        }
+      }
 }
