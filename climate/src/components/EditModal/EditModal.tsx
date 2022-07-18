@@ -13,7 +13,7 @@ interface EditModalProps {
   leg: TravelLeg;
   show: boolean;
   handleClose: () => void;
-  handleSave: (passengers: number, distance: number, vehicles: number) => void;
+  handleSave: (passengers: number, distance: number, vehicles: number, departureAirport: string, arrivalAirport: string) => void;
 }
 
 const EditModal: FC<EditModalProps> = ({
@@ -71,8 +71,30 @@ const EditModal: FC<EditModalProps> = ({
       }
     }
 
+    const departureAirportInput = document.getElementById(
+      "departureAirport-edit"
+    ) as HTMLInputElement;
+    let departureAirport = leg.departureAirport;
+    if (departureAirportInput != null) {
+      departureAirport = departureAirportInput.value;
+      //if (!valide.departureAirport) {
+      //  isValid = false;
+      //}
+    }
+
+    const arrivalAirportInput = document.getElementById(
+      "arrivalAirport-edit"
+    ) as HTMLInputElement;
+    let arrivalAirport = leg.arrivalAirport;
+    if (arrivalAirport != null) {
+      arrivalAirport = arrivalAirportInput.value;
+      //if (!valide.arrivalAirport) {
+      //  isValid = false;
+      //}
+    }
+
     if (isValid) {
-      handleSave(people, distance, vehicles);
+      handleSave(people, distance, vehicles, departureAirport, arrivalAirport);
     } else {
       console.log("MODLAL NICHT VALIDE");
     }
