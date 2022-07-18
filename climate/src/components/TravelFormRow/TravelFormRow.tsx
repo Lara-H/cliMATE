@@ -113,7 +113,7 @@ const TravelFormRow: FC<TravelFormRowProps> = ({ currKind, leg, getValidationInf
                   label={t("travel-departureAirport")}
                   id={leg ? "departureAirport-edit" : "departureAirport"}
                   type="text"
-                  initValue="JFK"
+                  initValue="FRA"
                   getValidationInfoField={generateValidationInfoRow}
                 ></FormField>
                 <FormField
