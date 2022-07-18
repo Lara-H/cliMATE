@@ -14,7 +14,10 @@ interface FreightFormProps {
 
 const FreightForm: FC<FreightFormProps> = ({ result, setResult }) => {
   const { t, i18n } = useTranslation();
-  const [legs, setLegs] = useState<FreightLeg[]>([]);
+  const localDataLegs = localStorage.getItem("freightLegs");
+  const [legs, setLegs] = useState<FreightLeg[]>(
+    localDataLegs ? JSON.parse(localDataLegs) : []
+  );
   const [isValid, setValid] = useState({
     distance: true,
     weight: true,
@@ -32,6 +35,11 @@ const FreightForm: FC<FreightFormProps> = ({ result, setResult }) => {
 
   const [transportMode, setTransportMode] = useState(carAPIstring);
 
+  //Update LocalStorage
+  useEffect(() => {
+    localStorage.setItem("freightLegs", JSON.stringify(legs));
+  });
+
   /**
    * functionality to delete an item with given id from our legs-state.
    * @param id
@@ -40,6 +48,19 @@ const FreightForm: FC<FreightFormProps> = ({ result, setResult }) => {
     const newLegs = legs.filter((item) => item.id !== id);
     // set the State Value legs to newLegs.
     setLegs(newLegs);
+  }
+
+  /**
+   * update leg-list after edit
+   * @param leg
+   */
+  function handleEditItem(leg: FreightLeg) {
+    for (let i in legs) {
+      if (leg.id == legs[i].id) {
+        legs[i] = leg;
+      }
+    }
+    localStorage.setItem("freightLegs", JSON.stringify(legs));
   }
 
   /**
@@ -199,6 +220,7 @@ const FreightForm: FC<FreightFormProps> = ({ result, setResult }) => {
                     leg={leg}
                     key={leg.id}
                     handleRemove={handleRemoveItem}
+                    handleEdit={handleEditItem}
                   ></FreightFormLeg>
                 ))}
               </tbody>

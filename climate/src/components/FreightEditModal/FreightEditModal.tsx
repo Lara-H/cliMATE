@@ -46,12 +46,12 @@ const FreightEditModal: FC<FreightEditModalProps> = ({
         isFormValid = false;
       }
     }
-    const vehicleSelect = document.getElementById(
+    const weightSelect = document.getElementById(
       "weight-edit"
     ) as HTMLInputElement;
     let weight = leg.weight;
-    if (vehicleSelect != null) {
-      weight = parseInt(vehicleSelect.value);
+    if (weightSelect != null) {
+      weight = parseInt(weightSelect.value);
       if (!isValid.weight) {
         isFormValid = false;
       }

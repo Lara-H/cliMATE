@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import styles from "./TravelFormLeg.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TravelEditModal from "../TravelEditModal/TravelEditModal";
@@ -10,9 +10,10 @@ import i18next from "i18next";
 interface TravelFormLegProps {
   leg: TravelLeg;
   handleRemove: (id: string) => void;
+  handleEdit: (leg: TravelLeg) => void;
 }
 
-const TravelFormLeg: FC<TravelFormLegProps> = ({ leg, handleRemove }) => {
+const TravelFormLeg: FC<TravelFormLegProps> = ({ leg, handleRemove, handleEdit }) => {
   const { t, i18n } = useTranslation();
 
   //current leg values
@@ -34,7 +35,7 @@ const TravelFormLeg: FC<TravelFormLegProps> = ({ leg, handleRemove }) => {
   /**
    * handle edited value from modal
    */
-  function handleSave(passengers:number, distance:number, vehicles:number) {
+  function handleSave(passengers: number, distance: number, vehicles: number) {
     let newLeg = {
       id: currLeg.id,
       type: currLeg.type,
@@ -42,6 +43,7 @@ const TravelFormLeg: FC<TravelFormLegProps> = ({ leg, handleRemove }) => {
       distance: distance,
       vehicles: vehicles,
     };
+    handleEdit(newLeg);
     setCurrLeg(newLeg);
     handleClose();
   }

@@ -9,9 +9,10 @@ import FreightEditModal from "../FreightEditModal/FreightEditModal";
 interface FreightFormLegProps {
   leg: FreightLeg;
   handleRemove: (id: string) => void;
+  handleEdit: (leg: FreightLeg) => void;
 }
 
-const FreightFormLeg: FC<FreightFormLegProps> = ({ leg, handleRemove }) => {
+const FreightFormLeg: FC<FreightFormLegProps> = ({ leg, handleRemove, handleEdit }) => {
   const { t, i18n } = useTranslation();
 
   //current leg values
@@ -32,6 +33,7 @@ const FreightFormLeg: FC<FreightFormLegProps> = ({ leg, handleRemove }) => {
       distance: distance,
       weight: weight,
     };
+    handleEdit(newLeg);
     setCurrLeg(newLeg);
     handleClose();
   }

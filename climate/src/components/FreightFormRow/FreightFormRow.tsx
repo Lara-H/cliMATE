@@ -67,7 +67,7 @@ const FreightFormRow: FC<FreightFormRowProps> = ({
         label={t("freight-weight")}
         id={leg ? "weight-edit" : "weight"}
         type="number"
-        initValue={leg ? leg.distance.toString() : "1"}
+        initValue={leg ? leg.weight.toString() : "1"}
         getValidationInfoField={generateValidationInfoRow}
       ></FormField>
     </div>
