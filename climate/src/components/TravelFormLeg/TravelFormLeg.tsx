@@ -60,7 +60,7 @@ const TravelFormLeg: FC<TravelFormLegProps> = ({ leg, handleRemove }) => {
         </a>
         <EditModal
           leg={currLeg}
-          show={show}
+          showModal={show}
           handleClose={handleClose}
           handleSave={handleSave}
         ></EditModal>

@@ -8,23 +8,24 @@ import Modal from "react-bootstrap/Modal";
 import { useTranslation } from "react-i18next";
 import { TravelLeg } from "../TravelFormLeg/TravelFormLeg";
 import TravelFormRow from "../TravelFormRow/TravelFormRow";
+import { Alert } from "react-bootstrap";
 
 interface EditModalProps {
   leg: TravelLeg;
-  show: boolean;
+  showModal: boolean;
   handleClose: () => void;
   handleSave: (passengers: number, distance: number, vehicles: number) => void;
 }
 
 const EditModal: FC<EditModalProps> = ({
   leg,
-  show,
+  showModal,
   handleClose,
   handleSave,
 }) => {
   const { t, i18n } = useTranslation();
-
-  const [valide, setValide] = useState({
+  const [show, setShow] = useState(false);
+  const [isValid, setValid] = useState({
     people: true,
     distance: true,
     vehicles: true,
@@ -34,9 +35,7 @@ const EditModal: FC<EditModalProps> = ({
    * get new values from fields and save if valide
    */
   function handleClick() {
-    let isValid = true;
-
-    console.log(valide);
+    let isFormValid = true;
 
     const passengerSelect = document.getElementById(
       "people-edit"
@@ -44,63 +43,72 @@ const EditModal: FC<EditModalProps> = ({
     let people = leg.passengers;
     if (passengerSelect != null) {
       people = parseInt(passengerSelect.value);
-      if (!valide.people) {
-        isValid = false;
+      if (!isValid.people) {
+        isFormValid = false;
       }
     }
-
     const distanceSelect = document.getElementById(
       "distance-edit"
     ) as HTMLInputElement;
     let distance = leg.distance;
     if (distanceSelect != null) {
       distance = parseInt(distanceSelect.value);
-      if (!valide.distance) {
-        isValid = false;
+      if (!isValid.distance) {
+        isFormValid = false;
       }
     }
-
     const vehicleSelect = document.getElementById(
       "vehicles-edit"
     ) as HTMLInputElement;
     let vehicles = leg.vehicles;
     if (vehicleSelect != null) {
       vehicles = parseInt(vehicleSelect.value);
-      if (!valide.vehicles) {
-        isValid = false;
+      if (!isValid.vehicles) {
+        isFormValid = false;
       }
     }
 
-    if (isValid) {
+    if (isFormValid) {
       handleSave(people, distance, vehicles);
+      setShow(false);
     } else {
-      console.log("MODLAL NICHT VALIDE");
+      setShow(true);
     }
-  }
-
-  function handleValidationValues(
-    people: boolean,
-    distance: boolean,
-    vehicles: boolean
-  ) {
-    setValide({ people: people, distance: distance, vehicles: vehicles });
   }
 
   return (
     <Modal
       className={styles.EditModal}
       data-testid="EditModal"
-      show={show}
+      show={showModal}
       onHide={handleClose}
     >
       <ModalHeader closeButton>
         <ModalTitle>{t(leg.type)}</ModalTitle>
       </ModalHeader>
       <ModalBody>
+        <Alert
+          className={`${show ? "d-block" : "d-none"}`}
+          variant="danger"
+          onClose={() => setShow(false)}
+          dismissible
+        >
+          {t("error-alert")}
+        </Alert>
         <TravelFormRow
           currKind={leg.type}
           leg={leg}
-          getValidationInfoRow={handleValidationValues}
+          getValidationInfoRow={(
+            people: boolean,
+            distance: boolean,
+            vehicles: boolean
+          ) =>
+            setValid({
+              people: people,
+              distance: distance,
+              vehicles: vehicles,
+            })
+          }
         ></TravelFormRow>
       </ModalBody>
       <ModalFooter>

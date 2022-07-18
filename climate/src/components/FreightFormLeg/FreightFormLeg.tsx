@@ -51,7 +51,7 @@ const FreightFormLeg: FC<FreightFormLegProps> = ({ leg, handleRemove }) => {
         {/* 
         <EditModal
           leg={currLeg}
-          show={show}
+          showModal={show}
           handleClose={handleClose}
           handleSave={handleSave}
         ></EditModal>
