@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import styles from "./TravelFormLeg.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import EditModal from "../EditModal/EditModal";
+import TravelEditModal from "../TravelEditModal/TravelEditModal";
 import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 import internal from "stream";
 import { useTranslation } from "react-i18next";
@@ -58,12 +58,12 @@ const TravelFormLeg: FC<TravelFormLegProps> = ({ leg, handleRemove }) => {
         <a type="button" onClick={() => handleRemove(currLeg.id)}>
           <FontAwesomeIcon className="text-danger" icon={faTrash} />
         </a>
-        <EditModal
+        <TravelEditModal
           leg={currLeg}
           showModal={show}
           handleClose={handleClose}
           handleSave={handleSave}
-        ></EditModal>
+        ></TravelEditModal>
       </td>
     </tr>
   );

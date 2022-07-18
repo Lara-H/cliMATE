@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 import internal from "stream";
 import { useTranslation } from "react-i18next";
-import EditModal from "../EditModal/EditModal";
+import FreightEditModal from "../FreightEditModal/FreightEditModal";
 
 interface FreightFormLegProps {
   leg: FreightLeg;
@@ -42,20 +42,18 @@ const FreightFormLeg: FC<FreightFormLegProps> = ({ leg, handleRemove }) => {
       <td>{currLeg.distance} km</td>
       <td>{currLeg.weight} t</td>
       <td className="text-end">
-        <a type="button">
+        <a type="button" onClick={handleShow}>
           <FontAwesomeIcon className="me-3" icon={faEdit} />
         </a>
         <a type="button" onClick={() => handleRemove(currLeg.id)}>
           <FontAwesomeIcon className="text-danger" icon={faTrash} />
-        </a>
-        {/* 
-        <EditModal
+        </a> 
+        <FreightEditModal
           leg={currLeg}
           showModal={show}
           handleClose={handleClose}
           handleSave={handleSave}
-        ></EditModal>
-        */}
+        ></FreightEditModal>
       </td>
     </tr>
   );

@@ -28,6 +28,7 @@ const FreightFormRow: FC<FreightFormRowProps> = ({
     // send info if fields of row is valid to top component
     switch (id) {
       case "distance":
+      case "distance-edit":
         getValidationInfoRow(isValide, isValid.weight); // send info if fields of row is valid to top component
         setValid({
           distance: isValide,
@@ -35,6 +36,7 @@ const FreightFormRow: FC<FreightFormRowProps> = ({
         });
         break;
       case "weight":
+      case "weight-edit":
         getValidationInfoRow(isValid.distance, isValide); // send info if fields of row is valid to top component
         setValid({
           distance: isValid.distance,

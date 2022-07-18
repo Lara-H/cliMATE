@@ -1,23 +1,23 @@
 import React, { FC, useState } from "react";
-import styles from "./EditModal.module.scss";
+import styles from "./FreightEditModal.module.scss";
 import ModalHeader from "react-bootstrap/ModalHeader";
 import ModalTitle from "react-bootstrap/ModalTitle";
 import ModalBody from "react-bootstrap/ModalBody";
 import ModalFooter from "react-bootstrap/ModalFooter";
 import Modal from "react-bootstrap/Modal";
 import { useTranslation } from "react-i18next";
-import { TravelLeg } from "../TravelFormLeg/TravelFormLeg";
-import TravelFormRow from "../TravelFormRow/TravelFormRow";
+import { FreightLeg } from "../FreightFormLeg/FreightFormLeg";
+import FreightFormRow from "../FreightFormRow/FreightFormRow";
 import { Alert } from "react-bootstrap";
 
-interface EditModalProps {
-  leg: TravelLeg;
+interface FreightEditModalProps {
+  leg: FreightLeg;
   showModal: boolean;
   handleClose: () => void;
-  handleSave: (passengers: number, distance: number, vehicles: number) => void;
+  handleSave: (distance: number, weight: number) => void;
 }
 
-const EditModal: FC<EditModalProps> = ({
+const FreightEditModal: FC<FreightEditModalProps> = ({
   leg,
   showModal,
   handleClose,
@@ -26,9 +26,8 @@ const EditModal: FC<EditModalProps> = ({
   const { t, i18n } = useTranslation();
   const [show, setShow] = useState(false);
   const [isValid, setValid] = useState({
-    people: true,
     distance: true,
-    vehicles: true,
+    weight: true,
   });
 
   /**
@@ -37,16 +36,6 @@ const EditModal: FC<EditModalProps> = ({
   function handleClick() {
     let isFormValid = true;
 
-    const passengerSelect = document.getElementById(
-      "people-edit"
-    ) as HTMLInputElement;
-    let people = leg.passengers;
-    if (passengerSelect != null) {
-      people = parseInt(passengerSelect.value);
-      if (!isValid.people) {
-        isFormValid = false;
-      }
-    }
     const distanceSelect = document.getElementById(
       "distance-edit"
     ) as HTMLInputElement;
@@ -58,18 +47,18 @@ const EditModal: FC<EditModalProps> = ({
       }
     }
     const vehicleSelect = document.getElementById(
-      "vehicles-edit"
+      "weight-edit"
     ) as HTMLInputElement;
-    let vehicles = leg.vehicles;
+    let weight = leg.weight;
     if (vehicleSelect != null) {
-      vehicles = parseInt(vehicleSelect.value);
-      if (!isValid.vehicles) {
+      weight = parseInt(vehicleSelect.value);
+      if (!isValid.weight) {
         isFormValid = false;
       }
     }
 
     if (isFormValid) {
-      handleSave(people, distance, vehicles);
+      handleSave(distance, weight);
       setShow(false);
     } else {
       setShow(true);
@@ -78,8 +67,8 @@ const EditModal: FC<EditModalProps> = ({
 
   return (
     <Modal
-      className={styles.EditModal}
-      data-testid="EditModal"
+      className={styles.FreightEditModal}
+      data-testid="FreightEditModal"
       show={showModal}
       onHide={handleClose}
     >
@@ -95,21 +84,19 @@ const EditModal: FC<EditModalProps> = ({
         >
           {t("error-alert")}
         </Alert>
-        <TravelFormRow
+        <FreightFormRow
           currKind={leg.type}
           leg={leg}
           getValidationInfoRow={(
-            people: boolean,
             distance: boolean,
-            vehicles: boolean
+            weight: boolean
           ) =>
             setValid({
-              people: people,
               distance: distance,
-              vehicles: vehicles,
+              weight: weight,
             })
           }
-        ></TravelFormRow>
+        ></FreightFormRow>
       </ModalBody>
       <ModalFooter>
         <button className="btn btn-secondary" onClick={handleClose}>
@@ -123,4 +110,4 @@ const EditModal: FC<EditModalProps> = ({
   );
 };
 
-export default EditModal;
+export default FreightEditModal;
