@@ -17,6 +17,23 @@ interface TeaserProps {
 const Teaser: FC<TeaserProps> = ({ handleClick, currentMode }) => {
   const { t, i18n } = useTranslation();
 
+  /**
+   * change mode when changing carousel item
+   */
+  function handleCarouselControl(ControlElement : string) {
+    switch(currentMode) {
+      case "travel": 
+      handleClick(ControlElement == "prev" ? "household" : "freight");
+      break;
+      case "freight": 
+      handleClick(ControlElement == "prev" ? "travel" : "household");
+      break;
+      case "household": 
+      handleClick(ControlElement == "prev" ? "freight" : "travel");
+      break;
+    }
+  }
+
   return (
     <div
       className={[styles.Teaser, "text-light"].join(" ")}
@@ -58,6 +75,7 @@ const Teaser: FC<TeaserProps> = ({ handleClick, currentMode }) => {
           type="button"
           data-bs-target="#carouselTeaser"
           data-bs-slide="prev"
+          onClick={() => handleCarouselControl("prev")}
         >
           <span
             className="carousel-control-prev-icon"
@@ -70,6 +88,7 @@ const Teaser: FC<TeaserProps> = ({ handleClick, currentMode }) => {
           type="button"
           data-bs-target="#carouselTeaser"
           data-bs-slide="next"
+          onClick={() => handleCarouselControl("next")}
         >
           <span
             className="carousel-control-next-icon"

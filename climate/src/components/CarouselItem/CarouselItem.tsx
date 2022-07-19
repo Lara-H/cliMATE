@@ -61,10 +61,7 @@ const CarouselItem: FC<CarouselItemProps> = ({
             {headline}
           </p>
           <a
-            onClick={() => {
-              handleClick(modeName);
-              scrollToForm();
-            }}
+            onClick={() => scrollToForm()}
             type="button"
             className="btn btn-outline-light cm-btn-full-width-mobile"
           >
