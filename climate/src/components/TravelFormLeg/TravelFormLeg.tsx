@@ -35,13 +35,15 @@ const TravelFormLeg: FC<TravelFormLegProps> = ({ leg, handleRemove, handleEdit }
   /**
    * handle edited value from modal
    */
-  function handleSave(passengers: number, distance: number, vehicles: number) {
+  function handleSave(passengers:number, distance:number, vehicles:number, departureAirport:string, arrivalAirport:string) {
     let newLeg = {
       id: currLeg.id,
       type: currLeg.type,
       passengers: passengers,
       distance: distance,
       vehicles: vehicles,
+      departureAirport: departureAirport,
+      arrivalAirport: arrivalAirport
     };
     handleEdit(newLeg);
     setCurrLeg(newLeg);
@@ -78,6 +80,8 @@ export interface TravelLeg {
   passengers: number;
   distance: number;
   vehicles: number;
+  departureAirport: string;
+  arrivalAirport: string;
 }
 
 export default TravelFormLeg;

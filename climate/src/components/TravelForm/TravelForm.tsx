@@ -102,6 +102,31 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
       }
     }
 
+    let departureAirport = "";
+    const departureAirportInput = document.getElementById(
+      "departureAirport"
+    ) as HTMLInputElement;
+    if (departureAirportInput !== null) {
+      // TODO: Validierung implementieren
+      //if (!isValid.departureAirport) {
+        //isFormValid = false;
+      //} else {
+        departureAirport = departureAirportInput.value;
+      //}
+    }
+
+    let arrivalAirport = "";
+    const arrivalAirportInput = document.getElementById(
+      "arrivalAirport"
+    ) as HTMLInputElement;
+    if (arrivalAirportInput !== null) {
+      //if (!isValid.arrivalAirport) {
+      //  isFormValid = false;
+      //} else {
+        arrivalAirport = arrivalAirportInput.value;
+      //}
+    }
+
     if (isFormValid) {
       let newLeg = {
         id: uuid(),
@@ -109,6 +134,8 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
         passengers: people,
         distance: distance,
         vehicles: vehicles,
+        departureAirport: departureAirport,
+        arrivalAirport: arrivalAirport
       };
       const newLegList = legs.concat(newLeg);
       setLegs(newLegList);
@@ -123,30 +150,85 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
    */
   function handleEvaluation() {
     var evalBody: any[] = [];
+    var evalBodyFlights: any[] = [];
 
     legs.forEach((leg) => {
       // parse the leg-object into a fitting format for the Climatiq-API.
-      const legJson = {
-        emission_factor: leg.type,
-        parameters: { distance: leg.distance, distance_unit: "km" },
-      };
-      // Add it to evalBody
-      evalBody.push(legJson);
+      switch (leg.type) {
+        case carAPIstring:
+          const carLegJson = {
+            emission_factor: leg.type,
+            parameters: { distance: leg.distance, distance_unit: "km", passengers:leg.vehicles },
+          };
+          // Add it to evalBody
+          evalBody.push(carLegJson);
+          break;
+        case trainAPIstring:
+          const trainLegJson = {
+            emission_factor: leg.type,
+            parameters: { distance: leg.distance, distance_unit: "km", passengers:leg.passengers },
+          };
+          // Add it to evalBody
+          evalBody.push(trainLegJson);
+          break;
+        case airplaneAPIstring:
+          const airplaneLegJson = {
+            from: leg.departureAirport, to: leg.arrivalAirport, passengers:leg.passengers,
+          };
+          // Add it to evalBody
+          evalBodyFlights.push(airplaneLegJson);
+          break;
+        case shipAPIstring:
+          const shipLegJson = {
+            emission_factor: leg.type,
+            parameters: { distance: leg.distance, distance_unit: "km", passengers:leg.passengers },
+          };
+          // Add it to evalBody
+          evalBody.push(shipLegJson);
+          break;
+        default:
+          var legJson = {
+            emission_factor: leg.type,
+            parameters: { distance: leg.distance, distance_unit: "km" },
+          };
+          break;
+      }
+      
+
     });
 
-    // fetch from the Climatiq-Batch-Endpoint
-    fetch("https://beta3.api.climatiq.io/batch", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer VV5MNGFFJ0MF2DN921WJ93W84AQZ`,
-      },
-      // transfer our evalBody-Array via body to Climatiq.
-      body: JSON.stringify(evalBody),
-    })
+    console.log(evalBody);
+
+    if(evalBodyFlights != []){
+      // fetch from the Climatiq-Flights-Endpoint
+      fetch("https://beta3.api.climatiq.io/travel/flights", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer VV5MNGFFJ0MF2DN921WJ93W84AQZ`,
+        },
+        body: '{"legs" :' + JSON.stringify(evalBodyFlights) + '}',
+      })
       // transform the response to json...
       .then((res) => res.json())
       // ...and set the State-Variable result to data.results.
-      .then((data) => setResult(data.results));
+      //.then((data) => setResult(data.results));
+    }
+    
+    if(evalBody != []) {
+      // fetch from the Climatiq-Batch-Endpoint
+      fetch("https://beta3.api.climatiq.io/batch", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer VV5MNGFFJ0MF2DN921WJ93W84AQZ`,
+        },
+        // transfer our evalBody-Array via body to Climatiq.
+        body: JSON.stringify(evalBody),
+      })
+        // transform the response to json...
+        .then((res) => res.json())
+        // ...and set the State-Variable result to data.results.
+        .then((data) => setResult(data.results));
+    }
   }
 
   return (
@@ -245,6 +327,7 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
               onClick={(event) => {
                 event.preventDefault();
                 setLegs([]);
+                setResult([]);
               }}
             >
               {t("btn-reset")}

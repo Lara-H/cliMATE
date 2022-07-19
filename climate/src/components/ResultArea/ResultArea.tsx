@@ -13,9 +13,27 @@ const ResultArea: FC<ResultAreaProps> = ({
   result,
 }) => {
   const { t, i18n } = useTranslation();
+    // Hook to trigger a check on the result on every change to our result state.
+    React.useEffect(() => {
+      console.log(result);
+      const resultArea = document.getElementById("ResultAreaDiv");
+      // If the result is empty (length === 0), make the whole result area hidden.
+      if(resultArea !== null) {
+        if(result.length === 0) {
+          resultArea.hidden = true;
+        } else {
+          resultArea.hidden = false;
+          const resultHeading =
+            window.document.getElementById("resultHeading");
+          if (resultHeading !== null) {
+            resultHeading.scrollIntoView();
+          }
+        }
+      }
+    },[result]);
 
   return (
-  <div className={styles.ResultArea} data-testid="ResultArea">
+  <div id="ResultAreaDiv" className={styles.ResultArea} hidden data-testid="ResultArea">
     <span className="cm-anchor" id="ResultArea"></span>
     <div className="container">
       <div className="row">

@@ -14,11 +14,37 @@ interface HouseholdFormProps {
   setResult: Function;
 }
 
+interface APIResponse {
+    "co2e":number,
+    "co2e_unit":string,
+    "co2e_calculation_method":string,
+    "co2e_calculation_origin":string,
+    "emission_factor": {
+        "activity_id":string,
+        "uuid":string,
+        "id":string,
+        "access_type":string,
+        "source":string,
+        "year":string,
+        "region":string,
+        "category":string,
+        "lca_activity":string,
+        "data_quality_flags": []
+    },
+    "constituent_gases": {
+        "co2e_total": number,
+        "co2e_other": number,
+        "co2": number,
+        "ch4": number,
+        "n2o": number
+    }
+}
+
 const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult}) => {
   const { t, i18n } = useTranslation();
-  const [powerConsumptionResult, setPowerConsumptionResult] = useState("");
-  const [wasteProductionResult, setWasteProductionResult] = useState("");
-  const [clothesBoughtResult, setClothesBoughtResult] = useState("");
+  const [powerConsumptionResult, setPowerConsumptionResult] = useState<APIResponse | undefined>(undefined);
+  const [wasteProductionResult, setWasteProductionResult] = useState<APIResponse | undefined>(undefined);
+  const [clothesBoughtResult, setClothesBoughtResult] = useState<APIResponse | undefined>(undefined);
 
   const [valide, setValide] = useState({
     people: true,
@@ -54,7 +80,8 @@ const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult}) => {
       .then((res) => res.json())
       // ...and set the State-Variable result to data.results.
       .then((data) =>
-      setPowerConsumptionResult(data.co2e.toFixed(2))
+      //setPowerConsumptionResult(data.co2e.toFixed(2))
+      setPowerConsumptionResult(data)
       );
   }
 
@@ -85,7 +112,9 @@ const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult}) => {
       // transform the response to json...
       .then((res) => res.json())
       // ...and set the State-Variable result to data.results.
-      .then((data) => setWasteProductionResult(data.co2e.toFixed(2)));
+      .then((data) => 
+      //setWasteProductionResult(data.co2e.toFixed(2)));
+      setWasteProductionResult(data));
   }
 
   /**
@@ -115,15 +144,16 @@ const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult}) => {
       // transform the response to json...
       .then((res) => res.json())
       // ...and set the State-Variable result to data.results.
-      .then((data) => setClothesBoughtResult(data.co2e.toFixed(2)));
+      .then((data) => 
+      //setClothesBoughtResult(data.co2e.toFixed(2)));
+      setClothesBoughtResult(data));
   }
 
   /**
    * combine all the data on this form and make a Result for ResultArea out of it.
    */
   function handleFinalEvaluation() {
-    console.log("finalEval clicked");
-
+    setResult([powerConsumptionResult, wasteProductionResult, clothesBoughtResult]);
   }
 
   /**
@@ -131,8 +161,8 @@ const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult}) => {
    */
    function handleValidation(id: string, isValide: boolean) {
 
-    console.log("ID", id); 
-    console.log("VALIDE", isValide); 
+    //console.log("ID", id); 
+    //console.log("VALIDE", isValide); 
 
     switch (id) {
       case "person":
@@ -208,8 +238,8 @@ const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult}) => {
                     >{t("btn-calculate")}</button>
                   </li>
                   <li className="list-group-item response-area">
-                    <div id="power-consumption-response" className="text-end">
-                      {powerConsumptionResult}
+                    <div id="power-consumption-response" className="text-end">                      
+                        {powerConsumptionResult?.co2e.toFixed(2)}
                     </div>
                   </li>
                 </ul>
@@ -242,7 +272,7 @@ const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult}) => {
                   </li>
                   <li className="list-group-item">
                     <div id="waste-response" className="text-end">
-                      {wasteProductionResult}
+                      {wasteProductionResult?.co2e.toFixed(2)}
                     </div>
                   </li>
                 </ul>
@@ -275,7 +305,7 @@ const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult}) => {
                   </li>
                   <li className="list-group-item">
                     <div id="clothes-bought-response" className="text-end">
-                      {clothesBoughtResult}
+                      {clothesBoughtResult?.co2e.toFixed(2)}
                     </div>
                   </li>
                 </ul>
@@ -294,6 +324,7 @@ const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult}) => {
               className="btn btn-secondary"
               onClick={(event) => {
                 event.preventDefault();
+                
                 // TODO: clearForm() implementieren
               }}
             >
