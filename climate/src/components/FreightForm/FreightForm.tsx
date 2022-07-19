@@ -1,37 +1,44 @@
 import React, { FC, useEffect, useState } from "react";
 import FreightFormLeg, { FreightLeg } from "../FreightFormLeg/FreightFormLeg";
-import styles from './FreightForm.module.scss';
+import styles from "./FreightForm.module.scss";
 import { useTranslation } from "react-i18next";
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid } from "uuid";
 import FormField from "../FormField/FormField";
+import { Alert } from "react-bootstrap";
+import FreightFormRow from "../FreightFormRow/FreightFormRow";
 
 interface FreightFormProps {
   result: Array<Object>;
   setResult: Function;
 }
 
-const FreightForm: FC<FreightFormProps> = ({ result, setResult}) => {
+const FreightForm: FC<FreightFormProps> = ({ result, setResult }) => {
   const { t, i18n } = useTranslation();
-  const [legs, setLegs] = useState<FreightLeg[]>([]);
-  const [currKind, setCurrKind] = useState(
-    // set initial state to car-emission.
-    "freight_vehicle-vehicle_type-hgv_refrig-fuel_source_diesel-vehicle_weight_na-percentage_load_100"
+  const localDataLegs = localStorage.getItem("freightLegs");
+  const [legs, setLegs] = useState<FreightLeg[]>(
+    localDataLegs ? JSON.parse(localDataLegs) : []
   );
-  const [valide, setValide] = useState({
-    people: true,
+  const [isValid, setValid] = useState({
     distance: true,
-    vehicles: true,
+    weight: true,
   });
+  const [show, setShow] = useState(false);
 
-  /**
-   * set new current kind when changing selected value in selectbox
-   */
-  const changeKind = (newValue: string) => {
-    // TODO: console.log() entfernen.
-    //console.log(newValue);
-    // set the State Value currKind to newValue.
-    setCurrKind(newValue);
-  };
+  // API strings for transport-mode
+  const carAPIstring =
+    "freight_vehicle-vehicle_type-hgv_refrig-fuel_source_diesel-vehicle_weight_na-percentage_load_100";
+  const trainAPIstring = "freight_train-route_type_domestic-fuel_type_diesel";
+  const airplaneAPIstring =
+    "freight_flight-route_type_domestic-distance_gt_1000km_lt_3500km-weight_gt_100t-rf_included";
+  const shipAPIstring =
+    "sea_freight-vessel_type_bulk_carrier-route_type_na-vessel_length_na-tonnage_gt_100000dwt_lt_199999dwt-fuel_source_na";
+
+  const [transportMode, setTransportMode] = useState(carAPIstring);
+
+  //Update LocalStorage
+  useEffect(() => {
+    localStorage.setItem("freightLegs", JSON.stringify(legs));
+  });
 
   /**
    * functionality to delete an item with given id from our legs-state.
@@ -44,73 +51,58 @@ const FreightForm: FC<FreightFormProps> = ({ result, setResult}) => {
   }
 
   /**
-   * returns a Leg-Object, based on all input-fields.
-   * 
-   * @returns Leg
+   * update leg-list after edit
+   * @param leg
    */
-  function createNewLeg() {
-    // collect all our Input-Fields to handle them as variables.
-    const kindSelect = document.getElementById(
-      "kind"
-    ) as HTMLInputElement;
-    const weightInput = document.getElementById(
-      "weight"
-    ) as HTMLInputElement;
-    const distanceInput = document.getElementById(
+  function handleEditItem(leg: FreightLeg) {
+    for (let i in legs) {
+      if (leg.id == legs[i].id) {
+        legs[i] = leg;
+      }
+    }
+    localStorage.setItem("freightLegs", JSON.stringify(legs));
+  }
+
+  /**
+   * add a Leg-Object (based on all input-fields) if form is valid
+   */
+  function addNewLeg() {
+    let isFormValid = true;
+
+    let weight = 0;
+    const weightSelect = document.getElementById("weight") as HTMLInputElement;
+    if (weightSelect !== null) {
+      if (!isValid.weight) {
+        isFormValid = false;
+      } else {
+        weight = parseInt(weightSelect.value);
+      }
+    }
+    let distance = 0;
+    const distanceSelect = document.getElementById(
       "distance"
     ) as HTMLInputElement;
-                
-    let newLeg:FreightLeg;
-    // Switch: Which kind of Leg is being chosen?
-    switch (kindSelect.value) {
-      case "freight_vehicle-vehicle_type-hgv_refrig-fuel_source_diesel-vehicle_weight_na-percentage_load_100":
-        // Case: Freight by car.
-        newLeg = {
-          id: uuid(),
-          type: kindSelect.value,
-          distance: parseInt(distanceInput.value),
-          weight: parseInt(weightInput.value)
-        };
-        break;
-      case "freight_train-route_type_domestic-fuel_type_diesel":
-        // Case: Freight by train.
-        newLeg = {
-          id: uuid(),
-          type: kindSelect.value,
-          weight: parseInt(weightInput.value),
-          distance: parseInt(distanceInput.value)
-        };
-        break;
-      case "freight_flight-route_type_domestic-distance_gt_1000km_lt_3500km-weight_gt_100t-rf_included":
-        // Case: Freight by flight.
-        newLeg = {
-          id: uuid(),
-          type: kindSelect.value,
-          weight: parseInt(weightInput.value),
-          distance: parseInt(distanceInput.value)
-        };
-        break;
-      case "sea_freight-vessel_type_bulk_carrier-route_type_na-vessel_length_na-tonnage_gt_100000dwt_lt_199999dwt-fuel_source_na":
-        // Case: Freight by ship.
-        newLeg = {
-          id: uuid(),
-          type: kindSelect.value,
-          weight: parseInt(weightInput.value),
-          distance: parseInt(distanceInput.value)
-        };
-        break;
-      default:
-        // default to an init state.
-        newLeg = {
-          id: uuid(),
-          type: "",
-          weight: 0,
-          distance: 0
-        };
-        break;
+    if (distanceSelect !== null) {
+      if (!isValid.distance) {
+        isFormValid = false;
+      } else {
+        distance = parseInt(distanceSelect.value);
+      }
     }
-    
-    return newLeg;
+
+    if (isFormValid) {
+      let newLeg = {
+        id: uuid(),
+        type: transportMode,
+        distance: distance,
+        weight: weight,
+      };
+      const newLegList = legs.concat(newLeg);
+      setLegs(newLegList);
+      setShow(false);
+    } else {
+      setShow(true);
+    }
   }
 
   /**
@@ -124,7 +116,12 @@ const FreightForm: FC<FreightFormProps> = ({ result, setResult}) => {
       // parse the leg-object into a fitting format for the Climatiq-API.
       const legJson = {
         emission_factor: leg.type,
-        parameters: { distance: leg.distance, distance_unit: "km", weight: leg.weight, weight_unit: "t" },
+        parameters: {
+          distance: leg.distance,
+          distance_unit: "km",
+          weight: leg.weight,
+          weight_unit: "t",
+        },
       };
       // Add it to evalBody
       evalBody.push(legJson);
@@ -141,79 +138,40 @@ const FreightForm: FC<FreightFormProps> = ({ result, setResult}) => {
       // transform the response to json...
       .then((res) => res.json())
       // ...and set the State-Variable result to data.results.
-      .then((data) => 
-        setResult(data.results)
-      );
-      
-  }
-
-  /**
-   * check if valide
-   */
-   function handleValidation(id: string, isValide: boolean) {
-
-    console.log("ID", id); 
-    console.log("VALIDE", isValide); 
-
-    switch (id) {
-      case "person":
-        setValide({
-          people: isValide,
-          distance: valide.distance,
-          vehicles: valide.vehicles,
-        });
-        break;
-      case "distance":
-        setValide({
-          people: valide.people,
-          distance: isValide,
-          vehicles: valide.vehicles,
-        });
-        break;
-      case "vehicles":
-        setValide({
-          people: valide.people,
-          distance: valide.distance,
-          vehicles: isValide,
-        });
-        break;
-      default: setValide({
-        people: valide.people,
-        distance: valide.distance,
-        vehicles: valide.people,
-      });
-    }
-    
+      .then((data) => setResult(data.results));
   }
 
   return (
-    <div
-      className={[styles.FormArea, "bg-light"].join(" ")}
-      data-testid="FormArea"
-    >
+    <div className={`${styles.FreightForm} bg-light`} data-testid="FreightForm">
       <span className="cm-anchor" id="FormArea"></span>
+
       <div className="container">
         <div className="row align-items-baseline">
-          <div className="col">
+          <div className="col-12 col-md">
             <h2 className="mb-0">{t("freight")}</h2>
           </div>
-          <div className="col text-end">
+          <div className="col-12 col-md text-md-end">
             <a href="#FormSelector">{t("btn-change")}</a>
           </div>
         </div>
         <hr></hr>
+
+        <Alert
+          className={`${show ? "d-block" : "d-none"}`}
+          variant="danger"
+          onClose={() => setShow(false)}
+          dismissible
+        >
+          {t("error-alert")}
+        </Alert>
+
         <form
           onSubmit={(event) => {
             event.preventDefault();
-
-            // initialize a newLeg-Variable
-            let newLeg = createNewLeg();
-            
-            const newLegList = legs.concat(newLeg);
-            setLegs(newLegList);
+            addNewLeg();
           }}
         >
-          <div className="row align-items-end">
+          <div className="row align-items-start">
             <div className="col-12 col-md-4">
               <label htmlFor="kind" className="form-label">
                 {t("freight-transport-mode")}
@@ -221,42 +179,32 @@ const FreightForm: FC<FreightFormProps> = ({ result, setResult}) => {
               <select
                 className="form-select"
                 id="kind"
-                onChange={(event) => changeKind(event.target.value)}
-                value={currKind}
+                onChange={(event) => setTransportMode(event.target.value)}
+                value={transportMode}
               >
-                <option value="freight_vehicle-vehicle_type-hgv_refrig-fuel_source_diesel-vehicle_weight_na-percentage_load_100">
-                  {t("freight-car")}
-                </option>
-                <option value="freight_train-route_type_domestic-fuel_type_diesel">
-                  {t("freight-train")}
-                </option>
-                <option value="freight_flight-route_type_domestic-distance_gt_1000km_lt_3500km-weight_gt_100t-rf_included">
+                <option value={carAPIstring}>{t("freight-car")}</option>
+                <option value={trainAPIstring}>{t("freight-train")}</option>
+                <option value={airplaneAPIstring}>
                   {t("freight-airport")}
                 </option>
-                <option value="sea_freight-vessel_type_bulk_carrier-route_type_na-vessel_length_na-tonnage_gt_100000dwt_lt_199999dwt-fuel_source_na">
-                  {t("freight-ship")}
-                </option>
+                <option value={shipAPIstring}>{t("freight-ship")}</option>
               </select>
             </div>
-            <>
-              <FormField
-                label={t("freight-distance")}
-                id="distance"
-                type="number"
-                initValue="1"
-                getValidationInfoField={handleValidation}
-              ></FormField>
-              <FormField
-                label={t("freight-weight")}
-                id="weight"
-                type="number"
-                initValue="1"
-                getValidationInfoField={handleValidation}
-              ></FormField>
-            </>
+
+            <div className="col-12 col-md">
+              <FreightFormRow
+                currKind={transportMode}
+                getValidationInfoRow={(distance: boolean, weight: boolean) =>
+                  setValid({
+                    distance: distance,
+                    weight: weight,
+                  })
+                }
+              ></FreightFormRow>
+            </div>
 
             <div className="col col-md-2 d-grid">
-              <button type="submit" className="btn btn-primary text-light">
+              <button type="submit" className="btn btn-primary text-light mt-4">
                 {t("btn-add")}
               </button>
             </div>
@@ -272,6 +220,7 @@ const FreightForm: FC<FreightFormProps> = ({ result, setResult}) => {
                     leg={leg}
                     key={leg.id}
                     handleRemove={handleRemoveItem}
+                    handleEdit={handleEditItem}
                   ></FreightFormLeg>
                 ))}
               </tbody>
@@ -298,10 +247,9 @@ const FreightForm: FC<FreightFormProps> = ({ result, setResult}) => {
               className="btn btn-primary text-light"
               onClick={(event) => {
                 event.preventDefault();
-                const resultHeading =
-                  window.document.getElementById("resultHeading");
-                if (resultHeading !== null) {
-                  resultHeading.scrollIntoView();
+                const resultArea = window.document.getElementById("ResultArea");
+                if (resultArea !== null) {
+                  resultArea.scrollIntoView();
                 }
                 handleEvaluation();
               }}
@@ -313,6 +261,6 @@ const FreightForm: FC<FreightFormProps> = ({ result, setResult}) => {
       </div>
     </div>
   );
-}
+};
 
 export default FreightForm;

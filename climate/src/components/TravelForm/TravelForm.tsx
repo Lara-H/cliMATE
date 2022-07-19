@@ -13,7 +13,10 @@ interface TravelFormProps {
 
 const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
   const { t, i18n } = useTranslation();
-  const [legs, setLegs] = useState<TravelLeg[]>([]);
+  const localDataLegs = localStorage.getItem("travelLegs");
+  const [legs, setLegs] = useState<TravelLeg[]>(
+    localDataLegs ? JSON.parse(localDataLegs) : []
+  );
   const [isValid, setValid] = useState({
     people: true,
     distance: true,
@@ -33,6 +36,11 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
 
   const [transportMode, setTransportMode] = useState(carAPIstring);
 
+  //Update LocalStorage
+  useEffect(() => {
+    localStorage.setItem("travelLegs", JSON.stringify(legs));
+  });
+
   /**
    * functionality to delete an item with given id from our legs-state.
    * @param id
@@ -41,6 +49,19 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
     const newLegs = legs.filter((item) => item.id !== id);
     // set the State Value legs to newLegs.
     setLegs(newLegs);
+  }
+
+  /**
+   * update leg-list after edit
+   * @param leg
+   */
+  function handleEditItem(leg: TravelLeg) {
+    for (let i in legs) {
+      if (leg.id == legs[i].id) {
+        legs[i] = leg;
+      }
+    }
+    localStorage.setItem("travelLegs", JSON.stringify(legs));
   }
 
   /**
@@ -290,6 +311,7 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
                     leg={leg}
                     key={leg.id}
                     handleRemove={handleRemoveItem}
+                    handleEdit={handleEditItem}
                   ></TravelFormLeg>
                 ))}
               </tbody>

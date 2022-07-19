@@ -1,7 +1,7 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import styles from "./TravelFormLeg.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import EditModal from "../EditModal/EditModal";
+import TravelEditModal from "../TravelEditModal/TravelEditModal";
 import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 import internal from "stream";
 import { useTranslation } from "react-i18next";
@@ -10,9 +10,10 @@ import i18next from "i18next";
 interface TravelFormLegProps {
   leg: TravelLeg;
   handleRemove: (id: string) => void;
+  handleEdit: (leg: TravelLeg) => void;
 }
 
-const TravelFormLeg: FC<TravelFormLegProps> = ({ leg, handleRemove }) => {
+const TravelFormLeg: FC<TravelFormLegProps> = ({ leg, handleRemove, handleEdit }) => {
   const { t, i18n } = useTranslation();
 
   //current leg values
@@ -44,6 +45,7 @@ const TravelFormLeg: FC<TravelFormLegProps> = ({ leg, handleRemove }) => {
       departureAirport: departureAirport,
       arrivalAirport: arrivalAirport
     };
+    handleEdit(newLeg);
     setCurrLeg(newLeg);
     handleClose();
   }
@@ -60,12 +62,12 @@ const TravelFormLeg: FC<TravelFormLegProps> = ({ leg, handleRemove }) => {
         <a type="button" onClick={() => handleRemove(currLeg.id)}>
           <FontAwesomeIcon className="text-danger" icon={faTrash} />
         </a>
-        <EditModal
+        <TravelEditModal
           leg={currLeg}
-          show={show}
+          showModal={show}
           handleClose={handleClose}
           handleSave={handleSave}
-        ></EditModal>
+        ></TravelEditModal>
       </td>
     </tr>
   );

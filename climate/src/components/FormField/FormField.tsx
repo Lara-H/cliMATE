@@ -1,6 +1,7 @@
 import React, { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styles from "./FormField.module.scss";
+import codeList from "./iata.json";
 
 interface FormFieldProps {
   label: string;
@@ -17,19 +18,31 @@ const FormField: FC<FormFieldProps> = ({
   initValue,
   getValidationInfoField,
 }) => {
-
   const { t, i18n } = useTranslation();
   const [value, setValue] = useState(initValue);
   const [error, setError] = useState("");
 
-   /*
+  /*
+   * check if value is an iata code
+   */
+  function isIATAcode(value: string) {
+    for (let i in codeList) {
+      if (value == codeList[i]) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /*
    * handle value and check if valid while typing
    */
   function handleChange(newValue: string) {
     let isValid = true;
     setValue(newValue);
-    if (type == "number") { 
-      if (newValue.match(/^[1-9]+[0-9]*$/)) { // all number inputs must be greater than 0
+    if (type == "number") {
+      if (newValue.match(/^[1-9]+[0-9]*$/)) {
+        // all number inputs must be greater than 0
         setError("");
       } else {
         isValid = false;
@@ -40,7 +53,8 @@ const FormField: FC<FormFieldProps> = ({
         }
       }
     } else if (type == "text") {
-      if (newValue.match(/^[A-Z]+[A-Z]+[A-Z]/)) { // all text inputs must be iata-code (flight)
+      if (isIATAcode(newValue)) {
+        // all text inputs must be iata-code (flight)
         setError("");
       } else {
         isValid = false;
@@ -55,7 +69,10 @@ const FormField: FC<FormFieldProps> = ({
   }
 
   return (
-    <div className={`col-12 col-md ${styles.FormField}`} data-testid="FormField">
+    <div
+      className={`col-12 col-md ${styles.FormField}`}
+      data-testid="FormField"
+    >
       <label htmlFor={id} className="form-label">
         {label}
       </label>
