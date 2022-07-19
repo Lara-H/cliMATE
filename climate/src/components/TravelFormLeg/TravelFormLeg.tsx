@@ -31,6 +31,7 @@ const TravelFormLeg: FC<TravelFormLegProps> = ({ leg, handleRemove, handleEdit }
   const vehicleString = i18next.t("table_vehicleNum", {
     count: currLeg.vehicles,
   });
+  const airportString = currLeg.departureAirport + " - " + currLeg.arrivalAirport
 
   /**
    * handle edited value from modal
@@ -53,7 +54,7 @@ const TravelFormLeg: FC<TravelFormLegProps> = ({ leg, handleRemove, handleEdit }
   return (
     <tr className={styles.TravelFormLeg} data-testid="TravelFormLeg">
       <td>{t(currLeg.type)}</td>
-      <td>{currLeg.distance == 0 ? "FRA - MUN" : currLeg.distance + " km"}</td>
+      <td>{currLeg.distance == 0 ? airportString : currLeg.distance + " km"}</td>
       <td>{currLeg.passengers == 0 ? vehicleString : passengerString}</td>
       <td className="text-end">
         <a type="button" onClick={handleShow}>

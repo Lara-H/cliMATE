@@ -14,7 +14,13 @@ interface TravelEditModalProps {
   leg: TravelLeg;
   showModal: boolean;
   handleClose: () => void;
-  handleSave: (passengers: number, distance: number, vehicles: number, departureAirport: string, arrivalAirport: string) => void;
+  handleSave: (
+    passengers: number,
+    distance: number,
+    vehicles: number,
+    departureAirport: string,
+    arrivalAirport: string
+  ) => void;
 }
 
 const TravelEditModal: FC<TravelEditModalProps> = ({
@@ -29,6 +35,8 @@ const TravelEditModal: FC<TravelEditModalProps> = ({
     people: true,
     distance: true,
     vehicles: true,
+    departureAirport: true,
+    arrivalAirport: true,
   });
 
   /**
@@ -67,27 +75,25 @@ const TravelEditModal: FC<TravelEditModalProps> = ({
         isFormValid = false;
       }
     }
-
     const departureAirportInput = document.getElementById(
       "departureAirport-edit"
     ) as HTMLInputElement;
     let departureAirport = leg.departureAirport;
     if (departureAirportInput != null) {
       departureAirport = departureAirportInput.value;
-      //if (!valide.departureAirport) {
-      //  isValid = false;
-      //}
+      if (!isValid.departureAirport) {
+        isFormValid = false;
+      }
     }
-
     const arrivalAirportInput = document.getElementById(
       "arrivalAirport-edit"
     ) as HTMLInputElement;
     let arrivalAirport = leg.arrivalAirport;
     if (arrivalAirportInput != null) {
       arrivalAirport = arrivalAirportInput.value;
-      //if (!valide.arrivalAirport) {
-      //  isValid = false;
-      //}
+      if (!isValid.arrivalAirport) {
+        isFormValid = false;
+      }
     }
 
     if (isFormValid) {
@@ -123,12 +129,16 @@ const TravelEditModal: FC<TravelEditModalProps> = ({
           getValidationInfoRow={(
             people: boolean,
             distance: boolean,
-            vehicles: boolean
+            vehicles: boolean,
+            departureAirport: boolean,
+            arrivalAirport: boolean
           ) =>
             setValid({
               people: people,
               distance: distance,
               vehicles: vehicles,
+              departureAirport: departureAirport,
+              arrivalAirport: arrivalAirport,
             })
           }
         ></TravelFormRow>

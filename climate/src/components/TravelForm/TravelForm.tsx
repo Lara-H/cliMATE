@@ -21,6 +21,8 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
     people: true,
     distance: true,
     vehicles: true,
+    departureAirport: true,
+    arrivalAirport: true,
   });
   const [show, setShow] = useState(false);
 
@@ -107,12 +109,11 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
       "departureAirport"
     ) as HTMLInputElement;
     if (departureAirportInput !== null) {
-      // TODO: Validierung implementieren
-      //if (!isValid.departureAirport) {
-        //isFormValid = false;
-      //} else {
+      if (!isValid.departureAirport) {
+        isFormValid = false;
+      } else {
         departureAirport = departureAirportInput.value;
-      //}
+      }
     }
 
     let arrivalAirport = "";
@@ -120,11 +121,11 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
       "arrivalAirport"
     ) as HTMLInputElement;
     if (arrivalAirportInput !== null) {
-      //if (!isValid.arrivalAirport) {
-      //  isFormValid = false;
-      //} else {
+      if (!isValid.arrivalAirport) {
+        isFormValid = false;
+      } else {
         arrivalAirport = arrivalAirportInput.value;
-      //}
+      }
     }
 
     if (isFormValid) {
@@ -135,7 +136,7 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
         distance: distance,
         vehicles: vehicles,
         departureAirport: departureAirport,
-        arrivalAirport: arrivalAirport
+        arrivalAirport: arrivalAirport,
       };
       const newLegList = legs.concat(newLeg);
       setLegs(newLegList);
@@ -158,7 +159,11 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
         case carAPIstring:
           const carLegJson = {
             emission_factor: leg.type,
-            parameters: { distance: leg.distance, distance_unit: "km", passengers:leg.vehicles },
+            parameters: {
+              distance: leg.distance,
+              distance_unit: "km",
+              passengers: leg.vehicles,
+            },
           };
           // Add it to evalBody
           evalBody.push(carLegJson);
@@ -166,14 +171,20 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
         case trainAPIstring:
           const trainLegJson = {
             emission_factor: leg.type,
-            parameters: { distance: leg.distance, distance_unit: "km", passengers:leg.passengers },
+            parameters: {
+              distance: leg.distance,
+              distance_unit: "km",
+              passengers: leg.passengers,
+            },
           };
           // Add it to evalBody
           evalBody.push(trainLegJson);
           break;
         case airplaneAPIstring:
           const airplaneLegJson = {
-            from: leg.departureAirport, to: leg.arrivalAirport, passengers:leg.passengers,
+            from: leg.departureAirport,
+            to: leg.arrivalAirport,
+            passengers: leg.passengers,
           };
           // Add it to evalBody
           evalBodyFlights.push(airplaneLegJson);
@@ -181,7 +192,11 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
         case shipAPIstring:
           const shipLegJson = {
             emission_factor: leg.type,
-            parameters: { distance: leg.distance, distance_unit: "km", passengers:leg.passengers },
+            parameters: {
+              distance: leg.distance,
+              distance_unit: "km",
+              passengers: leg.passengers,
+            },
           };
           // Add it to evalBody
           evalBody.push(shipLegJson);
@@ -193,28 +208,26 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
           };
           break;
       }
-      
-
     });
 
     console.log(evalBody);
 
-    if(evalBodyFlights != []){
+    if (evalBodyFlights != []) {
       // fetch from the Climatiq-Flights-Endpoint
       fetch("https://beta3.api.climatiq.io/travel/flights", {
         method: "POST",
         headers: {
           Authorization: `Bearer VV5MNGFFJ0MF2DN921WJ93W84AQZ`,
         },
-        body: '{"legs" :' + JSON.stringify(evalBodyFlights) + '}',
+        body: '{"legs" :' + JSON.stringify(evalBodyFlights) + "}",
       })
-      // transform the response to json...
-      .then((res) => res.json())
+        // transform the response to json...
+        .then((res) => res.json());
       // ...and set the State-Variable result to data.results.
       //.then((data) => setResult(data.results));
     }
-    
-    if(evalBody != []) {
+
+    if (evalBody != []) {
       // fetch from the Climatiq-Batch-Endpoint
       fetch("https://beta3.api.climatiq.io/batch", {
         method: "POST",
@@ -284,12 +297,16 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
                 getValidationInfoRow={(
                   people: boolean,
                   distance: boolean,
-                  vehicles: boolean
+                  vehicles: boolean,
+                  departureAirport: boolean,
+                  arrivalAirport: boolean
                 ) =>
                   setValid({
                     people: people,
                     distance: distance,
                     vehicles: vehicles,
+                    departureAirport: departureAirport,
+                    arrivalAirport: arrivalAirport,
                   })
                 }
               ></TravelFormRow>
