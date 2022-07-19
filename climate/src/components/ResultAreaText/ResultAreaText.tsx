@@ -28,7 +28,7 @@ const ResultAreaText: FC<ResultAreaTextProps> = ({ value, label, result, type, i
   
   return (
     <div className={styles.ResultAreaText} data-testid="ResultAreaText">
-      <FontAwesomeIcon className="display-3 mb-3" icon={icon}></FontAwesomeIcon> <FontAwesomeIcon className="display-6 mb-3" icon={icon}></FontAwesomeIcon><br></br>
+      <FontAwesomeIcon className="display-3 mb-3 text-muted" icon={icon}></FontAwesomeIcon> <FontAwesomeIcon className="display-6 mb-3 text-muted" icon={icon}></FontAwesomeIcon><br></br>
       <AnimatedNumber className="display-5" value={counter} formatValue={(num: number) => num.toFixed(1)}></AnimatedNumber>
       <p className="text-muted small">{label}</p>
     </div>

@@ -8,6 +8,7 @@ interface FormFieldProps {
   id: string;
   type: string;
   initValue: string;
+  allowNull?: boolean;
   getValidationInfoField: (id: string, isValide: boolean) => void;
 }
 
@@ -16,6 +17,7 @@ const FormField: FC<FormFieldProps> = ({
   id,
   type,
   initValue,
+  allowNull,
   getValidationInfoField,
 }) => {
   const { t, i18n } = useTranslation();
@@ -41,8 +43,10 @@ const FormField: FC<FormFieldProps> = ({
     let isValid = true;
     setValue(newValue);
     if (type == "number") {
-      if (newValue.match(/^[1-9]+[0-9]*$/)) {
-        // all number inputs must be greater than 0
+      if (
+        newValue.match(/^[1-9]+[0-9]*$/) ||
+        (allowNull && newValue.match(/^[0-9]+[0-9]*$/))
+      ) {
         setError("");
       } else {
         isValid = false;
