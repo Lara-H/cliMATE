@@ -1,0 +1,73 @@
+.QuoteArea {
+  border-top: 1px solid white;
+}
+
+.QuoteArea .cm-img-in {
+  -webkit-animation: fadeIn 1s;
+          animation: fadeIn 1s;
+}
+
+.QuoteArea .cm-img-out {
+  opacity: 0.2;
+  -webkit-animation: fadeOut 1s;
+          animation: fadeOut 1s;
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+
+.QuoteArea .fade-enter {
+  opacity: 0;
+}
+
+.QuoteArea .fade-exit {
+  opacity: 1;
+}
+
+.QuoteArea .fade-enter-active {
+  opacity: 1;
+}
+
+.QuoteArea .fade-exit-active {
+  opacity: 0;
+}
+
+.QuoteArea .fade-enter-active,
+.QuoteArea .fade-exit-active {
+  -webkit-transition: opacity 500ms;
+  transition: opacity 500ms;
+}
+/*# sourceMappingURL=QuoteArea.module.css.map */

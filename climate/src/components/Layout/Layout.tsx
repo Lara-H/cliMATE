@@ -18,6 +18,7 @@ import Privacy from "../Privacy/Privacy";
 import TravelForm from "../TravelForm/TravelForm";
 import FreightForm from "../FreightForm/FreightForm";
 import HouseholdForm from "../HouseholdForm/HouseholdForm";
+import QuoteArea from "../QuoteArea/QuoteArea";
 
 interface LayoutProps {}
 
@@ -81,6 +82,7 @@ const Layout: FC<LayoutProps> = () => {
                       currentMode={currentMode}
                       handleClick={handleModeChange}
                     />{" "}
+                    <QuoteArea></QuoteArea>
                     <FormSelector
                       currentMode={currentMode}
                       handleClick={handleModeChange}
