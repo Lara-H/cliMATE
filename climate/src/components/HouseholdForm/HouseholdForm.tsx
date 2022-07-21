@@ -207,6 +207,12 @@ const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult }) => {
     }
   }
 
+  function clearForm(){
+    setPowerConsumptionResult(undefined);
+    setWasteProductionResult(undefined);
+    setClothesBoughtResult(undefined);
+  }
+
   return (
     <div
       className={[styles.FormArea, "bg-light"].join(" ")}
@@ -307,8 +313,7 @@ const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult }) => {
               className="btn btn-secondary"
               onClick={(event) => {
                 event.preventDefault();
-
-                // TODO: clearForm() implementieren
+                clearForm();
               }}
             >
               {t("btn-reset")}
@@ -324,7 +329,9 @@ const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult }) => {
                 if (resultArea !== null) {
                   resultArea.scrollIntoView();
                 }
-                handleFinalEvaluation();
+                if(powerConsumptionResult !== undefined || wasteProductionResult !== undefined || clothesBoughtResult !== undefined) {
+                  handleFinalEvaluation();
+                }
               }}
             >
               {t("btn-evaluate")}

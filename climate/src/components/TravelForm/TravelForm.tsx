@@ -210,8 +210,8 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
       }
     });
 
-    console.log(evalBody);
-
+    var response:Array<Object> = [];
+    var flightsResponse:Array<Object> = [];
     if (evalBodyFlights != []) {
       // fetch from the Climatiq-Flights-Endpoint
       fetch("https://beta3.api.climatiq.io/travel/flights", {
@@ -222,25 +222,33 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
         body: '{"legs" :' + JSON.stringify(evalBodyFlights) + "}",
       })
         // transform the response to json...
-        .then((res) => res.json());
-      // ...and set the State-Variable result to data.results.
-      //.then((data) => setResult(data.results));
-    }
-
-    if (evalBody != []) {
-      // fetch from the Climatiq-Batch-Endpoint
-      fetch("https://beta3.api.climatiq.io/batch", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer VV5MNGFFJ0MF2DN921WJ93W84AQZ`,
-        },
-        // transfer our evalBody-Array via body to Climatiq.
-        body: JSON.stringify(evalBody),
-      })
-        // transform the response to json...
         .then((res) => res.json())
-        // ...and set the State-Variable result to data.results.
-        .then((data) => setResult(data.results));
+      // ...and set the State-Variable result to data.results.
+      //.then((data) => setResult(data.legs));
+      .then((data) => {
+        flightsResponse = data.legs;
+
+        if (evalBody != []) {
+          // fetch from the Climatiq-Batch-Endpoint
+          fetch("https://beta3.api.climatiq.io/batch", {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer VV5MNGFFJ0MF2DN921WJ93W84AQZ`,
+            },
+            // transfer our evalBody-Array via body to Climatiq.
+            body: JSON.stringify(evalBody),
+          })
+            // transform the response to json...
+            .then((res) => res.json())
+            // ...and set the State-Variable result to data.results.
+            //.then((data) => setResult(data.results));
+            .then((data) =>{
+              response = data.results;
+              
+              setResult(response.concat(flightsResponse));
+            });
+        }
+      });
     }
   }
 
