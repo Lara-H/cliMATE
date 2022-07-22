@@ -253,7 +253,7 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
   }
 
   return (
-    <div className={`${styles.TravelForm} bg-light`} data-testid="TravelForm">
+    <div className={`${styles.TravelForm} bg-light`} data-testid="TravelForm" id="travelFormDiv">
       <span className="cm-anchor" id="FormArea"></span>
 
       <div className="container">
@@ -320,7 +320,7 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
               ></TravelFormRow>
             </div>
             <div className="col col-md-2 d-grid">
-              <button type="submit" className="btn btn-primary text-light mt-4">
+              <button id="addTravelLegButton" type="submit" className="btn btn-primary text-light mt-4">
                 {t("btn-add")}
               </button>
             </div>
@@ -329,7 +329,7 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
 
         <div className="row mt-3">
           <div className="col">
-            <table className="table table-striped mb-0">
+            <table id="travelFormLegTable" className="table table-striped mb-0">
               <tbody>
                 {legs.map((leg) => (
                   <TravelFormLeg
@@ -347,6 +347,7 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
         <div className="row">
           <div className="col">
             <button
+              id="travelFormResetButton"
               type="button"
               className="btn btn-secondary"
               onClick={(event) => {
@@ -360,6 +361,7 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
           </div>
           <div className="col text-end">
             <button
+              id="evaluateTravelButton"
               type="button"
               className="btn btn-primary text-light"
               onClick={(event) => {

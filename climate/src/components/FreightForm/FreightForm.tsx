@@ -142,7 +142,7 @@ const FreightForm: FC<FreightFormProps> = ({ result, setResult }) => {
   }
 
   return (
-    <div className={`${styles.FreightForm} bg-light`} data-testid="FreightForm">
+    <div id="freightFormDiv" className={`${styles.FreightForm} bg-light`} data-testid="FreightForm">
       <span className="cm-anchor" id="FormArea"></span>
 
       <div className="container">
@@ -204,7 +204,7 @@ const FreightForm: FC<FreightFormProps> = ({ result, setResult }) => {
             </div>
 
             <div className="col col-md-2 d-grid">
-              <button type="submit" className="btn btn-primary text-light mt-4">
+              <button id="addFreightLegButton" type="submit" className="btn btn-primary text-light mt-4">
                 {t("btn-add")}
               </button>
             </div>
@@ -213,7 +213,7 @@ const FreightForm: FC<FreightFormProps> = ({ result, setResult }) => {
 
         <div className="row mt-3">
           <div className="col">
-            <table className="table table-striped mb-0">
+            <table id="freightFormLegTable" className="table table-striped mb-0">
               <tbody>
                 {legs.map((leg) => (
                   <FreightFormLeg
@@ -231,11 +231,13 @@ const FreightForm: FC<FreightFormProps> = ({ result, setResult }) => {
         <div className="row">
           <div className="col">
             <button
+              id="freightFormResetButton"
               type="button"
               className="btn btn-secondary"
               onClick={(event) => {
                 event.preventDefault();
                 setLegs([]);
+                setResult([]);
               }}
             >
               {t("btn-reset")}
@@ -243,6 +245,7 @@ const FreightForm: FC<FreightFormProps> = ({ result, setResult }) => {
           </div>
           <div className="col text-end">
             <button
+              id="evaluateFreightButton"
               type="button"
               className="btn btn-primary text-light"
               onClick={(event) => {

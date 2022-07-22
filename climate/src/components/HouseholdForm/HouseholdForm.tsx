@@ -162,11 +162,17 @@ const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult }) => {
    * combine all the data on this form and make a Result for ResultArea out of it.
    */
   function handleFinalEvaluation() {
-    setResult([
-      powerConsumptionResult,
-      wasteProductionResult,
-      clothesBoughtResult,
-    ]);
+    let evalResult:Array<Object> = [];
+    if(powerConsumptionResult !== undefined) {
+      evalResult = evalResult.concat(powerConsumptionResult);
+    }
+    if(wasteProductionResult !== undefined) {
+      evalResult = evalResult.concat(wasteProductionResult);
+    }
+    if(clothesBoughtResult !== undefined) {
+      evalResult = evalResult.concat(clothesBoughtResult);
+    }
+    setResult(evalResult);
   }
 
   /**
@@ -215,6 +221,7 @@ const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult }) => {
 
   return (
     <div
+      id="householdFormDiv"
       className={[styles.FormArea, "bg-light"].join(" ")}
       data-testid="FormArea"
     >
@@ -314,6 +321,7 @@ const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult }) => {
               onClick={(event) => {
                 event.preventDefault();
                 clearForm();
+                setResult([]);
               }}
             >
               {t("btn-reset")}
@@ -321,6 +329,7 @@ const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult }) => {
           </div>
           <div className="col text-end">
             <button
+            id="evaluateHouseholdButton"
               type="button"
               className="btn btn-primary text-light"
               onClick={(event) => {
