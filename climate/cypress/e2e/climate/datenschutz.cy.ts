@@ -6,9 +6,7 @@ describe('tests whether the datenschutz-website is reachable from the main page'
       cy.get('#languageSwitchEN').click();
     })
     it('looks for the imprint-link and clicks it, so the page changes', () => {
-        cy.get('#datenschutz-link')
-        .should('have.text', 'privacy')
-        .click();
+        cy.get('#datenschutz-link').click();
         cy.location('pathname').should('include', 'datenschutz')
     })
   })
