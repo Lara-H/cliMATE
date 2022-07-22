@@ -35,7 +35,7 @@ interface APIResponse {
 }
 
 const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [powerConsumptionResult, setPowerConsumptionResult] = useState<
     APIResponse | undefined
   >(undefined);
@@ -81,7 +81,6 @@ const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult }) => {
         .then((res) => res.json())
         // ...and set the State-Variable result to data.results.
         .then((data) =>
-          //setPowerConsumptionResult(data.co2e.toFixed(2))
           setPowerConsumptionResult(data)
         );
     }
@@ -117,7 +116,6 @@ const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult }) => {
         .then((res) => res.json())
         // ...and set the State-Variable result to data.results.
         .then((data) =>
-          //setWasteProductionResult(data.co2e.toFixed(2)));
           setWasteProductionResult(data)
         );
     }
@@ -153,7 +151,6 @@ const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult }) => {
         .then((res) => res.json())
         // ...and set the State-Variable result to data.results.
         .then((data) =>
-          //setClothesBoughtResult(data.co2e.toFixed(2)));
           setClothesBoughtResult(data)
         );
     }
@@ -217,7 +214,7 @@ const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult }) => {
   }
 
   /**
-   * clear form
+   * clear the result-values for all three forms.
    */
   function clearForm() {
     setPowerConsumptionResult(undefined);

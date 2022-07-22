@@ -15,7 +15,7 @@ const FreightFormRow: FC<FreightFormRowProps> = ({
   leg,
   getValidationInfoRow,
 }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [isValid, setValid] = useState({
     distance: true,
     weight: true,

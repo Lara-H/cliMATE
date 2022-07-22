@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 interface ErrorPageProps {}
 
 const ErrorPage: FC<ErrorPageProps> = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <div className={styles.ErrorPage} data-testid="ErrorPage">
@@ -23,7 +23,7 @@ const ErrorPage: FC<ErrorPageProps> = () => {
             </a>
           </div>
           <div className="col-12 col-md">
-            <img src={img} className="img-fluid"></img>
+            <img src={img} alt="just a stock-pic to signify an error" className="img-fluid"></img>
           </div>
         </div>
       </div>

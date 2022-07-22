@@ -1,4 +1,4 @@
-import React, { FC, SetStateAction, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import styles from "./TravelForm.module.scss";
 import { useTranslation } from "react-i18next";
 import TravelFormLeg, { TravelLeg } from "../TravelFormLeg/TravelFormLeg";
@@ -12,7 +12,7 @@ interface TravelFormProps {
 }
 
 const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const localDataLegs = localStorage.getItem("travelLegs");
   const [legs, setLegs] = useState<TravelLeg[]>(
     localDataLegs ? JSON.parse(localDataLegs) : []
@@ -59,7 +59,7 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
    */
   function handleEditItem(leg: TravelLeg) {
     for (let i in legs) {
-      if (leg.id == legs[i].id) {
+      if (leg.id === legs[i].id) {
         legs[i] = leg;
       }
     }
@@ -206,13 +206,14 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
             emission_factor: leg.type,
             parameters: { distance: leg.distance, distance_unit: "km" },
           };
+          evalBody.push(legJson);
           break;
       }
     });
 
     var response: Array<Object> = [];
     var flightsResponse: Array<Object> = [];
-    if (evalBodyFlights != []) {
+    if (evalBodyFlights !== []) {
       // fetch from the Climatiq-Flights-Endpoint
       fetch("https://beta3.api.climatiq.io/travel/flights", {
         method: "POST",
@@ -228,7 +229,7 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
         .then((data) => {
           flightsResponse = data.legs;
 
-          if (evalBody != []) {
+          if (evalBody !== []) {
             // fetch from the Climatiq-Batch-Endpoint
             fetch("https://beta3.api.climatiq.io/batch", {
               method: "POST",

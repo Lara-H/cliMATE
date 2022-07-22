@@ -14,10 +14,10 @@ const Navigation: FC<NavigationProps> = ({ handleClick, currentMode }) => {
 
   let isDe = false;
   let isEn = false;
-  if (i18n.language == "de") {
+  if (i18n.language === "de") {
     isDe = true;
     isEn = false;
-  } else if (i18n.language == "en") {
+  } else if (i18n.language === "en") {
     isDe = false;
     isEn = true;
   }

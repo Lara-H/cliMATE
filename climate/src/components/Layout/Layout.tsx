@@ -18,7 +18,7 @@ import { useTranslation } from "react-i18next";
 interface LayoutProps {}
 
 const Layout: FC<LayoutProps> = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const localDataMode = localStorage.getItem("mode");
   const [result, setResult] = useState([]);
   const [currentMode, setCurrentMode] = useState(

@@ -7,7 +7,7 @@ import { faAngleUp } from "@fortawesome/free-solid-svg-icons";
 interface FooterProps {}
 
 const Footer: FC<FooterProps> = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   // mobile: fixed Scroll-to-top button after
   const [scroll, setScroll] = useState(false);

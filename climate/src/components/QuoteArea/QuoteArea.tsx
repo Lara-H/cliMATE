@@ -1,6 +1,5 @@
 import React, { FC, useState } from "react";
 import styles from "./QuoteArea.module.scss";
-import { SwitchTransition, CSSTransition } from "react-transition-group"; // tried but there is a problem when using typescript
 import woman from "./woman.png";
 import man from "./man.png";
 import { useTranslation } from "react-i18next";
@@ -8,7 +7,7 @@ import { useTranslation } from "react-i18next";
 interface QuoteAreaProps {}
 
 const QuoteArea: FC<QuoteAreaProps> = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [state, setState] = useState(true);
 
   return (
@@ -42,6 +41,7 @@ const QuoteArea: FC<QuoteAreaProps> = () => {
                   <img
                     onClick={() => setState(true)}
                     src={woman}
+                    alt="a random woman"
                     className={`${
                       state
                         ? `img-fluid ${styles["cm-img-in"]}`
@@ -53,6 +53,7 @@ const QuoteArea: FC<QuoteAreaProps> = () => {
                   <img
                     onClick={() => setState(false)}
                     src={man}
+                    alt="a random man"
                     className={`${
                       state
                         ? `img-fluid ${styles["cm-img-out"]}`

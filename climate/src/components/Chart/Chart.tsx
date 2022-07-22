@@ -2,7 +2,6 @@ import React, { useRef, FC } from "react";
 import styles from "./Chart.module.scss";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
-import { useTranslation } from "react-i18next";
 import { t } from "i18next";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -28,14 +27,12 @@ export const data = {
 };
 
 const Chart: FC<ChartProps> = (result) => {
-  const { t, i18n } = useTranslation();
 
   // define a reference to the Chart.
   const chartRef = useRef<ChartJS<"pie", number[], string>>(null);
 
   // Hook to trigger the update function on every change to our result state.
   React.useEffect(() => {
-    console.log(result);
     const chart = chartRef.current;
     calculateResult(result, chart);
   }, [result]);

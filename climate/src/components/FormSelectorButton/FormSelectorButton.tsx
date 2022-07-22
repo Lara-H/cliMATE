@@ -21,7 +21,7 @@ const FormSelectorButton: FC<FormSelectorButtonProps> = ({
   
    // check if button has to be active button
   let isActive = false;
-  if (currentMode == modeName) {
+  if (currentMode === modeName) {
     isActive = true;
   } else {
     isActive = false;

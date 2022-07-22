@@ -27,9 +27,8 @@ const ResultAreaText: FC<ResultAreaTextProps> = ({
 
   // Hook to trigger the update function on every change to our result state.
   React.useEffect(() => {
-    console.log(result);
     setCounter(calculateResult(result, counter, type));
-  }, [result]);
+  }, [result, counter, type]);
 
   return (
     <div className={styles.ResultAreaText} data-testid="ResultAreaText">
@@ -53,7 +52,7 @@ const ResultAreaText: FC<ResultAreaTextProps> = ({
 };
 
 /**
- * calculate result
+ * calculate the sum of co2e and the amount of trees needed, to bind this much co2 in the span of a year.
  * @param result 
  * @param counter 
  * @param type 
@@ -67,13 +66,11 @@ function calculateResult(result: Result, counter: Number, type: String) {
   switch (type) {
     case "co2eSum":
       return count;
-      break;
     case "treeYears":
       count = count / 12.5;
       return count;
     default:
       return count;
-      break;
   }
 }
 
