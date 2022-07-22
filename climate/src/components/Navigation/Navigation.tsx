@@ -73,6 +73,7 @@ const Navigation: FC<NavigationProps> = ({ handleClick, currentMode }) => {
             </ul>
             <div className="lang-switch">
               <a
+                id="languageSwitchDE"
                 className={`${
                   isDe ? `btn btn-light` : `btn btn-outline-light`
                 }`}
@@ -81,6 +82,7 @@ const Navigation: FC<NavigationProps> = ({ handleClick, currentMode }) => {
                 DE
               </a>
               <a
+                id="languageSwitchEN"
                 className={`${
                   isEn ? `btn btn-light` : `btn btn-outline-light`
                 }`}

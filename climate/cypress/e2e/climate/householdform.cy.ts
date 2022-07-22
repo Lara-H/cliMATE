@@ -3,6 +3,9 @@ describe('tests whether the HouseholdForm works as expected.', () => {
         cy.visit('http://localhost:3000/')
         cy.get('#navbarNav > ul > li').eq(2).find('a').first().click()
     })
+    it('switches to english language', () => {
+        cy.get('#languageSwitchEN').click();
+      })
     it('shows the householdForm' ,() => {
         cy.get('#householdFormDiv').should('be.visible')
     })

@@ -3,6 +3,9 @@ describe('tests whether the FreightForm works as expected.', () => {
         cy.visit('http://localhost:3000/')
         cy.get('#navbarNav > ul > li').eq(1).find('a').first().click()
     })
+    it('switches to english language', () => {
+        cy.get('#languageSwitchEN').click();
+      })
     it('shows the freightForm' ,() => {
         cy.get('#freightFormDiv').should('be.visible')
     })

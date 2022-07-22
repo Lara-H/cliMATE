@@ -3,6 +3,9 @@ describe('tests whether the TravelForm works as expected.', () => {
         cy.visit('http://localhost:3000/')
         cy.get('#navbarNav > ul > li').eq(0).find('a').first().click()
     })
+    it('switches to english language', () => {
+        cy.get('#languageSwitchEN').click();
+      })
     it('shows the travelForm' ,() => {
         cy.get('#travelFormDiv').should('be.visible')
     })
