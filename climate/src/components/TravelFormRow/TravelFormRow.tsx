@@ -12,12 +12,15 @@ interface TravelFormRowProps {
     distance: boolean,
     vehicles: boolean,
     departureAirport: boolean,
-    arrivalAirport: boolean,
+    arrivalAirport: boolean
   ) => void;
 }
 
-const TravelFormRow: FC<TravelFormRowProps> = ({ currKind, leg, getValidationInfoRow }) => {
-
+const TravelFormRow: FC<TravelFormRowProps> = ({
+  currKind,
+  leg,
+  getValidationInfoRow,
+}) => {
   const { t, i18n } = useTranslation();
   const [isValid, setValid] = useState({
     people: true,
@@ -27,14 +30,22 @@ const TravelFormRow: FC<TravelFormRowProps> = ({ currKind, leg, getValidationInf
     arrivalAirport: true,
   });
 
-  /*
+  /**
    * sumarize validation-info of seperate fields
+   * @param id 
+   * @param isValide 
    */
-  function generateValidationInfoRow(id: string, isValide: boolean) { // send info if fields of row is valid to top component
+  function generateValidationInfoRow(id: string, isValide: boolean) {
     switch (id) {
-      case "people" :
-      case "people-edit" :
-        getValidationInfoRow(isValide, isValid.distance, isValid.vehicles, isValid.departureAirport, isValid.arrivalAirport);
+      case "people":
+      case "people-edit":
+        getValidationInfoRow(
+          isValide,
+          isValid.distance,
+          isValid.vehicles,
+          isValid.departureAirport,
+          isValid.arrivalAirport
+        );
         setValid({
           people: isValide,
           distance: isValid.distance,
@@ -45,7 +56,13 @@ const TravelFormRow: FC<TravelFormRowProps> = ({ currKind, leg, getValidationInf
         break;
       case "distance":
       case "distance-edit":
-        getValidationInfoRow(isValid.people, isValide, isValid.vehicles, isValid.departureAirport, isValid.arrivalAirport); // send info if fields of row is valid to top component
+        getValidationInfoRow(
+          isValid.people,
+          isValide,
+          isValid.vehicles,
+          isValid.departureAirport,
+          isValid.arrivalAirport
+        ); // send info if fields of row is valid to top component
         setValid({
           people: isValid.people,
           distance: isValide,
@@ -56,7 +73,13 @@ const TravelFormRow: FC<TravelFormRowProps> = ({ currKind, leg, getValidationInf
         break;
       case "vehicles":
       case "vehicles-edit":
-        getValidationInfoRow(isValid.people, isValid.distance, isValide, isValid.departureAirport, isValid.arrivalAirport); // send info if fields of row is valid to top component
+        getValidationInfoRow(
+          isValid.people,
+          isValid.distance,
+          isValide,
+          isValid.departureAirport,
+          isValid.arrivalAirport
+        ); // send info if fields of row is valid to top component
         setValid({
           people: isValid.people,
           distance: isValid.distance,
@@ -65,9 +88,15 @@ const TravelFormRow: FC<TravelFormRowProps> = ({ currKind, leg, getValidationInf
           arrivalAirport: isValid.arrivalAirport,
         });
         break;
-        case "departureAirport":
+      case "departureAirport":
       case "departureAirport-edit":
-        getValidationInfoRow(isValid.people, isValid.distance, isValid.vehicles, isValide, isValid.arrivalAirport); // send info if fields of row is valid to top component
+        getValidationInfoRow(
+          isValid.people,
+          isValid.distance,
+          isValid.vehicles,
+          isValide,
+          isValid.arrivalAirport
+        ); // send info if fields of row is valid to top component
         setValid({
           people: isValid.people,
           distance: isValid.distance,
@@ -76,9 +105,15 @@ const TravelFormRow: FC<TravelFormRowProps> = ({ currKind, leg, getValidationInf
           arrivalAirport: isValid.arrivalAirport,
         });
         break;
-        case "arrivalAirport":
+      case "arrivalAirport":
       case "arrivalAirport-edit":
-        getValidationInfoRow(isValid.people, isValid.distance, isValid.vehicles, isValid.departureAirport, isValide); // send info if fields of row is valid to top component
+        getValidationInfoRow(
+          isValid.people,
+          isValid.distance,
+          isValid.vehicles,
+          isValid.departureAirport,
+          isValide
+        ); // send info if fields of row is valid to top component
         setValid({
           people: isValid.people,
           distance: isValid.distance,

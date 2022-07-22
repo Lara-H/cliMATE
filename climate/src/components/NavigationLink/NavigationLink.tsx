@@ -14,10 +14,8 @@ const NavigationLink: FC<NavigationLinkProps> = ({
   modeName,
   handleClick,
 }) => {
-
-  /**
-   * check if nav-item has to be active nav-item
-   */
+  
+  // check if nav-item has to be active nav-item
   let isActive = false;
   if (currentMode == modeName) {
     isActive = true;
@@ -29,9 +27,7 @@ const NavigationLink: FC<NavigationLinkProps> = ({
    * scroll to form
    */
   function scrollToForm() {
-    const FormArea = document.getElementById(
-      "FormArea"
-    );
+    const FormArea = document.getElementById("FormArea");
     if (FormArea != null) {
       FormArea.scrollIntoView();
     }

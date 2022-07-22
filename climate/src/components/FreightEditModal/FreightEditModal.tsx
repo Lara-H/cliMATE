@@ -87,10 +87,7 @@ const FreightEditModal: FC<FreightEditModalProps> = ({
         <FreightFormRow
           currKind={leg.type}
           leg={leg}
-          getValidationInfoRow={(
-            distance: boolean,
-            weight: boolean
-          ) =>
+          getValidationInfoRow={(distance: boolean, weight: boolean) =>
             setValid({
               distance: distance,
               weight: weight,

@@ -1,9 +1,8 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useState } from "react";
 import styles from "./TravelFormLeg.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TravelEditModal from "../TravelEditModal/TravelEditModal";
 import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
-import internal from "stream";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
 
@@ -13,7 +12,11 @@ interface TravelFormLegProps {
   handleEdit: (leg: TravelLeg) => void;
 }
 
-const TravelFormLeg: FC<TravelFormLegProps> = ({ leg, handleRemove, handleEdit }) => {
+const TravelFormLeg: FC<TravelFormLegProps> = ({
+  leg,
+  handleRemove,
+  handleEdit,
+}) => {
   const { t, i18n } = useTranslation();
 
   //current leg values
@@ -31,12 +34,24 @@ const TravelFormLeg: FC<TravelFormLegProps> = ({ leg, handleRemove, handleEdit }
   const vehicleString = i18next.t("table_vehicleNum", {
     count: currLeg.vehicles,
   });
-  const airportString = currLeg.departureAirport + " - " + currLeg.arrivalAirport
+  const airportString =
+    currLeg.departureAirport + " - " + currLeg.arrivalAirport;
 
   /**
    * handle edited value from modal
+   * @param passengers 
+   * @param distance 
+   * @param vehicles 
+   * @param departureAirport 
+   * @param arrivalAirport 
    */
-  function handleSave(passengers:number, distance:number, vehicles:number, departureAirport:string, arrivalAirport:string) {
+  function handleSave(
+    passengers: number,
+    distance: number,
+    vehicles: number,
+    departureAirport: string,
+    arrivalAirport: string
+  ) {
     let newLeg = {
       id: currLeg.id,
       type: currLeg.type,
@@ -44,7 +59,7 @@ const TravelFormLeg: FC<TravelFormLegProps> = ({ leg, handleRemove, handleEdit }
       distance: distance,
       vehicles: vehicles,
       departureAirport: departureAirport,
-      arrivalAirport: arrivalAirport
+      arrivalAirport: arrivalAirport,
     };
     handleEdit(newLeg);
     setCurrLeg(newLeg);
@@ -54,7 +69,9 @@ const TravelFormLeg: FC<TravelFormLegProps> = ({ leg, handleRemove, handleEdit }
   return (
     <tr className={styles.TravelFormLeg} data-testid="TravelFormLeg">
       <td>{t(currLeg.type)}</td>
-      <td>{currLeg.distance == 0 ? airportString : currLeg.distance + " km"}</td>
+      <td>
+        {currLeg.distance == 0 ? airportString : currLeg.distance + " km"}
+      </td>
       <td>{currLeg.passengers == 0 ? vehicleString : passengerString}</td>
       <td className="text-end">
         <a type="button" onClick={handleShow}>

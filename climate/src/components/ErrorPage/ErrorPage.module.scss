@@ -1,7 +1,14 @@
-@import '../../App.scss';
+@import "../../App.scss";
 
 .ErrorPage {
-    min-height: 100vh;
-    padding-top: 8rem;
-    padding-bottom: 3rem;
+  min-height: 100vh;
+  padding-top: 8rem;
+  padding-bottom: 3rem;
+
+  @include media-breakpoint-down(sm) {
+    .cm-btn {
+      margin-bottom: 2rem;
+      width: 100%;
+    }
+  }
 }

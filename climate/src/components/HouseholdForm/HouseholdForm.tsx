@@ -1,9 +1,7 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useState } from "react";
 import styles from "./HouseholdForm.module.scss";
 import { useTranslation } from "react-i18next";
 import FormField from "../FormField/FormField";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBolt, faTrashAlt, faShirt } from "@fortawesome/free-solid-svg-icons";
 
 interface HouseholdFormProps {
   result: Array<Object>;
@@ -55,8 +53,9 @@ const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult }) => {
 
   /**
    * funcionality to fetch data for Power-Consumption from the API.
+   * @param isValid
    */
-  function evalPowerConsumption(isValid : boolean) {
+  function evalPowerConsumption(isValid: boolean) {
     if (isValid) {
       const powerConsumptionInput = document.getElementById(
         "consumption"
@@ -90,8 +89,9 @@ const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult }) => {
 
   /**
    * funcionality to fetch data for Waste-Production from the API.
+   * @param isValid
    */
-  function evalWasteProduction(isValid : boolean) {
+  function evalWasteProduction(isValid: boolean) {
     if (isValid) {
       const wasteProductionInput = document.getElementById(
         "waste"
@@ -125,8 +125,9 @@ const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult }) => {
 
   /**
    * funcionality to fetch data for Clothes-Bought from the API.
+   * @param isValid
    */
-  function evalClothesBought(isValid : boolean) {
+  function evalClothesBought(isValid: boolean) {
     if (isValid) {
       const clothesPriceInput = document.getElementById(
         "clothing"
@@ -162,21 +163,23 @@ const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult }) => {
    * combine all the data on this form and make a Result for ResultArea out of it.
    */
   function handleFinalEvaluation() {
-    let evalResult:Array<Object> = [];
-    if(powerConsumptionResult !== undefined) {
+    let evalResult: Array<Object> = [];
+    if (powerConsumptionResult !== undefined) {
       evalResult = evalResult.concat(powerConsumptionResult);
     }
-    if(wasteProductionResult !== undefined) {
+    if (wasteProductionResult !== undefined) {
       evalResult = evalResult.concat(wasteProductionResult);
     }
-    if(clothesBoughtResult !== undefined) {
+    if (clothesBoughtResult !== undefined) {
       evalResult = evalResult.concat(clothesBoughtResult);
     }
     setResult(evalResult);
   }
 
   /**
-   * check if valide
+   * handle validation
+   * @param id
+   * @param isValide
    */
   function handleValidation(id: string, isValide: boolean) {
     switch (id) {
@@ -213,7 +216,10 @@ const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult }) => {
     }
   }
 
-  function clearForm(){
+  /**
+   * clear form
+   */
+  function clearForm() {
     setPowerConsumptionResult(undefined);
     setWasteProductionResult(undefined);
     setClothesBoughtResult(undefined);
@@ -329,7 +335,7 @@ const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult }) => {
           </div>
           <div className="col text-end">
             <button
-            id="evaluateHouseholdButton"
+              id="evaluateHouseholdButton"
               type="button"
               className="btn btn-primary text-light"
               onClick={(event) => {
@@ -338,7 +344,11 @@ const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult }) => {
                 if (resultArea !== null) {
                   resultArea.scrollIntoView();
                 }
-                if(powerConsumptionResult !== undefined || wasteProductionResult !== undefined || clothesBoughtResult !== undefined) {
+                if (
+                  powerConsumptionResult !== undefined ||
+                  wasteProductionResult !== undefined ||
+                  clothesBoughtResult !== undefined
+                ) {
                   handleFinalEvaluation();
                 }
               }}

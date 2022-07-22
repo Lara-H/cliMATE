@@ -7,20 +7,18 @@ interface PrivacyProps {}
 const Privacy: FC<PrivacyProps> = () => {
   const { t, i18n } = useTranslation();
 
- return (
-  <div className={styles.Privacy} data-testid="Privacy">
-    <div className="container">
-      <div className="row">
-        <div className="col">
-          <h1 className="mb-4">{t('privacy-headline')}</h1>
-          <p>
-            {t('privacy-text')}
-          </p>
+  return (
+    <div className={styles.Privacy} data-testid="Privacy">
+      <div className="container">
+        <div className="row">
+          <div className="col">
+            <h1 className="mb-4">{t("privacy-headline")}</h1>
+            <p>{t("privacy-text")}</p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
 };
 
 export default Privacy;

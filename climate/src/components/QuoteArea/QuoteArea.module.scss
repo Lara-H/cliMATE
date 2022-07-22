@@ -28,7 +28,13 @@
       opacity: 0.2;
     }
   }
-  
+
+  @include media-breakpoint-down(sm) {
+    .cm-btn {
+      margin-bottom: 2rem;
+      width: 100%;
+    }
+  }
 
   @include media-breakpoint-up(xl) {
     .cm-blockquote {

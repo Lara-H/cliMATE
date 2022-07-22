@@ -1,20 +1,20 @@
-@import '../../App.scss';
+@import "../../App.scss";
 
 .FormSelectorButton {
-    &:hover {
-        cursor: pointer;
-        color: $gray-600;
-        transition: .25s;
-    }
+  &:hover {
+    cursor: pointer;
+    color: $gray-600;
+    transition: 0.25s;
+  }
 
-    .active {
-        color: $primary;
-    }
+  .active {
+    color: $primary;
+  }
 
-    @include media-breakpoint-down(sm) {
-        padding: 0;
-        .cm-icon {
-            font-size: 2rem;
-        }
+  @include media-breakpoint-down(sm) {
+    padding: 0;
+    .cm-icon {
+      font-size: 2rem;
     }
+  }
 }

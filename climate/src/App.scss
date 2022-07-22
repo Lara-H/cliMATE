@@ -1,7 +1,7 @@
 /* COLOR */
-$primary: #00B385;
+$primary: #00b385;
 $secondary: lightgrey;
-$danger: #B32B00;
+$danger: #b32b00;
 $gray-100: #f8f9fa !default;
 $gray-200: #e9ecef !default;
 $gray-300: #dee2e6 !default;
@@ -13,18 +13,18 @@ $gray-800: #343a40 !default;
 $gray-900: #333 !default;
 
 /* FONT */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap');
-$font-family-base: 'Montserrat', sans-serif;
-$headings-font-family: 'Montserrat', sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap");
+$font-family-base: "Montserrat", sans-serif;
+$headings-font-family: "Montserrat", sans-serif;
 $headings-font-weight: 600;
 $body-color: $gray-700;
-$font-size-base: 1rem; 
-$font-size-sm: $font-size-base * .8;
+$font-size-base: 1rem;
+$font-size-sm: $font-size-base * 0.8;
 $text-muted: $gray-500;
 
 /* FORM */
-$form-label-margin-bottom: .15rem;
-$form-label-font-size: $font-size-sm;  
+$form-label-margin-bottom: 0.15rem;
+$form-label-font-size: $font-size-sm;
 $form-label-color: $gray-500;
 
 /* LINK */
@@ -37,7 +37,7 @@ $btn-padding-x: 1rem;
 /* NAVBAR */
 $nav-link-padding-y: 1rem;
 $navbar-dark-active-color: $primary;
-$navbar-dark-hover-color: $gray-300; 
+$navbar-dark-hover-color: $gray-300;
 
 /* GENERAL */
 $border-radius: 0;
@@ -47,8 +47,8 @@ $border-radius: 0;
 @import "bootstrap";
 
 body {
-
-  h2, .btn {
+  h2,
+  .btn {
     text-transform: uppercase;
   }
 
@@ -58,14 +58,14 @@ body {
     top: -7.9rem;
     visibility: hidden;
   }
-  
+
   .cm-link-danger {
     color: $danger;
     &:hover {
       color: shift-color($danger, $link-shade-percentage);
     }
   }
-  
+
   @include media-breakpoint-down(sm) {
     .cm-btn-full-width-mobile {
       width: 100% !important;

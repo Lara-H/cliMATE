@@ -21,11 +21,12 @@ const FreightFormRow: FC<FreightFormRowProps> = ({
     weight: true,
   });
 
-  /*
+  /**
    * sumarize validation-info of seperate fields
+   * @param id
+   * @param isValide
    */
   function generateValidationInfoRow(id: string, isValide: boolean) {
-    // send info if fields of row is valid to top component
     switch (id) {
       case "distance":
       case "distance-edit":

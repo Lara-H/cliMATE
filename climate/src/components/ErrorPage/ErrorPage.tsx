@@ -12,14 +12,17 @@ const ErrorPage: FC<ErrorPageProps> = () => {
     <div className={styles.ErrorPage} data-testid="ErrorPage">
       <div className="container">
         <div className="row">
-          <div className="col">
+          <div className="col-12 col-md">
             <h1 className="mb-4">{t("errorpage-headline")}</h1>
             <p className="mb-4">{t("errorpage-text")}</p>
-            <a className="btn btn-primary text-light" href="/">
+            <a
+              className={`btn btn-primary text-light ${styles["cm-btn"]}`}
+              href="/"
+            >
               {t("btn-home")}
             </a>
           </div>
-          <div className="col">
+          <div className="col-12 col-md">
             <img src={img} className="img-fluid"></img>
           </div>
         </div>
