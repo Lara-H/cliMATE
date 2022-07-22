@@ -19,6 +19,7 @@ import TravelForm from "../TravelForm/TravelForm";
 import FreightForm from "../FreightForm/FreightForm";
 import HouseholdForm from "../HouseholdForm/HouseholdForm";
 import QuoteArea from "../QuoteArea/QuoteArea";
+import ErrorPage from "../ErrorPage/ErrorPage";
 
 interface LayoutProps {}
 
@@ -110,6 +111,7 @@ const Layout: FC<LayoutProps> = () => {
                   </>
                 }
               />
+            <Route path="*" element={<ErrorPage />} />
             </Routes>
           </div>
           <Footer></Footer>

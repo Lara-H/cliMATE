@@ -4,11 +4,13 @@ import woman from "./woman.png";
 import { SwitchTransition, CSSTransition } from "react-transition-group";
 import man from "./man.png";
 import { Button } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 
 interface QuoteAreaProps {}
 
 const QuoteArea: FC<QuoteAreaProps> = () => {
-  const [state, setState] = useState(false);
+  const { t, i18n } = useTranslation();
+  const [state, setState] = useState(true);
 
   return (
     <div className={`${styles.QuoteArea}`} data-testid="QuoteArea">
@@ -26,14 +28,14 @@ const QuoteArea: FC<QuoteAreaProps> = () => {
                 <blockquote className={`blockquote mb-4 ${styles["cm-blockquote"]}`}>
                   <p className="mb-4 lead text-light">
                     {state
-                      ? '"Umweltschutz wird immer wichtiger und wir müssen endlich anfangen etwas zu verändern"'
-                      : '"Wir haben unseren nachfolgenden Generationen gegenüber eine gewisse Verantwortung"'}
+                      ? t("quote-woman")
+                      : t("quote-man")}
                   </p>
                   <footer className="blockquote-footer">
                     <span className="small">
                       {state
-                        ? "Katharina Möhre (Schauspielerin)"
-                        : "Magnus Grünkohl (Sänger)"}
+                        ? t("quote-woman-name")
+                        : t("quote-man-name")}
                     </span>
                   </footer>
                 </blockquote>
