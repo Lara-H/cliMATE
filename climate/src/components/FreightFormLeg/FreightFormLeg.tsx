@@ -16,7 +16,7 @@ const FreightFormLeg: FC<FreightFormLegProps> = ({
   handleRemove,
   handleEdit,
 }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   //current leg values
   const [currLeg, setCurrLeg] = useState(leg);

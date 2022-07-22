@@ -14,7 +14,7 @@ interface FormSelectorProps {
 }
 
 const FormSelector: FC<FormSelectorProps> = ({ currentMode, handleClick }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <div className={styles.FormSelector} data-testid="FormSelector">

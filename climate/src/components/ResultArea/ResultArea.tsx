@@ -10,10 +10,9 @@ interface ResultAreaProps {
 }
 
 const ResultArea: FC<ResultAreaProps> = ({ result }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   // Hook to trigger a check on the result on every change to our result state.
   React.useEffect(() => {
-    console.log(result);
     const resultArea = document.getElementById("ResultAreaDiv");
     // If the result is empty (length === 0), make the whole result area hidden.
     if (resultArea !== null) {

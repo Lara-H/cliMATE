@@ -15,7 +15,7 @@ interface TeaserProps {
 }
 
 const Teaser: FC<TeaserProps> = ({ handleClick, currentMode }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   /**
    * change mode when changing carousel item
@@ -24,13 +24,13 @@ const Teaser: FC<TeaserProps> = ({ handleClick, currentMode }) => {
   function handleCarouselControl(ControlElement: string) {
     switch (currentMode) {
       case "travel":
-        handleClick(ControlElement == "prev" ? "household" : "freight");
+        handleClick(ControlElement === "prev" ? "household" : "freight");
         break;
       case "freight":
-        handleClick(ControlElement == "prev" ? "travel" : "household");
+        handleClick(ControlElement === "prev" ? "travel" : "household");
         break;
       case "household":
-        handleClick(ControlElement == "prev" ? "freight" : "travel");
+        handleClick(ControlElement === "prev" ? "freight" : "travel");
         break;
     }
   }
@@ -45,7 +45,9 @@ const Teaser: FC<TeaserProps> = ({ handleClick, currentMode }) => {
           <CarouselItem
             headline={t("teaser-travel-headline")}
             imageName={teaserTravel}
+            imageAlt={t("teaser-travel-headline")}
             imageNameMobile={teaserTravelMobile}
+            imageAltMobile={t("teaser-travel-headline")}
             currentMode={currentMode}
             modeName="travel"
           ></CarouselItem>
@@ -53,7 +55,9 @@ const Teaser: FC<TeaserProps> = ({ handleClick, currentMode }) => {
           <CarouselItem
             headline={t("teaser-freight-headline")}
             imageName={teaserFreight}
+            imageAlt={t("teaser-travel-headline")}
             imageNameMobile={teaserFreightMobile}
+            imageAltMobile={t("teaser-travel-headline")}
             currentMode={currentMode}
             modeName="freight"
           ></CarouselItem>
@@ -61,7 +65,9 @@ const Teaser: FC<TeaserProps> = ({ handleClick, currentMode }) => {
           <CarouselItem
             headline={t("teaser-household-headline")}
             imageName={teaserHousehold}
+            imageAlt={t("teaser-travel-headline")}
             imageNameMobile={teaserHouseholdMobile}
+            imageAltMobile={t("teaser-travel-headline")}
             currentMode={currentMode}
             modeName="household"
           ></CarouselItem>

@@ -17,7 +17,7 @@ const TravelFormLeg: FC<TravelFormLegProps> = ({
   handleRemove,
   handleEdit,
 }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   //current leg values
   const [currLeg, setCurrLeg] = useState(leg);
@@ -70,9 +70,9 @@ const TravelFormLeg: FC<TravelFormLegProps> = ({
     <tr className={styles.TravelFormLeg} data-testid="TravelFormLeg">
       <td>{t(currLeg.type)}</td>
       <td>
-        {currLeg.distance == 0 ? airportString : currLeg.distance + " km"}
+        {currLeg.distance === 0 ? airportString : currLeg.distance + " km"}
       </td>
-      <td>{currLeg.passengers == 0 ? vehicleString : passengerString}</td>
+      <td>{currLeg.passengers === 0 ? vehicleString : passengerString}</td>
       <td className="text-end">
         <a type="button" onClick={handleShow}>
           <FontAwesomeIcon className="me-3" icon={faEdit} />

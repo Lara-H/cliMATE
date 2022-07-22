@@ -20,7 +20,7 @@ const FormField: FC<FormFieldProps> = ({
   allowNull,
   getValidationInfoField,
 }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [value, setValue] = useState(initValue);
   const [error, setError] = useState("");
 
@@ -30,7 +30,7 @@ const FormField: FC<FormFieldProps> = ({
    */
   function isIATAcode(value: string) {
     for (let i in codeList) {
-      if (value == codeList[i]) {
+      if (value === codeList[i]) {
         return true;
       }
     }
@@ -44,7 +44,7 @@ const FormField: FC<FormFieldProps> = ({
   function handleChange(newValue: string) {
     let isValid = true;
     setValue(newValue);
-    if (type == "number") {
+    if (type === "number") {
       if (
         newValue.match(/^[1-9]+[0-9]*$/) ||
         (allowNull && newValue.match(/^[0-9]+[0-9]*$/))
@@ -52,19 +52,19 @@ const FormField: FC<FormFieldProps> = ({
         setError("");
       } else {
         isValid = false;
-        if (newValue.length == 0) {
+        if (newValue.length === 0) {
           setError(t("error_notEmpty"));
         } else {
           setError(t("error_notNegative"));
         }
       }
-    } else if (type == "text") {
+    } else if (type === "text") {
       if (isIATAcode(newValue)) {
         // all text inputs must be iata-code (flight)
         setError("");
       } else {
         isValid = false;
-        if (newValue.length == 0) {
+        if (newValue.length === 0) {
           setError(t("error_notEmpty"));
         } else {
           setError(t("error_notIATA"));

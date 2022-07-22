@@ -21,7 +21,7 @@ const TravelFormRow: FC<TravelFormRowProps> = ({
   leg,
   getValidationInfoRow,
 }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [isValid, setValid] = useState({
     people: true,
     distance: true,

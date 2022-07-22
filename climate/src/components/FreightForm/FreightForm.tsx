@@ -3,7 +3,6 @@ import FreightFormLeg, { FreightLeg } from "../FreightFormLeg/FreightFormLeg";
 import styles from "./FreightForm.module.scss";
 import { useTranslation } from "react-i18next";
 import { v4 as uuid } from "uuid";
-import FormField from "../FormField/FormField";
 import { Alert } from "react-bootstrap";
 import FreightFormRow from "../FreightFormRow/FreightFormRow";
 
@@ -13,7 +12,7 @@ interface FreightFormProps {
 }
 
 const FreightForm: FC<FreightFormProps> = ({ result, setResult }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const localDataLegs = localStorage.getItem("freightLegs");
   const [legs, setLegs] = useState<FreightLeg[]>(
     localDataLegs ? JSON.parse(localDataLegs) : []
@@ -56,7 +55,7 @@ const FreightForm: FC<FreightFormProps> = ({ result, setResult }) => {
    */
   function handleEditItem(leg: FreightLeg) {
     for (let i in legs) {
-      if (leg.id == legs[i].id) {
+      if (leg.id === legs[i].id) {
         legs[i] = leg;
       }
     }
@@ -110,8 +109,6 @@ const FreightForm: FC<FreightFormProps> = ({ result, setResult }) => {
    */
   function handleEvaluation() {
     var evalBody: any[] = [];
-    // TODO: console.log() entfernen.
-    //console.log(legs);
     legs.forEach((leg) => {
       // parse the leg-object into a fitting format for the Climatiq-API.
       const legJson = {

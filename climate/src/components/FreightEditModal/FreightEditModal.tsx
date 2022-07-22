@@ -23,7 +23,7 @@ const FreightEditModal: FC<FreightEditModalProps> = ({
   handleClose,
   handleSave,
 }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [show, setShow] = useState(false);
   const [isValid, setValid] = useState({
     distance: true,
