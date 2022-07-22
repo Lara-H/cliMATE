@@ -225,16 +225,16 @@ const HouseholdForm: FC<HouseholdFormProps> = ({ result, setResult }) => {
   return (
     <div
       id="householdFormDiv"
-      className={[styles.FormArea, "bg-light"].join(" ")}
+      className={[styles.HouseholdForm, "bg-light"].join(" ")}
       data-testid="FormArea"
     >
       <span className="cm-anchor" id="FormArea"></span>
       <div className="container">
         <div className="row align-items-baseline">
-          <div className="col">
+          <div className="col-12 col-md">
             <h2 className="mb-0">{t("household")}</h2>
           </div>
-          <div className="col text-end">
+          <div className="col-12 col-md text-md-end">
             <a href="#FormSelector">{t("btn-change")}</a>
           </div>
         </div>
