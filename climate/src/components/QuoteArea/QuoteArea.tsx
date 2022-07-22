@@ -30,7 +30,7 @@ const QuoteArea: FC<QuoteAreaProps> = () => {
                 </footer>
               </blockquote>
               <button
-                className="btn btn-small btn-primary text-light"
+                className={`btn btn-primary text-light ${styles["cm-btn"]}`}
                 onClick={() => setState((state) => !state)}
               >
                 {state ? t("btn-man") : t("btn-woman")}

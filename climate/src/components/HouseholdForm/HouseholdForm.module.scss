@@ -1,13 +1,15 @@
-.HouseholdForm {}
+@import "../../App.scss";
 
-.cardBody{
+.HouseholdForm {
+  .cardBody {
     padding: 10px;
-}
+  }
 
-.FormArea {
+  .FormArea {
     padding: 3rem 0;
-}
+  }
 
-.responseArea {
+  .responseArea {
     min-height: 40px;
+  }
 }

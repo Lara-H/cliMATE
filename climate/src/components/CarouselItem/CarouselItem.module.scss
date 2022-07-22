@@ -1,7 +1,6 @@
 @import "../../App.scss";
 
 .CarouselItem {
-
   @include media-breakpoint-up(md) {
     .cm-teaser-img {
       height: 100vh !important;
@@ -13,5 +12,4 @@
   .cm-carousel-caption-text {
     font-family: $headings-font-family;
   }
-  
 }

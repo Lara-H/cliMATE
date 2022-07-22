@@ -24,6 +24,7 @@ const Navigation: FC<NavigationProps> = ({ handleClick, currentMode }) => {
 
   /**
    * change language
+   * @param lang
    */
   function changeLanguageHandler(lang: string) {
     i18n.changeLanguage(lang);

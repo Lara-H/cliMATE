@@ -1,6 +1,5 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import FormSelectorButton from "../FormSelectorButton/FormSelectorButton";
-import { library } from "@fortawesome/fontawesome-svg-core";
 import styles from "./FormSelector.module.scss";
 import { useTranslation } from "react-i18next";
 import {
@@ -10,11 +9,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 interface FormSelectorProps {
-  currentMode:string;
-  handleClick:(modeName: string) => void;
+  currentMode: string;
+  handleClick: (modeName: string) => void;
 }
 
-const FormSelector: FC<FormSelectorProps> = ({currentMode, handleClick}) => {
+const FormSelector: FC<FormSelectorProps> = ({ currentMode, handleClick }) => {
   const { t, i18n } = useTranslation();
 
   return (
@@ -24,18 +23,16 @@ const FormSelector: FC<FormSelectorProps> = ({currentMode, handleClick}) => {
       <div className="container">
         <div className="row text-md-center">
           <div className="col">
-          <div className="col-lg-8 mx-auto">
-            <h2 id="FormSelectorHeadline" className="mb-4">
-              {t('formSelector-headline')}
-            </h2>
-              <p className="mb-5">
-              {t('formSelector-text')}
-              </p>
+            <div className="col-lg-8 mx-auto">
+              <h2 id="FormSelectorHeadline" className="mb-4">
+                {t("formSelector-headline")}
+              </h2>
+              <p className="mb-5">{t("formSelector-text")}</p>
               <div className="row text-center">
                 <div className="col border-end">
                   <FormSelectorButton
                     icon={faPersonWalkingLuggage}
-                    title={t('travel')}
+                    title={t("travel")}
                     currentMode={currentMode}
                     modeName="travel"
                     handleClick={handleClick}
@@ -44,7 +41,7 @@ const FormSelector: FC<FormSelectorProps> = ({currentMode, handleClick}) => {
                 <div className="col border-end">
                   <FormSelectorButton
                     icon={faPeopleCarryBox}
-                    title={t('freight')}
+                    title={t("freight")}
                     currentMode={currentMode}
                     modeName="freight"
                     handleClick={handleClick}
@@ -53,7 +50,7 @@ const FormSelector: FC<FormSelectorProps> = ({currentMode, handleClick}) => {
                 <div className="col">
                   <FormSelectorButton
                     icon={faPeopleRoof}
-                    title={t('household')}
+                    title={t("household")}
                     currentMode={currentMode}
                     modeName="household"
                     handleClick={handleClick}

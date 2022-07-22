@@ -35,7 +35,7 @@ const FreightForm: FC<FreightFormProps> = ({ result, setResult }) => {
 
   const [transportMode, setTransportMode] = useState(carAPIstring);
 
-  //Update LocalStorage
+  // Update LocalStorage
   useEffect(() => {
     localStorage.setItem("freightLegs", JSON.stringify(legs));
   });
@@ -142,7 +142,11 @@ const FreightForm: FC<FreightFormProps> = ({ result, setResult }) => {
   }
 
   return (
-    <div id="freightFormDiv" className={`${styles.FreightForm} bg-light`} data-testid="FreightForm">
+    <div
+      id="freightFormDiv"
+      className={`${styles.FreightForm} bg-light`}
+      data-testid="FreightForm"
+    >
       <span className="cm-anchor" id="FormArea"></span>
 
       <div className="container">
@@ -204,7 +208,11 @@ const FreightForm: FC<FreightFormProps> = ({ result, setResult }) => {
             </div>
 
             <div className="col col-md-2 d-grid">
-              <button id="addFreightLegButton" type="submit" className="btn btn-primary text-light mt-4">
+              <button
+                id="addFreightLegButton"
+                type="submit"
+                className="btn btn-primary text-light mt-4"
+              >
                 {t("btn-add")}
               </button>
             </div>
@@ -213,7 +221,10 @@ const FreightForm: FC<FreightFormProps> = ({ result, setResult }) => {
 
         <div className="row mt-3">
           <div className="col">
-            <table id="freightFormLegTable" className="table table-striped mb-0">
+            <table
+              id="freightFormLegTable"
+              className="table table-striped mb-0"
+            >
               <tbody>
                 {legs.map((leg) => (
                   <FreightFormLeg

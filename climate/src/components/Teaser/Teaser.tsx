@@ -19,18 +19,19 @@ const Teaser: FC<TeaserProps> = ({ handleClick, currentMode }) => {
 
   /**
    * change mode when changing carousel item
+   * @param ControlElement
    */
-  function handleCarouselControl(ControlElement : string) {
-    switch(currentMode) {
-      case "travel": 
-      handleClick(ControlElement == "prev" ? "household" : "freight");
-      break;
-      case "freight": 
-      handleClick(ControlElement == "prev" ? "travel" : "household");
-      break;
-      case "household": 
-      handleClick(ControlElement == "prev" ? "freight" : "travel");
-      break;
+  function handleCarouselControl(ControlElement: string) {
+    switch (currentMode) {
+      case "travel":
+        handleClick(ControlElement == "prev" ? "household" : "freight");
+        break;
+      case "freight":
+        handleClick(ControlElement == "prev" ? "travel" : "household");
+        break;
+      case "household":
+        handleClick(ControlElement == "prev" ? "freight" : "travel");
+        break;
     }
   }
 
@@ -41,14 +42,12 @@ const Teaser: FC<TeaserProps> = ({ handleClick, currentMode }) => {
     >
       <div id="carouselTeaser" className="carousel slide" data-bs-ride="false">
         <div className={`${styles["carousel-inner"]}`}>
-
           <CarouselItem
             headline={t("teaser-travel-headline")}
             imageName={teaserTravel}
             imageNameMobile={teaserTravelMobile}
             currentMode={currentMode}
             modeName="travel"
-            handleClick={handleClick}
           ></CarouselItem>
 
           <CarouselItem
@@ -57,7 +56,6 @@ const Teaser: FC<TeaserProps> = ({ handleClick, currentMode }) => {
             imageNameMobile={teaserFreightMobile}
             currentMode={currentMode}
             modeName="freight"
-            handleClick={handleClick}
           ></CarouselItem>
 
           <CarouselItem
@@ -66,9 +64,7 @@ const Teaser: FC<TeaserProps> = ({ handleClick, currentMode }) => {
             imageNameMobile={teaserHouseholdMobile}
             currentMode={currentMode}
             modeName="household"
-            handleClick={handleClick}
           ></CarouselItem>
-
         </div>
         <button
           className="carousel-control-prev"

@@ -84,5 +84,7 @@
     "error_notEmpty": "Feld darf nicht leer sein",
     "error_notNegative": "Zahl muss größer sein",
     "error_notIATA": "Kein gültiger IATA-Code",
-    "error-alert": "Bitte überprüfe Deine Eingabe"
+    "error-alert": "Bitte überprüfe Deine Eingabe",
+
+    "routing-loading": "Seite wird geladen..."
 }

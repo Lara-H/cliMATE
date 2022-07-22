@@ -24,8 +24,9 @@ const FormField: FC<FormFieldProps> = ({
   const [value, setValue] = useState(initValue);
   const [error, setError] = useState("");
 
-  /*
+  /**
    * check if value is an iata code
+   * @param value
    */
   function isIATAcode(value: string) {
     for (let i in codeList) {
@@ -36,8 +37,9 @@ const FormField: FC<FormFieldProps> = ({
     return false;
   }
 
-  /*
+  /**
    * handle value and check if valid while typing
+   * @param newValue
    */
   function handleChange(newValue: string) {
     let isValid = true;

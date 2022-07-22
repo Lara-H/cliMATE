@@ -1,12 +1,11 @@
-@import '../../App.scss';
+@import "../../App.scss";
 
 .Footer {
-
-    @include media-breakpoint-down(sm) {
-        .cm-btn {
-            position: fixed;
-            bottom: 1rem;
-            right: 1rem;
-        }
+  @include media-breakpoint-down(sm) {
+    .cm-btn {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
     }
+  }
 }

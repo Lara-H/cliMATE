@@ -2,7 +2,6 @@ import React, { FC } from "react";
 import styles from "./FormSelectorButton.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { library } from "@fortawesome/fontawesome-svg-core";
 
 interface FormSelectorButtonProps {
   icon: IconProp;
@@ -19,9 +18,8 @@ const FormSelectorButton: FC<FormSelectorButtonProps> = ({
   modeName,
   handleClick,
 }) => {
-  /**
-   * check if button has to be active button
-   */
+  
+   // check if button has to be active button
   let isActive = false;
   if (currentMode == modeName) {
     isActive = true;

@@ -2,7 +2,6 @@ import React, { FC, useState } from "react";
 import styles from "./FreightFormLeg.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
-import internal from "stream";
 import { useTranslation } from "react-i18next";
 import FreightEditModal from "../FreightEditModal/FreightEditModal";
 
@@ -12,7 +11,11 @@ interface FreightFormLegProps {
   handleEdit: (leg: FreightLeg) => void;
 }
 
-const FreightFormLeg: FC<FreightFormLegProps> = ({ leg, handleRemove, handleEdit }) => {
+const FreightFormLeg: FC<FreightFormLegProps> = ({
+  leg,
+  handleRemove,
+  handleEdit,
+}) => {
   const { t, i18n } = useTranslation();
 
   //current leg values
@@ -25,8 +28,10 @@ const FreightFormLeg: FC<FreightFormLegProps> = ({ leg, handleRemove, handleEdit
 
   /**
    * handle edited value from modal
+   * @param distance
+   * @param weight
    */
-   function handleSave(distance:number, weight:number) {
+  function handleSave(distance: number, weight: number) {
     let newLeg = {
       id: currLeg.id,
       type: currLeg.type,
@@ -49,7 +54,7 @@ const FreightFormLeg: FC<FreightFormLegProps> = ({ leg, handleRemove, handleEdit
         </a>
         <a type="button" onClick={() => handleRemove(currLeg.id)}>
           <FontAwesomeIcon className="text-danger" icon={faTrash} />
-        </a> 
+        </a>
         <FreightEditModal
           leg={currLeg}
           showModal={show}

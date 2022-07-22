@@ -1,11 +1,4 @@
-import React, {
-  FC,
-  lazy,
-  Suspense,
-  useState,
-  useEffect,
-  useReducer,
-} from "react";
+import React, { FC, Suspense, useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; // Routes war früher Switch
 import Navigation from "../Navigation/Navigation";
 import Teaser from "../Teaser/Teaser";
@@ -20,11 +13,12 @@ import FreightForm from "../FreightForm/FreightForm";
 import HouseholdForm from "../HouseholdForm/HouseholdForm";
 import QuoteArea from "../QuoteArea/QuoteArea";
 import ErrorPage from "../ErrorPage/ErrorPage";
+import { useTranslation } from "react-i18next";
 
 interface LayoutProps {}
 
 const Layout: FC<LayoutProps> = () => {
-  // TODO: statt localStorage evtl SessionStorage? Unterschied: sessionStorage ist nicht persistent und kann für mehrere Tabs unterschiedliche Werte annehmen.
+  const { t, i18n } = useTranslation();
   const localDataMode = localStorage.getItem("mode");
   const [result, setResult] = useState([]);
   const [currentMode, setCurrentMode] = useState(
@@ -38,6 +32,10 @@ const Layout: FC<LayoutProps> = () => {
     localStorage.setItem("mode", JSON.stringify(currentMode));
   });
 
+  /**
+   * handle mode change
+   * @param modeName 
+   */
   function handleModeChange(modeName: string) {
     setCurrentMode(modeName);
     switch (modeName) {
@@ -53,7 +51,7 @@ const Layout: FC<LayoutProps> = () => {
         break;
       case "household":
         setFormComponent(
-        <HouseholdForm result={result} setResult={setResult}></HouseholdForm>
+          <HouseholdForm result={result} setResult={setResult}></HouseholdForm>
         );
         break;
       default:
@@ -66,7 +64,7 @@ const Layout: FC<LayoutProps> = () => {
 
   return (
     <Router>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div>{t("routing-loading")}</div>}>
         <div className={styles.Layout} data-testid="Layout">
           <Navigation
             handleClick={handleModeChange}
@@ -111,7 +109,7 @@ const Layout: FC<LayoutProps> = () => {
                   </>
                 }
               />
-            <Route path="*" element={<ErrorPage />} />
+              <Route path="*" element={<ErrorPage />} />
             </Routes>
           </div>
           <Footer></Footer>

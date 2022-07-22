@@ -210,8 +210,8 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
       }
     });
 
-    var response:Array<Object> = [];
-    var flightsResponse:Array<Object> = [];
+    var response: Array<Object> = [];
+    var flightsResponse: Array<Object> = [];
     if (evalBodyFlights != []) {
       // fetch from the Climatiq-Flights-Endpoint
       fetch("https://beta3.api.climatiq.io/travel/flights", {
@@ -223,37 +223,41 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
       })
         // transform the response to json...
         .then((res) => res.json())
-      // ...and set the State-Variable result to data.results.
-      //.then((data) => setResult(data.legs));
-      .then((data) => {
-        flightsResponse = data.legs;
+        // ...and set the State-Variable result to data.results.
+        //.then((data) => setResult(data.legs));
+        .then((data) => {
+          flightsResponse = data.legs;
 
-        if (evalBody != []) {
-          // fetch from the Climatiq-Batch-Endpoint
-          fetch("https://beta3.api.climatiq.io/batch", {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer VV5MNGFFJ0MF2DN921WJ93W84AQZ`,
-            },
-            // transfer our evalBody-Array via body to Climatiq.
-            body: JSON.stringify(evalBody),
-          })
-            // transform the response to json...
-            .then((res) => res.json())
-            // ...and set the State-Variable result to data.results.
-            //.then((data) => setResult(data.results));
-            .then((data) =>{
-              response = data.results;
-              
-              setResult(response.concat(flightsResponse));
-            });
-        }
-      });
+          if (evalBody != []) {
+            // fetch from the Climatiq-Batch-Endpoint
+            fetch("https://beta3.api.climatiq.io/batch", {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer VV5MNGFFJ0MF2DN921WJ93W84AQZ`,
+              },
+              // transfer our evalBody-Array via body to Climatiq.
+              body: JSON.stringify(evalBody),
+            })
+              // transform the response to json...
+              .then((res) => res.json())
+              // ...and set the State-Variable result to data.results.
+              //.then((data) => setResult(data.results));
+              .then((data) => {
+                response = data.results;
+
+                setResult(response.concat(flightsResponse));
+              });
+          }
+        });
     }
   }
 
   return (
-    <div className={`${styles.TravelForm} bg-light`} data-testid="TravelForm" id="travelFormDiv">
+    <div
+      className={`${styles.TravelForm} bg-light`}
+      data-testid="TravelForm"
+      id="travelFormDiv"
+    >
       <span className="cm-anchor" id="FormArea"></span>
 
       <div className="container">
@@ -320,7 +324,11 @@ const TravelForm: FC<TravelFormProps> = ({ result, setResult }) => {
               ></TravelFormRow>
             </div>
             <div className="col col-md-2 d-grid">
-              <button id="addTravelLegButton" type="submit" className="btn btn-primary text-light mt-4">
+              <button
+                id="addTravelLegButton"
+                type="submit"
+                className="btn btn-primary text-light mt-4"
+              >
                 {t("btn-add")}
               </button>
             </div>
