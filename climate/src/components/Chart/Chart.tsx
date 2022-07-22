@@ -3,6 +3,8 @@ import styles from "./Chart.module.scss";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
 import { createNoSubstitutionTemplateLiteral } from "typescript";
+import { useTranslation } from "react-i18next";
+import { t } from "i18next";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -33,6 +35,8 @@ export const options = {
 const Chart: FC<ChartProps> = (
   result
 ) => {
+  const { t, i18n } = useTranslation();
+  
   // define a reference to the Chart.
   const chartRef = useRef<ChartJS<"pie", number[], string>>(null);
 
@@ -97,7 +101,21 @@ function generateBackgroundColor(size: number) {
 function calculateResult(props:ChartProps, chart:ChartJS<"pie", number[], string> | null) {
   resetChart(chart);
   props.result.forEach(leg => {
-    chart?.data.labels?.push(leg.emission_factor.category);
+    let label = leg.emission_factor.category;
+    switch(leg.emission_factor.category) {
+      case "Vehicles": label = t("travel-car"); break;
+      case "Rail Travel": label = t("travel-train"); break;
+      case "Air Travel": label = t("travel-airport"); break;
+      case "Sea Travel": label = t("travel-ship"); break;
+      case "Road Freight": label = t("freight-car"); break;
+      case "Rail Freight": label = t("freight-train"); break;
+      case "Air Freight": label = t("freight-airport"); break;
+      case "Sea Freight": label = t("freight-ship"); break;
+      case "Electricity": label = t("household-power-consumption"); break;
+      case "General Waste": label = t("household-waste"); break;
+      case "Clothing and Footwear": label = t("household-clothing"); break;
+    }
+    chart?.data.labels?.push(label);
     chart?.data.datasets.forEach(dataset => {
       dataset.data.push(leg.co2e);
     });
